@@ -1,26 +1,32 @@
 .table.block {
   width: 100%;
+  max-width: 100%;
   overflow-x: auto;
+  box-sizing: border-box;
 }
 
 .table.block table {
   width: 100%;
   max-width: 100%;
   border-collapse: collapse;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-xs, 14px);
+  color: var(--text-color, #222);
+  background: var(--background-color, #fff);
 }
 
 @media (width >= 600px) {
   .table.block table {
-    font-size: var(--body-font-size-s);
+    font-size: var(--body-font-size-s, 16px);
   }
 }
 
 @media (width >= 900px) {
   .table.block table {
-    font-size: var(--body-font-size-m);
+    font-size: var(--body-font-size-m, 18px);
   }
 }
+
+/* Base */
 
 .table.block table thead tr {
   border-top: 2px solid;
@@ -37,31 +43,271 @@
 
 .table.block table th,
 .table.block table td {
-  padding: 0.5em;
+  padding: 0.75em;
   text-align: left;
+  vertical-align: middle;
 }
 
-.table table th p,
-.table table td p {
+.table.block table th p,
+.table.block table td p {
   margin: 0;
 }
 
-.table table td p + p {
+.table.block table td p + p {
   margin-top: 0.25em;
 }
 
-/* no header variant */
+/* Variant styles
+ * The variants intentionally use modifier selectors.
+ */
+
+/* stylelint-disable no-descending-specificity */
+
+/* No header */
+
+.table.block.no-header table thead {
+  display: none;
+}
+
 .table.block.no-header table tbody tr {
   border-top: 1px solid;
 }
 
-/* striped variant */
-.table.block.striped tbody tr:nth-child(odd) {
-  background-color: var(--overlay-background-color);
+/* Striped */
+
+.table.block.striped table tbody tr:nth-child(odd) {
+  background-color: var(--overlay-background-color, #f5f5f5);
 }
 
-/* bordered variant */
+/* Bordered */
+
+.table.block.bordered table {
+  border: 1px solid currentcolor;
+}
+
 .table.block.bordered table th,
 .table.block.bordered table td {
-  border: 1px solid;
+  border: 1px solid currentcolor;
+}
+
+/* Compact */
+
+.table.block.compact table {
+  font-size: 14px;
+}
+
+.table.block.compact table th,
+.table.block.compact table td {
+  padding: 0.4em 0.55em;
+}
+
+/* Hoverable */
+
+.table.block.hoverable table tbody tr {
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.table.block.hoverable table tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+/* Comparison */
+
+.table.block.comparison table {
+  table-layout: fixed;
+}
+
+.table.block.comparison table thead th {
+  background: #f5f7fa;
+}
+
+.table.block.comparison table th:first-child,
+.table.block.comparison table td:first-child {
+  font-weight: 600;
+  text-align: left;
+}
+
+.table.block.comparison table thead th:not(:first-child),
+.table.block.comparison table tbody td:not(:first-child) {
+  text-align: center;
+}
+
+/* Pricing */
+
+.table.block.pricing table {
+  border: 1px solid #ddd;
+}
+
+.table.block.pricing table thead th {
+  background: #f7f7f7;
+  font-weight: 700;
+}
+
+.table.block.pricing table tbody td:last-child {
+  font-weight: 700;
+  font-size: 1.05em;
+}
+
+/* Dark */
+
+.table.block.dark table {
+  color: #fff;
+  background: #181818;
+}
+
+.table.block.dark table thead tr,
+.table.block.dark table tbody tr {
+  border-color: #444;
+}
+
+.table.block.dark table th,
+.table.block.dark table td {
+  background: #181818;
+}
+
+.table.block.dark.striped table tbody tr:nth-child(odd),
+.table.block.dark.striped table tbody tr:nth-child(odd) td {
+  background: #242424;
+}
+
+.table.block.dark.hoverable table tbody tr:hover,
+.table.block.dark.hoverable table tbody tr:hover td {
+  background: #303030;
+}
+
+.table.block.dark.bordered table th,
+.table.block.dark.bordered table td {
+  border-color: #444;
+}
+
+/* Sortable */
+
+.table.block.sortable table thead th {
+  cursor: pointer;
+  user-select: none;
+}
+
+.table.block.sortable table thead th:focus {
+  outline: 2px solid currentcolor;
+  outline-offset: -2px;
+}
+
+.table-sortable-header {
+  white-space: nowrap;
+}
+
+.table-sort-indicator {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 0.85em;
+  opacity: 0.65;
+}
+
+/* Responsive cards */
+
+.table.block.responsive-cards {
+  overflow-x: visible;
+}
+
+@media (width < 600px) {
+  .table.block.responsive-cards table,
+  .table.block.responsive-cards thead,
+  .table.block.responsive-cards tbody,
+  .table.block.responsive-cards tr,
+  .table.block.responsive-cards th,
+  .table.block.responsive-cards td {
+    display: block;
+  }
+
+  .table.block.responsive-cards thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .table.block.responsive-cards tbody tr {
+    margin-bottom: 16px;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+  }
+
+  .table.block.responsive-cards tbody td {
+    display: grid;
+    grid-template-columns: minmax(100px, 35%) 1fr;
+    gap: 12px;
+    padding: 8px 0;
+    border: 0;
+    text-align: left;
+  }
+
+  .table.block.responsive-cards tbody td::before {
+    content: attr(data-label);
+    font-weight: 700;
+  }
+
+  .table.block.responsive-cards.dark tbody tr {
+    border-color: #444;
+    background: #181818;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */
+
+/* Search */
+
+.table-search {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.table-search-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.table-search-input {
+  width: 100%;
+  max-width: 360px;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  border: 1px solid #b8b8b8;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.table-search-input:focus {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+/* Mobile overflow */
+
+@media (width < 600px) {
+  .table.block:not(.responsive-cards) {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table.block:not(.responsive-cards) table {
+    min-width: 600px;
+  }
 }

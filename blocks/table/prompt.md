@@ -63,7 +63,7 @@ The project uses Universal Editor Sandbox.
 Constraints:
 
 - Respect XWalk rules.
-- Respect max-cells limitations.
+- Respect max-cells limitations, here i can only have 4 cells because the sandbox version doesn't allow more than that.
 - Follow block/item architecture when needed.
 - Do not create models that violate Universal Editor restrictions.
 

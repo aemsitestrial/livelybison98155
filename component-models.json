@@ -5773,33 +5773,59 @@
     "id": "table",
     "fields": [
       {
-        "component": "multiselect",
+        "component": "select",
         "name": "classes",
         "value": "",
-        "label": "Options",
+        "label": "Table Variation",
         "valueType": "string",
         "options": [
           {
-            "name": "Border",
-            "children": [
-              {
-                "name": "Striped",
-                "value": "striped"
-              },
-              {
-                "name": "Bordered",
-                "value": "bordered"
-              }
-            ]
+            "name": "Default",
+            "value": ""
           },
           {
-            "name": "Header",
-            "children": [
-              {
-                "name": "No Header",
-                "value": "no-header"
-              }
-            ]
+            "name": "Striped",
+            "value": "striped"
+          },
+          {
+            "name": "Bordered",
+            "value": "bordered"
+          },
+          {
+            "name": "No Header",
+            "value": "no-header"
+          },
+          {
+            "name": "Compact",
+            "value": "compact"
+          },
+          {
+            "name": "Hoverable",
+            "value": "hoverable"
+          },
+          {
+            "name": "Comparison",
+            "value": "comparison"
+          },
+          {
+            "name": "Pricing",
+            "value": "pricing"
+          },
+          {
+            "name": "Dark",
+            "value": "dark"
+          },
+          {
+            "name": "Responsive Cards",
+            "value": "responsive-cards"
+          },
+          {
+            "name": "Sortable",
+            "value": "sortable"
+          },
+          {
+            "name": "Searchable",
+            "value": "searchable"
           }
         ]
       },
@@ -5825,10 +5851,6 @@
           {
             "name": "4 Columns",
             "value": "table-4-columns"
-          },
-          {
-            "name": "5 Columns",
-            "value": "table-5-columns"
           }
         ]
       }
@@ -5841,7 +5863,7 @@
         "component": "richtext",
         "valueType": "string",
         "name": "column1text",
-        "label": "Column1"
+        "label": "Column 1"
       }
     ]
   },
@@ -5852,13 +5874,13 @@
         "component": "richtext",
         "valueType": "string",
         "name": "column1text",
-        "label": "Column1"
+        "label": "Column 1"
       },
       {
         "component": "richtext",
         "valueType": "string",
         "name": "column2text",
-        "label": "Column2"
+        "label": "Column 2"
       }
     ]
   },
@@ -5869,19 +5891,19 @@
         "component": "richtext",
         "valueType": "string",
         "name": "column1text",
-        "label": "Column1"
+        "label": "Column 1"
       },
       {
         "component": "richtext",
         "valueType": "string",
         "name": "column2text",
-        "label": "Column2"
+        "label": "Column 2"
       },
       {
         "component": "richtext",
         "valueType": "string",
         "name": "column3text",
-        "label": "Column3"
+        "label": "Column 3"
       }
     ]
   },
@@ -5892,25 +5914,25 @@
         "component": "richtext",
         "valueType": "string",
         "name": "column1text",
-        "label": "Column1"
+        "label": "Column 1"
       },
       {
         "component": "richtext",
         "valueType": "string",
         "name": "column2text",
-        "label": "Column2"
+        "label": "Column 2"
       },
       {
         "component": "richtext",
         "valueType": "string",
         "name": "column3text",
-        "label": "Column3"
+        "label": "Column 3"
       },
       {
         "component": "richtext",
         "valueType": "string",
         "name": "column4text",
-        "label": "Column4"
+        "label": "Column 4"
       }
     ]
   },

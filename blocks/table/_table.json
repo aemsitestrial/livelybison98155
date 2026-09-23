@@ -26,7 +26,7 @@
             "template": {
               "name": "Row",
               "model": "table-row",
-              "column1text": "Column1"
+              "column1text": "Column 1"
             }
           }
         }
@@ -42,8 +42,8 @@
             "template": {
               "name": "Row",
               "model": "table-col-2",
-              "column1text": "Column1",
-              "column2text": "Column2"
+              "column1text": "Column 1",
+              "column2text": "Column 2"
             }
           }
         }
@@ -59,9 +59,9 @@
             "template": {
               "name": "Row",
               "model": "table-col-3",
-              "column1text": "Column1",
-              "column2text": "Column2",
-              "column3text": "Column3"
+              "column1text": "Column 1",
+              "column2text": "Column 2",
+              "column3text": "Column 3"
             }
           }
         }
@@ -77,10 +77,10 @@
             "template": {
               "name": "Row",
               "model": "table-col-4",
-              "column1text": "Column1",
-              "column2text": "Column2",
-              "column3text": "Column3",
-              "column4text": "Column4"
+              "column1text": "Column 1",
+              "column2text": "Column 2",
+              "column3text": "Column 3",
+              "column4text": "Column 4"
             }
           }
         }
@@ -92,33 +92,59 @@
       "id": "table",
       "fields": [
         {
-          "component": "multiselect",
+          "component": "select",
           "name": "classes",
           "value": "",
-          "label": "Options",
+          "label": "Table Variation",
           "valueType": "string",
           "options": [
             {
-              "name": "Border",
-              "children": [
-                {
-                  "name": "Striped",
-                  "value": "striped"
-                },
-                {
-                  "name": "Bordered",
-                  "value": "bordered"
-                }
-              ]
+              "name": "Default",
+              "value": ""
             },
             {
-              "name": "Header",
-              "children": [
-                {
-                  "name": "No Header",
-                  "value": "no-header"
-                }
-              ]
+              "name": "Striped",
+              "value": "striped"
+            },
+            {
+              "name": "Bordered",
+              "value": "bordered"
+            },
+            {
+              "name": "No Header",
+              "value": "no-header"
+            },
+            {
+              "name": "Compact",
+              "value": "compact"
+            },
+            {
+              "name": "Hoverable",
+              "value": "hoverable"
+            },
+            {
+              "name": "Comparison",
+              "value": "comparison"
+            },
+            {
+              "name": "Pricing",
+              "value": "pricing"
+            },
+            {
+              "name": "Dark",
+              "value": "dark"
+            },
+            {
+              "name": "Responsive Cards",
+              "value": "responsive-cards"
+            },
+            {
+              "name": "Sortable",
+              "value": "sortable"
+            },
+            {
+              "name": "Searchable",
+              "value": "searchable"
             }
           ]
         },
@@ -144,10 +170,6 @@
             {
               "name": "4 Columns",
               "value": "table-4-columns"
-            },
-            {
-              "name": "5 Columns",
-              "value": "table-5-columns"
             }
           ]
         }
@@ -160,7 +182,7 @@
           "component": "richtext",
           "valueType": "string",
           "name": "column1text",
-          "label": "Column1"
+          "label": "Column 1"
         }
       ]
     },
@@ -171,13 +193,13 @@
           "component": "richtext",
           "valueType": "string",
           "name": "column1text",
-          "label": "Column1"
+          "label": "Column 1"
         },
         {
           "component": "richtext",
           "valueType": "string",
           "name": "column2text",
-          "label": "Column2"
+          "label": "Column 2"
         }
       ]
     },
@@ -188,19 +210,19 @@
           "component": "richtext",
           "valueType": "string",
           "name": "column1text",
-          "label": "Column1"
+          "label": "Column 1"
         },
         {
           "component": "richtext",
           "valueType": "string",
           "name": "column2text",
-          "label": "Column2"
+          "label": "Column 2"
         },
         {
           "component": "richtext",
           "valueType": "string",
           "name": "column3text",
-          "label": "Column3"
+          "label": "Column 3"
         }
       ]
     },
@@ -211,25 +233,25 @@
           "component": "richtext",
           "valueType": "string",
           "name": "column1text",
-          "label": "Column1"
+          "label": "Column 1"
         },
         {
           "component": "richtext",
           "valueType": "string",
           "name": "column2text",
-          "label": "Column2"
+          "label": "Column 2"
         },
         {
           "component": "richtext",
           "valueType": "string",
           "name": "column3text",
-          "label": "Column3"
+          "label": "Column 3"
         },
         {
           "component": "richtext",
           "valueType": "string",
           "name": "column4text",
-          "label": "Column4"
+          "label": "Column 4"
         }
       ]
     }
@@ -237,19 +259,27 @@
   "filters": [
     {
       "id": "table",
-      "components": ["table-row"]
+      "components": [
+        "table-row"
+      ]
     },
     {
       "id": "table-2-columns",
-      "components": ["table-col-2"]
+      "components": [
+        "table-col-2"
+      ]
     },
     {
       "id": "table-3-columns",
-      "components": ["table-col-3"]
+      "components": [
+        "table-col-3"
+      ]
     },
     {
       "id": "table-4-columns",
-      "components": ["table-col-4"]
+      "components": [
+        "table-col-4"
+      ]
     }
   ]
 }
