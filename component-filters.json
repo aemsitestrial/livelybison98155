@@ -71,6 +71,20 @@
     ]
   },
   {
+    "id": "custom-form",
+    "components": [
+      "custom-form-text",
+      "custom-form-field",
+      "custom-form-email",
+      "custom-form-number",
+      "custom-form-textarea",
+      "custom-form-select",
+      "custom-form-checkbox",
+      "custom-form-radio",
+      "custom-form-button"
+    ]
+  },
+  {
     "id": "form",
     "components": [
       "captcha",

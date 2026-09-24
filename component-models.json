@@ -273,6 +273,76 @@
     ]
   },
   {
+    "id": "custom-form-field",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "value": "",
+        "label": "Label",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "name",
+        "value": "",
+        "label": "Field Name",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "placeholder",
+        "value": "",
+        "label": "Placeholder"
+      },
+      {
+        "component": "boolean",
+        "name": "required",
+        "value": false,
+        "label": "Required"
+      }
+    ]
+  },
+  {
+    "id": "custom-form",
+    "fields": [
+      {
+        "component": "text",
+        "name": "title",
+        "value": "",
+        "label": "Form Title"
+      },
+      {
+        "component": "textarea",
+        "name": "description",
+        "value": "",
+        "label": "Form Description"
+      },
+      {
+        "component": "text",
+        "name": "submitText",
+        "value": "Submit",
+        "label": "Submit Button Text"
+      },
+      {
+        "component": "select",
+        "name": "layout",
+        "value": "stacked",
+        "label": "Form Layout",
+        "options": [
+          {
+            "name": "Stacked",
+            "value": "stacked"
+          },
+          {
+            "name": "Two Column",
+            "value": "two-column"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "dm-scene7-template",
     "fields": [
       {

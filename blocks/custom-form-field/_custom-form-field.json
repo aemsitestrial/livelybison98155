@@ -1,0 +1,53 @@
+{
+  "definitions": [
+    {
+      "title": "Custom Form Field",
+      "id": "custom-form-field",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Custom Form Field",
+              "model": "custom-form-field"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "custom-form-field",
+      "fields": [
+        {
+          "component": "text",
+          "name": "label",
+          "value": "",
+          "label": "Label",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "name",
+          "value": "",
+          "label": "Field Name",
+          "required": true
+        },
+        {
+          "component": "text",
+          "name": "placeholder",
+          "value": "",
+          "label": "Placeholder"
+        },
+        {
+          "component": "boolean",
+          "name": "required",
+          "value": false,
+          "label": "Required"
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

@@ -1,0 +1,42 @@
+.custom-form-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.custom-form-field-label {
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.custom-form-field-required {
+  margin-left: 2px;
+}
+
+.custom-form-field-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid #c8c8c8;
+  border-radius: 6px;
+  background: #fff;
+  color: #222;
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.custom-form-field-input::placeholder {
+  color: #777;
+}
+
+.custom-form-field-input:focus {
+  border-color: #222;
+  outline: 2px solid transparent;
+}
+
+.custom-form-field-input:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
