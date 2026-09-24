@@ -539,6 +539,35 @@
         "validation": {
           "rootPath": "/content/forms/af"
         }
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "classes",
+        "value": "",
+        "label": "Variation",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "With Header",
+            "value": "with-header"
+          },
+          {
+            "name": "Two Column",
+            "value": "two-column"
+          },
+          {
+            "name": "With Image",
+            "value": "with-image"
+          },
+          {
+            "name": "Modal",
+            "value": "modal"
+          }
+        ]
       }
     ]
   },
