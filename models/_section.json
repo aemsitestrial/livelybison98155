@@ -54,7 +54,6 @@
         "dm-scene7-template",
         "embed",
         "fragment",
-        "form",
         "hero",
         "image",
         "quote",
@@ -65,12 +64,8 @@
         "title",
         "teaser",
         "video",
-        "Embedded Adaptive Form",
-        "Embedded Adaptive Form - With Header",
-        "Embedded Adaptive Form - Two Column",
-        "Embedded Adaptive Form - With Image",
-        "Embedded Adaptive Form - Modal",
-        "custom-form"
+        "form",
+        "embed-adaptive-form"
       ]
     }
   ]
