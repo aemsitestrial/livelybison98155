@@ -424,6 +424,8 @@ async function createFormForAuthoring(formDef) {
     }
     return [];
   });
+  applyFormVariation(form, formDef);
+  renderFormVariation(form, formDef);
   return form;
 }
 
