@@ -18,29 +18,57 @@
     {
       "...": "./models/form-components/_*.json#/definitions"
     },
-    { 
-      "...": "./components/accordion/_accordion.json#/definitions" 
+    {
+      "...": "./components/accordion/_accordion.json#/definitions"
     },
-    { 
-      "...": "./components/modal/_modal.json#/definitions" 
+    {
+      "...": "./components/modal/_modal.json#/definitions"
     },
-    { 
-      "...": "./components/password/_password.json#/definitions" 
+    {
+      "...": "./components/password/_password.json#/definitions"
     },
-    { 
-      "...": "./components/rating/_rating.json#/definitions" 
+    {
+      "...": "./components/rating/_rating.json#/definitions"
     },
-    { 
-      "...": "./components/tnc/_tnc.json#/definitions" 
+    {
+      "...": "./components/tnc/_tnc.json#/definitions"
     },
-    { 
-      "...": "./components/wizard/_wizard.json#/definitions" 
+    {
+      "...": "./components/wizard/_wizard.json#/definitions"
     }
   ],
   "models": [
     {
       "id": "form",
       "fields": [
+        {
+          "component": "select",
+          "name": "variation",
+          "label": "Form Variations",
+          "value": "default",
+          "options": [
+            {
+              "name": "Default",
+              "value": "default"
+            },
+            {
+              "name": "With Header",
+              "value": "with-header"
+            },
+            {
+              "name": "Two Column",
+              "value": "two-column"
+            },
+            {
+              "name": "With Image",
+              "value": "with-image"
+            },
+            {
+              "name": "Modal",
+              "value": "modal"
+            }
+          ]
+        },
         {
           "component": "container",
           "name": "basic",
