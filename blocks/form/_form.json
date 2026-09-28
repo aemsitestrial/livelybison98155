@@ -89,6 +89,133 @@
               "valueType": "string"
             }
           ]
+        },
+        {
+          "component": "text",
+          "name": "headerTitle",
+          "label": "Header Title",
+          "valueType": "string",
+          "condition": {
+            "===": [
+              {
+                "var": "variation"
+              },
+              "with-header"
+            ]
+          }
+        },
+        {
+          "component": "textarea",
+          "name": "headerDescription",
+          "label": "Header Description",
+          "valueType": "string",
+          "condition": {
+            "===": [
+              {
+                "var": "variation"
+              },
+              "with-header"
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "columnTitle",
+          "label": "Column Title",
+          "valueType": "string",
+          "condition": {
+            "===": [
+              {
+                "var": "variation"
+              },
+              "two-column"
+            ]
+          }
+        },
+        {
+          "component": "textarea",
+          "name": "columnDescription",
+          "label": "Column Description",
+          "valueType": "string",
+          "condition": {
+            "===": [
+              {
+                "var": "variation"
+              },
+              "two-column"
+            ]
+          }
+        },
+        {
+          "component": "reference",
+          "name": "image",
+          "label": "Image",
+          "valueType": "string",
+          "condition": {
+            "===": [
+              {
+                "var": "variation"
+              },
+              "with-image"
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "imageTitle",
+          "label": "Image Title",
+          "valueType": "string",
+          "condition": {
+            "===": [
+              {
+                "var": "variation"
+              },
+              "with-image"
+            ]
+          }
+        },
+        {
+          "component": "textarea",
+          "name": "imageDescription",
+          "label": "Image Description",
+          "valueType": "string",
+          "condition": {
+            "===": [
+              {
+                "var": "variation"
+              },
+              "with-image"
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "modalButtonText",
+          "label": "Modal Button Text",
+          "value": "Open Form",
+          "valueType": "string",
+          "condition": {
+            "===": [
+              {
+                "var": "variation"
+              },
+              "modal"
+            ]
+          }
+        },
+        {
+          "component": "text",
+          "name": "modalTitle",
+          "label": "Modal Title",
+          "valueType": "string",
+          "condition": {
+            "===": [
+              {
+                "var": "variation"
+              },
+              "modal"
+            ]
+          }
         }
       ]
     },
