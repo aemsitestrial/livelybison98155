@@ -46,7 +46,99 @@ const createSelect = withFieldWrapper((fd) => {
   createDropdownUsingEnum(fd, select);
   return select;
 });
+function applyFormVariation(form, formDef) {
+  const variation = formDef?.variation || 'default';
 
+  const validVariations = [
+    'default',
+    'with-header',
+    'two-column',
+    'with-image',
+    'modal',
+  ];
+
+  const selectedVariation = validVariations.includes(variation)
+    ? variation
+    : 'default';
+
+  form.classList.add(`form-${selectedVariation}`);
+
+  return selectedVariation;
+}
+function renderFormVariation(form, formDef) {
+  const variation = formDef?.variation || 'default';
+
+  if (variation === 'with-header') {
+    const header = document.createElement('div');
+    header.className = 'form-variation-header';
+
+    if (formDef.headerTitle) {
+      const title = document.createElement('h2');
+      title.className = 'form-variation-title';
+      title.textContent = formDef.headerTitle;
+      header.append(title);
+    }
+
+    if (formDef.headerDescription) {
+      const description = document.createElement('p');
+      description.className = 'form-variation-description';
+      description.textContent = formDef.headerDescription;
+      header.append(description);
+    }
+
+    form.prepend(header);
+  }
+
+  if (variation === 'two-column') {
+    const content = document.createElement('div');
+    content.className = 'form-variation-content';
+
+    if (formDef.columnTitle) {
+      const title = document.createElement('h2');
+      title.className = 'form-variation-title';
+      title.textContent = formDef.columnTitle;
+      content.append(title);
+    }
+
+    if (formDef.columnDescription) {
+      const description = document.createElement('p');
+      description.className = 'form-variation-description';
+      description.textContent = formDef.columnDescription;
+      content.append(description);
+    }
+
+    form.prepend(content);
+  }
+
+  if (variation === 'with-image') {
+    const content = document.createElement('div');
+    content.className = 'form-variation-image-content';
+
+    if (formDef.image) {
+      const image = document.createElement('img');
+      image.className = 'form-variation-image';
+      image.src = formDef.image;
+      image.alt = formDef.imageTitle || '';
+      content.append(image);
+    }
+
+    if (formDef.imageTitle) {
+      const title = document.createElement('h2');
+      title.className = 'form-variation-title';
+      title.textContent = formDef.imageTitle;
+      content.append(title);
+    }
+
+    if (formDef.imageDescription) {
+      const description = document.createElement('p');
+      description.className = 'form-variation-description';
+      description.textContent = formDef.imageDescription;
+      content.append(description);
+    }
+
+    form.prepend(content);
+  }
+}
 function createHeading(fd) {
   const wrapper = createFieldWrapper(fd);
   const heading = document.createElement('h2');
@@ -339,6 +431,7 @@ export async function createForm(formDef, data, source = 'aem') {
   const { action: formPath } = formDef;
   const form = document.createElement('form');
   form.dataset.action = formPath;
+  applyFormVariation(form, formDef);
   form.dataset.source = source;
   form.noValidate = true;
   if (formDef.appliedCssClassNames) {
@@ -346,6 +439,7 @@ export async function createForm(formDef, data, source = 'aem') {
   }
   const formId = extractIdFromUrl(formPath); // formDef.id returns $form after getState()
   await generateFormRendition(formDef, form, formId);
+  renderFormVariation(form, formDef);
 
   let captcha;
   if (captchaField) {
