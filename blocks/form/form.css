@@ -678,6 +678,29 @@ main div.form-wrapper {
     box-shadow: 0 4px 24px rgb(0 0 0 / 8%);
 }
 
+.form-with-header .form-variation-header {
+  grid-column: 1 / -1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.form-with-header .form-variation-title {
+  margin: 0 0 8px;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.form-with-header .form-variation-description {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
 /* Responsive adjustments for mobile */
 @media (width <= 599px) {
     :root {
