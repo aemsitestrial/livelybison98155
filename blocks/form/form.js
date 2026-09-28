@@ -66,23 +66,24 @@ function applyFormVariation(form, formDef) {
   return selectedVariation;
 }
 function renderFormVariation(form, formDef) {
-  const variation = formDef?.variation || 'default';
+  const properties = formDef?.properties || {};
+  const variation = properties.variation || 'default';
 
   if (variation === 'with-header') {
     const header = document.createElement('div');
     header.className = 'form-variation-header';
 
-    if (formDef.headerTitle) {
+    if (properties.headerTitle) {
       const title = document.createElement('h2');
       title.className = 'form-variation-title';
-      title.textContent = formDef.headerTitle;
+      title.textContent = properties.headerTitle;
       header.append(title);
     }
 
-    if (formDef.headerDescription) {
+    if (properties.headerDescription) {
       const description = document.createElement('p');
       description.className = 'form-variation-description';
-      description.textContent = formDef.headerDescription;
+      description.textContent = properties.headerDescription;
       header.append(description);
     }
 
@@ -93,17 +94,17 @@ function renderFormVariation(form, formDef) {
     const content = document.createElement('div');
     content.className = 'form-variation-content';
 
-    if (formDef.columnTitle) {
+    if (properties.columnTitle) {
       const title = document.createElement('h2');
       title.className = 'form-variation-title';
-      title.textContent = formDef.columnTitle;
+      title.textContent = properties.columnTitle;
       content.append(title);
     }
 
-    if (formDef.columnDescription) {
+    if (properties.columnDescription) {
       const description = document.createElement('p');
       description.className = 'form-variation-description';
-      description.textContent = formDef.columnDescription;
+      description.textContent = properties.columnDescription;
       content.append(description);
     }
 
@@ -114,25 +115,25 @@ function renderFormVariation(form, formDef) {
     const content = document.createElement('div');
     content.className = 'form-variation-image-content';
 
-    if (formDef.image) {
+    if (properties.image) {
       const image = document.createElement('img');
       image.className = 'form-variation-image';
-      image.src = formDef.image;
-      image.alt = formDef.imageTitle || '';
+      image.src = properties.image;
+      image.alt = properties.imageTitle || '';
       content.append(image);
     }
 
-    if (formDef.imageTitle) {
+    if (properties.imageTitle) {
       const title = document.createElement('h2');
       title.className = 'form-variation-title';
-      title.textContent = formDef.imageTitle;
+      title.textContent = properties.imageTitle;
       content.append(title);
     }
 
-    if (formDef.imageDescription) {
+    if (properties.imageDescription) {
       const description = document.createElement('p');
       description.className = 'form-variation-description';
-      description.textContent = formDef.imageDescription;
+      description.textContent = properties.imageDescription;
       content.append(description);
     }
 
