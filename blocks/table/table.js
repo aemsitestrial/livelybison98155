@@ -242,13 +242,141 @@ function enhanceAccessibility(table) {
   });
 }
 
+/**
+ * Enable sticky table header.
+ */
 function enableStickyHeader(table) {
   const wrapper = document.createElement('div');
+
   wrapper.className = 'table-scroll-container';
+
   table.parentNode.insertBefore(wrapper, table);
   wrapper.append(table);
+
   table.classList.add('table-sticky-header');
 }
+
+/**
+ * Add pagination functionality.
+ */
+function enablePagination(block, table) {
+  const tbody = table.querySelector('tbody');
+
+  if (!tbody) return;
+
+  const rows = [...tbody.querySelectorAll('tr')];
+  const rowsPerPage = 5;
+
+  // Do not show pagination when all rows fit on one page.
+  if (rows.length <= rowsPerPage) return;
+
+  let currentPage = 1;
+
+  const totalPages = Math.ceil(rows.length / rowsPerPage);
+
+  const pagination = document.createElement('div');
+  pagination.className = 'table-pagination';
+
+  const info = document.createElement('div');
+  info.className = 'table-pagination-info';
+
+  const controls = document.createElement('div');
+  controls.className = 'table-pagination-controls';
+
+  const previousButton = document.createElement('button');
+
+  previousButton.type = 'button';
+  previousButton.className = 'table-pagination-button';
+  previousButton.textContent = 'Previous';
+
+  const nextButton = document.createElement('button');
+
+  nextButton.type = 'button';
+  nextButton.className = 'table-pagination-button';
+  nextButton.textContent = 'Next';
+
+  const pageNumbers = document.createElement('div');
+  pageNumbers.className = 'table-pagination-pages';
+
+  controls.append(
+    previousButton,
+    pageNumbers,
+    nextButton,
+  );
+
+  pagination.append(
+    info,
+    controls,
+  );
+
+  block.append(pagination);
+
+  function renderPage() {
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    rows.forEach((row, index) => {
+      row.hidden = index < start || index >= end;
+    });
+
+    info.textContent = `Showing ${start + 1}-${Math.min(
+      end,
+      rows.length,
+    )} of ${rows.length}`;
+
+    pageNumbers.replaceChildren();
+
+    for (let page = 1; page <= totalPages; page += 1) {
+      const pageButton = document.createElement('button');
+
+      pageButton.type = 'button';
+      pageButton.className = 'table-pagination-button';
+      pageButton.textContent = String(page);
+
+      pageButton.setAttribute(
+        'aria-label',
+        `Go to page ${page}`,
+      );
+
+      if (page === currentPage) {
+        pageButton.classList.add('active');
+        pageButton.setAttribute(
+          'aria-current',
+          'page',
+        );
+      }
+
+      pageButton.dataset.page = String(page);
+      pageNumbers.append(pageButton);
+    }
+
+    previousButton.disabled = currentPage === 1;
+    nextButton.disabled = currentPage === totalPages;
+  }
+  pageNumbers.addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-page');
+    if (!button) return;
+    currentPage = Number(button.dataset.page);
+    renderPage();
+  });
+
+  previousButton.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage -= 1;
+      renderPage();
+    }
+  });
+
+  nextButton.addEventListener('click', () => {
+    if (currentPage < totalPages) {
+      currentPage += 1;
+      renderPage();
+    }
+  });
+
+  renderPage();
+}
+
 /**
  * Main table decorator.
  *
@@ -274,8 +402,14 @@ export default async function decorate(block) {
     enableSearch(block, table);
   }
 
+  // Enable sticky header when the Universal Editor toggle is ON.
   if (booleanOptions.stickyHeader) {
     enableStickyHeader(table);
+  }
+
+  // Enable pagination when the Universal Editor toggle is ON.
+  if (booleanOptions.pagination) {
+    enablePagination(block, table);
   }
 
   // Enable responsive cards when selected as a table variation.

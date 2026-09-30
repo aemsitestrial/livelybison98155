@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 
-.table.block:has(.table-scroll-container){
+.table.block:has(.table-scroll-container) {
   overflow: visible;
 }
 
@@ -127,24 +127,24 @@
   background: #f5f7fa;
 }
 
-.table-scroll-container{
+.table-scroll-container {
   width: 100%;
   max-height: 500px;
   overflow: auto;
   position: relative;
 }
 
-.table-scroll-container table{
+.table-scroll-container table {
   width: 100%;
 }
 
-.table-scroll-container table thead{
+.table-scroll-container table thead {
   position: sticky;
   top: 0;
   z-index: 2;
 }
 
-.table-scroll-container table thead th{
+.table-scroll-container table thead th {
   background-color: var(--background-color, #fff);
 }
 
@@ -322,6 +322,80 @@
 .table-search-input:focus {
   outline: 2px solid currentcolor;
   outline-offset: 2px;
+}
+
+/* Pagination */
+
+.table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px 0;
+  box-sizing: border-box;
+}
+
+.table-pagination-info {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.table-pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.table-pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.table-pagination-button {
+  min-width: 36px;
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.table-pagination-button:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+.table-pagination-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.table-pagination-button:hover:not(:disabled) {
+  background: #f1f1f1;
+}
+
+
+.table-pagination-button.active {
+  font-weight: 700;
+}
+
+
+@media (width < 600px) {
+  .table-pagination {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .table-pagination-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 
 /* Mobile overflow */
