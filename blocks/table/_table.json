@@ -168,14 +168,28 @@
         {
           "component": "checkbox",
           "name": "sortable",
-          "label": "Enable sorting",
+          "label": "Enable Sorting",
           "value": false,
           "valueType": "boolean"
         },
         {
           "component": "checkbox",
           "name": "searchable",
-          "label": "Enable search",
+          "label": "Enable Search",
+          "value": false,
+          "valueType": "boolean"
+        },
+        {
+          "component": "checkbox",
+          "name": "stickyHeader",
+          "label": "Enable Sticky Header",
+          "value": false,
+          "valueType": "boolean"
+        },
+        {
+          "component": "checkbox",
+          "name": "pagination",
+          "label": "Enable Pagination",
           "value": false,
           "valueType": "boolean"
         }
