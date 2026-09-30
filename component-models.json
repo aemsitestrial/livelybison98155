@@ -5977,28 +5977,28 @@
         ]
       },
       {
-        "component": "checkbox",
+        "component": "boolean",
         "name": "sortable",
         "label": "Enable Sorting",
         "value": false,
         "valueType": "boolean"
       },
       {
-        "component": "checkbox",
+        "component": "boolean",
         "name": "searchable",
         "label": "Enable Search",
         "value": false,
         "valueType": "boolean"
       },
       {
-        "component": "checkbox",
+        "component": "boolean",
         "name": "stickyHeader",
         "label": "Enable Sticky Header",
         "value": false,
         "valueType": "boolean"
       },
       {
-        "component": "checkbox",
+        "component": "boolean",
         "name": "pagination",
         "label": "Enable Pagination",
         "value": false,
