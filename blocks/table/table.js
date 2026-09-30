@@ -62,22 +62,23 @@ function getOptions(block) {
 
 function createTable(block) {
   const table = document.createElement('table');
-
   table.setAttribute('role', 'table');
 
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');
-
   const noHeader = block.classList.contains('no-header');
 
-  [...block.children].forEach((row, rowIndex) => {
+  const rows = [...block.children].filter(
+    (row) => !['true', 'false'].includes(row.textContent.trim().toLowerCase()),
+  );
+
+  rows.forEach((row, rowIndex) => {
     const tr = document.createElement('tr');
 
     moveInstrumentation(row, tr);
 
     [...row.children].forEach((cell) => {
       const isHeader = rowIndex === 0 && !noHeader;
-
       const td = document.createElement(isHeader ? 'th' : 'td');
 
       if (isHeader) {
@@ -85,7 +86,6 @@ function createTable(block) {
       }
 
       td.innerHTML = cell.innerHTML;
-
       tr.append(td);
     });
 
