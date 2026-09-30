@@ -137,14 +137,6 @@
             {
               "name": "Responsive Cards",
               "value": "responsive-cards"
-            },
-            {
-              "name": "Sortable",
-              "value": "sortable"
-            },
-            {
-              "name": "Searchable",
-              "value": "searchable"
             }
           ]
         },
@@ -172,6 +164,20 @@
               "value": "table-4-columns"
             }
           ]
+        },
+        {
+          "component": "checkbox",
+          "name": "sortable",
+          "label": "Enable sorting",
+          "value": false,
+          "valueType": "boolean"
+        },
+        {
+          "component": "checkbox",
+          "name": "searchable",
+          "label": "Enable search",
+          "value": false,
+          "valueType": "boolean"
         }
       ]
     },
