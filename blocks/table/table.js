@@ -1,57 +1,3 @@
-// /*
-//  * Table Block
-//  * Recreate a table
-//  * https://www.hlx.live/developer/block-collection/table
-//  */
-
-// import { moveInstrumentation } from '../../scripts/scripts.js';
-
-// /**
-//  *
-//  * @param {Element} block
-//  */
-// export default async function decorate(block) {
-//   const table = document.createElement('table');
-//   const thead = document.createElement('thead');
-//   const tbody = document.createElement('tbody');
-//   const header = !block.classList.contains('no-header');
-
-//   [...block.children].forEach((row, i) => {
-//     const tr = document.createElement('tr');
-//     moveInstrumentation(row, tr);
-
-//     [...row.children].forEach((cell) => {
-//       const td = document.createElement(i === 0 && header ? 'th' : 'td');
-
-//       if (i === 0) td.setAttribute('scope', 'column');
-//       td.innerHTML = cell.innerHTML;
-//       tr.append(td);
-//     });
-//     if (i === 0 && header) thead.append(tr);
-//     else tbody.append(tr);
-//   });
-//   table.append(thead, tbody);
-//   block.replaceChildren(table);
-// }
-
-/*
- * Table Block
- *
- * Supports:
- * - Default
- * - Striped
- * - Bordered
- * - No Header
- * - Compact
- * - Hoverable
- * - Comparison
- * - Pricing
- * - Dark
- * - Responsive Cards
- * - Sortable
- * - Searchable
- */
-
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 function getOptions(block) {
@@ -60,6 +6,31 @@ function getOptions(block) {
   );
 }
 
+/**
+ * Read boolean options from the Universal Editor.
+ *
+ * Field order:
+ * 1. Enable Sorting
+ * 2. Enable Search
+ * 3. Enable Sticky Header
+ * 4. Enable Pagination
+ */
+function getBooleanOptions(block) {
+  const booleanValues = [...block.children]
+    .map((child) => child.textContent.trim().toLowerCase())
+    .filter((value) => value === 'true' || value === 'false');
+
+  return {
+    sortable: booleanValues[0] === 'true',
+    searchable: booleanValues[1] === 'true',
+    stickyHeader: booleanValues[2] === 'true',
+    pagination: booleanValues[3] === 'true',
+  };
+}
+
+/**
+ * Create the HTML table from the authored block.
+ */
 function createTable(block) {
   const table = document.createElement('table');
   table.setAttribute('role', 'table');
@@ -68,8 +39,11 @@ function createTable(block) {
   const tbody = document.createElement('tbody');
   const noHeader = block.classList.contains('no-header');
 
+  // Remove boolean configuration values from table rows.
   const rows = [...block.children].filter(
-    (row) => !['true', 'false'].includes(row.textContent.trim().toLowerCase()),
+    (row) => !['true', 'false'].includes(
+      row.textContent.trim().toLowerCase(),
+    ),
   );
 
   rows.forEach((row, rowIndex) => {
@@ -139,7 +113,9 @@ function enableSorting(table) {
         item.dataset.sortDirection = '';
         item.setAttribute('aria-sort', 'none');
 
-        const itemIndicator = item.querySelector('.table-sort-indicator');
+        const itemIndicator = item.querySelector(
+          '.table-sort-indicator',
+        );
 
         if (itemIndicator) {
           itemIndicator.textContent = '↕';
@@ -149,7 +125,9 @@ function enableSorting(table) {
       header.dataset.sortDirection = direction;
       header.setAttribute('aria-sort', direction);
 
-      indicator.textContent = direction === 'ascending' ? '↑' : '↓';
+      indicator.textContent = direction === 'ascending'
+        ? '↑'
+        : '↓';
 
       rows.sort((rowA, rowB) => {
         const cellA = rowA.children[columnIndex];
@@ -164,14 +142,22 @@ function enableSorting(table) {
           : '';
 
         return direction === 'ascending'
-          ? valueA.localeCompare(valueB, undefined, {
-            numeric: true,
-            sensitivity: 'base',
-          })
-          : valueB.localeCompare(valueA, undefined, {
-            numeric: true,
-            sensitivity: 'base',
-          });
+          ? valueA.localeCompare(
+            valueB,
+            undefined,
+            {
+              numeric: true,
+              sensitivity: 'base',
+            },
+          )
+          : valueB.localeCompare(
+            valueA,
+            undefined,
+            {
+              numeric: true,
+              sensitivity: 'base',
+            },
+          );
       });
 
       rows.forEach((row) => tbody.append(row));
@@ -263,6 +249,7 @@ function enhanceAccessibility(table) {
  */
 export default async function decorate(block) {
   const options = getOptions(block);
+  const booleanOptions = getBooleanOptions(block);
 
   const table = createTable(block);
 
@@ -270,14 +257,17 @@ export default async function decorate(block) {
 
   enhanceAccessibility(table);
 
-  if (options.includes('sortable')) {
+  // Enable sorting when the Universal Editor toggle is ON.
+  if (booleanOptions.sortable) {
     enableSorting(table);
   }
 
-  if (options.includes('searchable')) {
+  // Enable search when the Universal Editor toggle is ON.
+  if (booleanOptions.searchable) {
     enableSearch(block, table);
   }
 
+  // Enable responsive cards when selected as a table variation.
   if (options.includes('responsive-cards')) {
     enableResponsiveCards(table);
   }
