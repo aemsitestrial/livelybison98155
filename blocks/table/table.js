@@ -242,6 +242,11 @@ function enhanceAccessibility(table) {
   });
 }
 
+function enableStickyHeader(table) {
+  const thead = table.querySelector('thead');
+  if (!thead) return;
+  table.classList.add('table-sticky-header');
+}
 /**
  * Main table decorator.
  *
@@ -265,6 +270,10 @@ export default async function decorate(block) {
   // Enable search when the Universal Editor toggle is ON.
   if (booleanOptions.searchable) {
     enableSearch(block, table);
+  }
+
+  if (booleanOptions.stickyHeader) {
+    enableStickyHeader(table);
   }
 
   // Enable responsive cards when selected as a table variation.
