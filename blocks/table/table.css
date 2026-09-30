@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+.table.block:has(.table-scroll-container){
+  overflow: visible;
+}
+
 .table.block table {
   width: 100%;
   max-width: 100%;
@@ -123,17 +127,24 @@
   background: #f5f7fa;
 }
 
-.table.block.table-sticky-header {
-  overflow-y: visible;
+.table-scroll-container{
+  width: 100%;
+  max-height: 500px;
+  overflow: auto;
+  position: relative;
 }
 
-.table.block.table-sticky-header table thead {
+.table-scroll-container table{
+  width: 100%;
+}
+
+.table-scroll-container table thead{
   position: sticky;
   top: 0;
   z-index: 2;
 }
 
-.table.block.table-sticky-header table thead th {
+.table-scroll-container table thead th{
   background-color: var(--background-color, #fff);
 }
 

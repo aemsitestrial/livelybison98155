@@ -243,8 +243,10 @@ function enhanceAccessibility(table) {
 }
 
 function enableStickyHeader(table) {
-  const thead = table.querySelector('thead');
-  if (!thead) return;
+  const wrapper = document.createElement('div');
+  wrapper.className = 'table-scroll-container';
+  table.parentNode.insertBefore(wrapper, table);
+  wrapper.append(table);
   table.classList.add('table-sticky-header');
 }
 /**
