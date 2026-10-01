@@ -26,6 +26,8 @@ main > .section > div.industry-list-wrapper {
   margin: 0;
 }
 
+/* Header */
+
 .industry-list .industry-list-header {
   box-sizing: border-box;
   display: flex;
@@ -76,6 +78,8 @@ main > .section > div.industry-list-wrapper {
   text-decoration: underline;
 }
 
+/* Industry card */
+
 .industry-list .industry-list-card {
   position: relative;
   box-sizing: border-box;
@@ -105,6 +109,8 @@ main > .section > div.industry-list-wrapper {
   font-size: 22px;
   line-height: 1.35;
 }
+
+/* Card link */
 
 .industry-list .industry-list-link a:any-link {
   position: absolute;
@@ -137,6 +143,31 @@ main > .section > div.industry-list-wrapper {
   outline-offset: -2px;
 }
 
+.industry-list.no-description .industry-list-title {
+  grid-column: 2 / 4;
+}
+
+.industry-list.compact .industry-list-title,
+.industry-list.compact .industry-list-number {
+  font-size: 30px;
+}
+
+.industry-list.featured-industry .industry-list-card-featured .industry-list-title {
+  font-weight: 500;
+}
+
+
+/* Hover */
+
+.industry-list .industry-list-card:has(a:hover) .industry-list-title,
+.industry-list .industry-list-card:has(a:focus-visible) .industry-list-title {
+  text-decoration: underline;
+}
+
+/* =========================================
+   COMPACT VARIATION
+   ========================================= */
+
 .industry-list.compact {
   padding-top: 56px;
   padding-bottom: 64px;
@@ -151,22 +182,24 @@ main > .section > div.industry-list-wrapper {
   padding: 10px 0;
 }
 
-.industry-list.compact .industry-list-title,
-.industry-list.compact .industry-list-number {
-  font-size: 30px;
-}
+
 
 .industry-list.compact .industry-list-description {
   font-size: 18px;
 }
 
+/* =========================================
+   NO DESCRIPTION VARIATION
+   ========================================= */
+
 .industry-list.no-description .industry-list-description {
   display: none;
 }
 
-.industry-list.no-description .industry-list-title {
-  grid-column: 2 / 4;
-}
+
+/* =========================================
+   DARK THEME VARIATION
+   ========================================= */
 
 .industry-list-container:has(.industry-list.dark),
 .industry-list.dark {
@@ -194,10 +227,63 @@ main > .section > div.industry-list-wrapper {
   outline-color: #fff;
 }
 
-.industry-list .industry-list-card:has(a:hover) .industry-list-title,
-.industry-list .industry-list-card:has(a:focus-visible) .industry-list-title {
-  text-decoration: underline;
+/* =========================================
+   FEATURED INDUSTRY VARIATION
+   ========================================= */
+
+/*
+ * The first industry card becomes the featured card.
+ */
+
+.industry-list.featured-industry .industry-list-card-featured {
+  position: relative;
+  margin-bottom: 8px;
+  border: 0;
+  border-radius: 4px;
+  padding: 28px 24px;
+  background-color: #f2f4f7;
 }
+
+.industry-list.featured-industry .industry-list-card-featured::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+  content: '';
+  background-color: #1f1f1f;
+}
+
+.industry-list.featured-industry .industry-list-card-featured .industry-list-number {
+  color: #777;
+}
+
+
+.industry-list.featured-industry .industry-list-card-featured .industry-list-description {
+  font-size: 23px;
+}
+
+.industry-list.featured-industry .industry-list-card-featured .industry-list-link a::after {
+  font-size: 36px;
+}
+
+/* Featured + dark theme */
+
+.industry-list.dark.featured-industry .industry-list-card-featured {
+  background-color: #252d3a;
+}
+
+.industry-list.dark.featured-industry .industry-list-card-featured::before {
+  background-color: #f7f9fc;
+}
+
+.industry-list.dark.featured-industry .industry-list-card-featured .industry-list-number {
+  color: #aab8cc;
+}
+
+/* =========================================
+   RESPONSIVE - TABLET
+   ========================================= */
 
 @media (width < 900px) {
   .industry-list {
@@ -240,7 +326,17 @@ main > .section > div.industry-list-wrapper {
   .industry-list.no-description .industry-list-title {
     grid-column: 2;
   }
+
+  /* Featured */
+
+  .industry-list.featured-industry .industry-list-card-featured {
+    padding: 24px 20px;
+  }
 }
+
+/* =========================================
+   RESPONSIVE - MOBILE
+   ========================================= */
 
 @media (width < 600px) {
   .industry-list {
@@ -281,5 +377,20 @@ main > .section > div.industry-list-wrapper {
 
   .industry-list.compact .industry-list-description {
     font-size: 16px;
+  }
+
+  /* Featured mobile */
+
+  .industry-list.featured-industry .industry-list-card-featured {
+    margin-bottom: 8px;
+    padding: 20px 16px;
+  }
+
+  .industry-list.featured-industry .industry-list-card-featured .industry-list-description {
+    font-size: 18px;
+  }
+
+  .industry-list.featured-industry .industry-list-card-featured .industry-list-link a::after {
+    font-size: 28px;
   }
 }

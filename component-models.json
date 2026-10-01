@@ -5515,12 +5515,16 @@
             "value": "compact"
           },
           {
-            "name": "No description",
+            "name": "No Description",
             "value": "no-description"
           },
           {
-            "name": "Dark theme",
+            "name": "Dark Theme",
             "value": "dark"
+          },
+          {
+            "name": "Featured Industry",
+            "value": "featured-industry"
           }
         ]
       }

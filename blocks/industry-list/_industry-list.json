@@ -58,10 +58,26 @@
           "label": "Variation",
           "value": "",
           "options": [
-            { "name": "Default", "value": "" },
-            { "name": "Compact", "value": "compact" },
-            { "name": "No description", "value": "no-description" },
-            { "name": "Dark theme", "value": "dark" }
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Compact",
+              "value": "compact"
+            },
+            {
+              "name": "No Description",
+              "value": "no-description"
+            },
+            {
+              "name": "Dark Theme",
+              "value": "dark"
+            },
+            {
+              "name": "Featured Industry",
+              "value": "featured-industry"
+            }
           ]
         }
       ]
