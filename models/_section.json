@@ -65,7 +65,9 @@
         "teaser",
         "video",
         "form",
-        "embed-adaptive-form"
+        "embed-adaptive-form",
+        "Spotlight",
+        "spotlight"
       ]
     }
   ]
