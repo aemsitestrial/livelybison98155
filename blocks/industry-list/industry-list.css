@@ -17,7 +17,7 @@ main > .section > div.industry-list-wrapper {
 
 .industry-list {
   box-sizing: border-box;
-  min-height: 983px;
+  height: 983px;
   padding: 80px 80px 100px;
   background-color: #fff;
   color: #1f1f1f;
