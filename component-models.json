@@ -6007,11 +6007,15 @@
             "value": "compact"
           },
           {
-            "name": "Featured first",
+            "name": "No Metadata",
+            "value": "no-metadata"
+          },
+          {
+            "name": "Featured First",
             "value": "featured-first"
           },
           {
-            "name": "Dark theme",
+            "name": "Dark Theme",
             "value": "dark"
           }
         ]

@@ -58,10 +58,26 @@
           "label": "Variation",
           "value": "",
           "options": [
-            { "name": "Default", "value": "" },
-            { "name": "Compact", "value": "compact" },
-            { "name": "Featured first", "value": "featured-first" },
-            { "name": "Dark theme", "value": "dark" }
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Compact",
+              "value": "compact"
+            },
+            {
+              "name": "No Metadata",
+              "value": "no-metadata"
+            },
+            {
+              "name": "Featured First",
+              "value": "featured-first"
+            },
+            {
+              "name": "Dark Theme",
+              "value": "dark"
+            }
           ]
         }
       ]
