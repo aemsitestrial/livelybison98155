@@ -132,14 +132,71 @@ main > .section > div.industry-list-wrapper {
   transform: translateY(-50%);
 }
 
-.industry-list .industry-list-card:has(a:hover) .industry-list-title,
-.industry-list .industry-list-card:has(a:focus-visible) .industry-list-title {
-  text-decoration: underline;
-}
-
 .industry-list .industry-list-link a:focus-visible {
   outline: 2px solid #1f1f1f;
   outline-offset: -2px;
+}
+
+.industry-list.compact {
+  padding-top: 56px;
+  padding-bottom: 64px;
+}
+
+.industry-list.compact .industry-list-header {
+  margin-bottom: 36px;
+}
+
+.industry-list.compact .industry-list-card {
+  min-height: 76px;
+  padding: 10px 0;
+}
+
+.industry-list.compact .industry-list-title,
+.industry-list.compact .industry-list-number {
+  font-size: 30px;
+}
+
+.industry-list.compact .industry-list-description {
+  font-size: 18px;
+}
+
+.industry-list.no-description .industry-list-description {
+  display: none;
+}
+
+.industry-list.no-description .industry-list-title {
+  grid-column: 2 / 4;
+}
+
+.industry-list-container:has(.industry-list.dark),
+.industry-list.dark {
+  background-color: #171d27;
+}
+
+.industry-list.dark {
+  color: #f7f9fc;
+}
+
+.industry-list.dark .industry-list-card {
+  border-bottom-color: #677182;
+}
+
+.industry-list.dark .industry-list-number {
+  color: #aab8cc;
+}
+
+.industry-list.dark .industry-list-explore a:hover,
+.industry-list.dark .industry-list-explore a:focus-visible {
+  color: #cedff4;
+}
+
+.industry-list.dark .industry-list-link a:focus-visible {
+  outline-color: #fff;
+}
+
+.industry-list .industry-list-card:has(a:hover) .industry-list-title,
+.industry-list .industry-list-card:has(a:focus-visible) .industry-list-title {
+  text-decoration: underline;
 }
 
 @media (width < 900px) {
@@ -171,6 +228,18 @@ main > .section > div.industry-list-wrapper {
     padding: 0;
     font-size: 18px;
   }
+
+  .industry-list.compact {
+    padding: 40px 24px;
+  }
+
+  .industry-list.compact .industry-list-card {
+    min-height: 76px;
+  }
+
+  .industry-list.no-description .industry-list-title {
+    grid-column: 2;
+  }
 }
 
 @media (width < 600px) {
@@ -199,5 +268,18 @@ main > .section > div.industry-list-wrapper {
 
   .industry-list .industry-list-link a::after {
     font-size: 25px;
+  }
+
+  .industry-list.compact {
+    padding: 32px 20px;
+  }
+
+  .industry-list.compact .industry-list-title,
+  .industry-list.compact .industry-list-number {
+    font-size: 22px;
+  }
+
+  .industry-list.compact .industry-list-description {
+    font-size: 16px;
   }
 }

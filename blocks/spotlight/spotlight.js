@@ -7,6 +7,8 @@ function decorateLink(cell, className) {
 }
 
 export default function decorate(block) {
+  let firstCard = true;
+
   [...block.children].forEach((row) => {
     const cells = [...row.children];
 
@@ -19,6 +21,10 @@ export default function decorate(block) {
 
     if (cells.length >= 4) {
       row.classList.add('spotlight-card');
+      if (firstCard) {
+        row.classList.add('spotlight-featured-card');
+        firstCard = false;
+      }
       const meta = document.createElement('div');
       meta.className = 'spotlight-meta';
       cells[0].classList.add('spotlight-category');

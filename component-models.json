@@ -5497,6 +5497,36 @@
     ]
   },
   {
+    "id": "industry-list",
+    "fields": [
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "classes",
+        "label": "Variation",
+        "value": "",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Compact",
+            "value": "compact"
+          },
+          {
+            "name": "No description",
+            "value": "no-description"
+          },
+          {
+            "name": "Dark theme",
+            "value": "dark"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "industry-list-header",
     "fields": [
       {
@@ -5949,6 +5979,36 @@
                 "value": "minimal"
               }
             ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "spotlight",
+    "fields": [
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "classes",
+        "label": "Variation",
+        "value": "",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Compact",
+            "value": "compact"
+          },
+          {
+            "name": "Featured first",
+            "value": "featured-first"
+          },
+          {
+            "name": "Dark theme",
+            "value": "dark"
           }
         ]
       }
