@@ -32,7 +32,8 @@
       "form",
       "embed-adaptive-form",
       "Spotlight",
-      "spotlight"
+      "spotlight",
+      "industry-list"
     ]
   },
   {
@@ -110,6 +111,13 @@
       "tnc",
       "wizard",
       "range"
+    ]
+  },
+  {
+    "id": "industry-list",
+    "components": [
+      "industry-list-header",
+      "industry-list-card"
     ]
   },
   {
