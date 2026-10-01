@@ -7,9 +7,18 @@
   margin: 0 auto;
 }
 
+/* Override the site's default 1200px section width and horizontal padding. */
+main > .section > div.spotlight-wrapper {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1440px;
+  padding: 0;
+}
+
 .spotlight {
   box-sizing: border-box;
-  padding: 70px 72px 72px;
+  min-height: 826px;
+  padding: 86px 80px 98px;
   color: #1f1f1f;
   background-color: #fff;
 }
@@ -23,7 +32,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  margin-bottom: 86px;
+  margin-bottom: 68px;
 }
 
 .spotlight .spotlight-heading {
@@ -72,11 +81,12 @@
 
 .spotlight .spotlight-card {
   position: relative;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 40px;
   align-items: center;
   column-gap: 24px;
-  min-height: 160px;
+  min-height: 173px;
   border-bottom: 1px solid #c6c6c6;
   padding: 30px 0 32px;
 }
@@ -151,6 +161,7 @@
 
 @media (width < 900px) {
   .spotlight {
+    min-height: auto;
     padding: 56px 24px;
   }
 
