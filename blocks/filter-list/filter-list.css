@@ -21,36 +21,38 @@
 
 .filter-list .filter-list-bar {
     width: 100%;
-    border-top: 1px solid #d5d5d5;
-    border-bottom: 1px solid #d5d5d5;
     background: #fff;
+    box-sizing: border-box;
 }
 
 .filter-list .filter-list-bar-inner {
     width: 100%;
-    min-height: 72px;
+    min-height: 96px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    gap: 28px;
-    padding: 0 32px;
+    gap: 22px;
+    padding: 20px 32px;
 }
 
 /*
- * "Filters" label
+ * Filters label
  */
 
 .filter-list .filter-list-label {
     flex: 0 0 auto;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.2;
-    white-space: nowrap;
+    margin: 0;
     color: #111;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
 }
 
 /*
- * Filter navigation
+ * ============================================================
+ * FILTER NAVIGATION
+ * ============================================================
  */
 
 .filter-list .filter-list-navigation {
@@ -58,10 +60,11 @@
     min-width: 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 28px;
+    justify-content: flex-start;
+    gap: 14px;
     overflow-x: auto;
     scrollbar-width: none;
+    padding: 2px 0;
 }
 
 .filter-list .filter-list-navigation::-webkit-scrollbar {
@@ -69,94 +72,135 @@
 }
 
 /*
- * Filter buttons
+ * ============================================================
+ * FILTER PILL / CAPSULE
+ * ============================================================
  */
 
 .filter-list .filter-list-filter {
     position: relative;
     flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    box-sizing: border-box;
     appearance: none;
-    border: 0;
-    margin: 0;
-    padding: 8px 0;
-    background: transparent;
-    color: #333;
+    border: 1px solid #d8d8d8;
+    border-radius: 999px;
+    padding: 10px 24px;
+    background: #fff;
+    color: #222;
     font: inherit;
     font-size: 16px;
     font-weight: 400;
-    line-height: 1.3;
+    line-height: 1.2;
     white-space: nowrap;
     cursor: pointer;
     transition:
+        border-color 180ms ease,
+        background-color 180ms ease,
         color 180ms ease,
-        font-weight 180ms ease;
-}
-
-.filter-list .filter-list-filter::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 2px;
-    background: #111;
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform 180ms ease;
-}
-
-.filter-list .filter-list-filter:hover {
-    color: #000;
-}
-
-.filter-list .filter-list-filter.active {
-    color: #000;
-    font-weight: 600;
-}
-
-.filter-list .filter-list-filter.active::after {
-    transform: scaleX(1);
-}
-
-.filter-list .filter-list-filter:focus-visible {
-    outline: 2px solid currentcolor;
-    outline-offset: 5px;
+        box-shadow 180ms ease;
 }
 
 /*
- * Filter icon
+ * Remove underline from previous version.
+ */
+
+.filter-list .filter-list-filter::after {
+    display: none;
+}
+
+/*
+ * Filter hover
+ */
+
+.filter-list .filter-list-filter:hover {
+    border-color: #a9a9a9;
+    background: #fafafa;
+}
+
+/*
+ * Active filter
+ */
+
+.filter-list .filter-list-filter.active {
+    border-color: #222;
+    background: #fff;
+    color: #111;
+    font-weight: 500;
+}
+
+/*
+ * Filter keyboard focus
+ */
+
+.filter-list .filter-list-filter:focus-visible {
+    outline: 2px solid #1e6fa8;
+    outline-offset: 3px;
+}
+
+/*
+ * ============================================================
+ * FILTER ICON
+ * ============================================================
  */
 
 .filter-list .filter-list-icon {
-    flex: 0 0 40px;
-    width: 40px;
-    height: 40px;
+    flex: 0 0 48px;
+    width: 48px;
+    height: 48px;
     display: grid;
     place-items: center;
-    padding: 8px;
-    border: 1px solid #999;
+    box-sizing: border-box;
+    padding: 10px;
+
+    /*
+   * Blue circular boundary
+   */
+
+    border: 1.5px solid #4b8fb8;
     border-radius: 50%;
     background: #fff;
-    color: #222;
+    color: #4b8fb8;
     cursor: pointer;
+    transition:
+        background-color 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease;
 }
 
+/*
+ * Filter icon SVG
+ */
+
 .filter-list .filter-list-icon svg {
-    width: 20px;
-    height: 20px;
+    width: 21px;
+    height: 21px;
     fill: none;
     stroke: currentcolor;
-    stroke-width: 1.6;
+    stroke-width: 1.5;
     stroke-linecap: round;
     stroke-linejoin: round;
 }
 
+/*
+ * Filter icon hover
+ */
+
 .filter-list .filter-list-icon:hover {
-    background: #f5f5f5;
+    background: #f3f9fc;
+    border-color: #397da8;
+    color: #397da8;
 }
 
+/*
+ * Filter icon focus
+ */
+
 .filter-list .filter-list-icon:focus-visible {
-    outline: 2px solid currentcolor;
+    outline: 2px solid #4b8fb8;
     outline-offset: 3px;
 }
 
@@ -200,6 +244,10 @@
     padding: 0;
 }
 
+/*
+ * Card link
+ */
+
 .filter-list .filter-list-card-link {
     display: block;
     width: 100%;
@@ -208,12 +256,20 @@
 }
 
 /*
- * Image
+ * ============================================================
+ * CARD IMAGE
+ * ============================================================
  */
 
 .filter-list .filter-list-card-image {
     position: relative;
     width: 100%;
+
+    /*
+   * Keeps the image proportions consistent
+   * while allowing the card to remain responsive.
+   */
+
     aspect-ratio: 1 / 0.88;
     overflow: hidden;
     background: #f1f1f1;
@@ -227,12 +283,18 @@
     transition: transform 450ms ease;
 }
 
+/*
+ * Image hover
+ */
+
 .filter-list .filter-list-card-link:hover .filter-list-card-image img {
     transform: scale(1.025);
 }
 
 /*
- * Card content
+ * ============================================================
+ * CARD CONTENT
+ * ============================================================
  */
 
 .filter-list .filter-list-card-content {
@@ -240,7 +302,9 @@
 }
 
 /*
- * Category
+ * ============================================================
+ * CARD CATEGORY
+ * ============================================================
  */
 
 .filter-list .filter-list-card-category {
@@ -254,7 +318,9 @@
 }
 
 /*
- * Title
+ * ============================================================
+ * CARD TITLE
+ * ============================================================
  */
 
 .filter-list .filter-list-card-title {
@@ -267,7 +333,7 @@
 
 /*
  * ============================================================
- * STATUS
+ * STATUS / EMPTY STATE
  * ============================================================
  */
 
@@ -282,18 +348,18 @@
 
 /*
  * ============================================================
- * LARGE TABLET
+ * LARGE TABLET / SMALL DESKTOP
  * ============================================================
  */
 
 @media (width <=1200px) {
     .filter-list .filter-list-bar-inner {
-        padding: 0 24px;
-        gap: 22px;
+        padding: 20px 24px;
+        gap: 18px;
     }
 
     .filter-list .filter-list-navigation {
-        gap: 22px;
+        gap: 12px;
     }
 
     .filter-list .filter-list-content {
@@ -320,9 +386,9 @@
 
 @media (width <=900px) {
     .filter-list .filter-list-bar-inner {
-        min-height: 68px;
-        padding: 0 20px;
-        gap: 18px;
+        min-height: 84px;
+        padding: 18px 20px;
+        gap: 16px;
     }
 
     .filter-list .filter-list-label {
@@ -330,17 +396,38 @@
     }
 
     .filter-list .filter-list-navigation {
-        justify-content: flex-start;
-        gap: 24px;
+        gap: 10px;
     }
 
     .filter-list .filter-list-filter {
+        min-height: 44px;
+        padding: 9px 19px;
         font-size: 15px;
     }
+
+    .filter-list .filter-list-icon {
+        flex-basis: 44px;
+        width: 44px;
+        height: 44px;
+        padding: 9px;
+    }
+
+    .filter-list .filter-list-icon svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    /*
+   * Content
+   */
 
     .filter-list .filter-list-content {
         padding: 28px 20px 48px;
     }
+
+    /*
+   * Two-column tablet grid
+   */
 
     .filter-list .filter-list-grid {
         grid-template-columns:
@@ -371,30 +458,39 @@
 
 @media (width <=600px) {
     .filter-list .filter-list-bar-inner {
-        min-height: 64px;
-        padding: 0 16px;
-        gap: 14px;
+        min-height: 76px;
+        padding: 14px 16px;
+        gap: 12px;
     }
 
     .filter-list .filter-list-label {
         font-size: 14px;
     }
 
+    /*
+   * Horizontal scrolling filters.
+   */
+
     .filter-list .filter-list-navigation {
-        gap: 20px;
+        gap: 8px;
         justify-content: flex-start;
     }
 
     .filter-list .filter-list-filter {
-        padding: 7px 0;
+        min-height: 40px;
+        padding: 8px 16px;
         font-size: 14px;
     }
 
+    /*
+   * Circular filter button.
+   */
+
     .filter-list .filter-list-icon {
-        flex-basis: 36px;
-        width: 36px;
-        height: 36px;
-        padding: 7px;
+        flex-basis: 40px;
+        width: 40px;
+        height: 40px;
+        padding: 8px;
     }
 
     .filter-list .filter-list-icon svg {
@@ -402,18 +498,34 @@
         height: 18px;
     }
 
+    /*
+   * Content.
+   */
+
     .filter-list .filter-list-content {
         padding: 20px 16px 40px;
     }
+
+    /*
+   * One-column mobile grid.
+   */
 
     .filter-list .filter-list-grid {
         grid-template-columns: 1fr;
         gap: 36px;
     }
 
+    /*
+   * Image.
+   */
+
     .filter-list .filter-list-card-image {
         aspect-ratio: 1 / 0.78;
     }
+
+    /*
+   * Card content.
+   */
 
     .filter-list .filter-list-card-content {
         padding-top: 14px;
@@ -438,7 +550,8 @@
 
 @media (width <=380px) {
     .filter-list .filter-list-bar-inner {
-        padding: 0 12px;
+        padding-right: 12px;
+        padding-left: 12px;
     }
 
     .filter-list .filter-list-content {
@@ -448,6 +561,11 @@
 
     .filter-list .filter-list-card-title {
         font-size: 20px;
+    }
+
+    .filter-list .filter-list-filter {
+        padding-right: 14px;
+        padding-left: 14px;
     }
 }
 
@@ -459,8 +577,8 @@
 
 @media (prefers-reduced-motion: reduce) {
     .filter-list .filter-list-filter,
-    .filter-list .filter-list-filter::after,
-    .filter-list .filter-list-card-image img {
+    .filter-list .filter-list-card-image img,
+    .filter-list .filter-list-icon {
         transition: none;
     }
 }
