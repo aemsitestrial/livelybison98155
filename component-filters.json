@@ -33,7 +33,8 @@
       "embed-adaptive-form",
       "Spotlight",
       "spotlight",
-      "table-list"
+      "table-list",
+      "filter-list"
     ]
   },
   {
@@ -81,6 +82,12 @@
       "custom-form-checkbox",
       "custom-form-radio",
       "custom-form-button"
+    ]
+  },
+  {
+    "id": "filter-list",
+    "components": [
+      "filter-list-option"
     ]
   },
   {

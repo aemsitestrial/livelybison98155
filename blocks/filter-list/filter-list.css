@@ -1,0 +1,466 @@
+/* stylelint-disable no-descending-specificity */
+
+/*
+ * ============================================================
+ * FILTER LIST
+ * ============================================================
+ */
+
+.filter-list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*
+ * ============================================================
+ * FILTER BAR
+ * ============================================================
+ */
+
+.filter-list .filter-list-bar {
+    width: 100%;
+    border-top: 1px solid #d5d5d5;
+    border-bottom: 1px solid #d5d5d5;
+    background: #fff;
+}
+
+.filter-list .filter-list-bar-inner {
+    width: 100%;
+    min-height: 72px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding: 0 32px;
+}
+
+/*
+ * "Filters" label
+ */
+
+.filter-list .filter-list-label {
+    flex: 0 0 auto;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    color: #111;
+}
+
+/*
+ * Filter navigation
+ */
+
+.filter-list .filter-list-navigation {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.filter-list .filter-list-navigation::-webkit-scrollbar {
+    display: none;
+}
+
+/*
+ * Filter buttons
+ */
+
+.filter-list .filter-list-filter {
+    position: relative;
+    flex: 0 0 auto;
+    appearance: none;
+    border: 0;
+    margin: 0;
+    padding: 8px 0;
+    background: transparent;
+    color: #333;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.3;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+        color 180ms ease,
+        font-weight 180ms ease;
+}
+
+.filter-list .filter-list-filter::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: #111;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 180ms ease;
+}
+
+.filter-list .filter-list-filter:hover {
+    color: #000;
+}
+
+.filter-list .filter-list-filter.active {
+    color: #000;
+    font-weight: 600;
+}
+
+.filter-list .filter-list-filter.active::after {
+    transform: scaleX(1);
+}
+
+.filter-list .filter-list-filter:focus-visible {
+    outline: 2px solid currentcolor;
+    outline-offset: 5px;
+}
+
+/*
+ * Filter icon
+ */
+
+.filter-list .filter-list-icon {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 8px;
+    border: 1px solid #999;
+    border-radius: 50%;
+    background: #fff;
+    color: #222;
+    cursor: pointer;
+}
+
+.filter-list .filter-list-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentcolor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.filter-list .filter-list-icon:hover {
+    background: #f5f5f5;
+}
+
+.filter-list .filter-list-icon:focus-visible {
+    outline: 2px solid currentcolor;
+    outline-offset: 3px;
+}
+
+/*
+ * ============================================================
+ * CONTENT AREA
+ * ============================================================
+ */
+
+.filter-list .filter-list-content {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 32px 0 64px;
+    box-sizing: border-box;
+}
+
+/*
+ * ============================================================
+ * CARD GRID
+ * ============================================================
+ */
+
+.filter-list .filter-list-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+    gap: 48px 24px;
+}
+
+/*
+ * ============================================================
+ * CARD
+ * ============================================================
+ */
+
+.filter-list .filter-list-card {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.filter-list .filter-list-card-link {
+    display: block;
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+/*
+ * Image
+ */
+
+.filter-list .filter-list-card-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 0.88;
+    overflow: hidden;
+    background: #f1f1f1;
+}
+
+.filter-list .filter-list-card-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 450ms ease;
+}
+
+.filter-list .filter-list-card-link:hover .filter-list-card-image img {
+    transform: scale(1.025);
+}
+
+/*
+ * Card content
+ */
+
+.filter-list .filter-list-card-content {
+    padding: 18px 4px 0;
+}
+
+/*
+ * Category
+ */
+
+.filter-list .filter-list-card-category {
+    margin: 0 0 12px;
+    color: #777;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/*
+ * Title
+ */
+
+.filter-list .filter-list-card-title {
+    margin: 0;
+    color: #111;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+/*
+ * ============================================================
+ * STATUS
+ * ============================================================
+ */
+
+.filter-list .filter-list-status,
+.filter-list .filter-list-empty {
+    grid-column: 1 / -1;
+    margin: 32px 0;
+    color: #555;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/*
+ * ============================================================
+ * LARGE TABLET
+ * ============================================================
+ */
+
+@media (width <=1200px) {
+    .filter-list .filter-list-bar-inner {
+        padding: 0 24px;
+        gap: 22px;
+    }
+
+    .filter-list .filter-list-navigation {
+        gap: 22px;
+    }
+
+    .filter-list .filter-list-content {
+        padding-right: 24px;
+        padding-left: 24px;
+    }
+
+    .filter-list .filter-list-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+        gap: 36px 20px;
+    }
+
+    .filter-list .filter-list-card-title {
+        font-size: 22px;
+    }
+}
+
+/*
+ * ============================================================
+ * TABLET
+ * ============================================================
+ */
+
+@media (width <=900px) {
+    .filter-list .filter-list-bar-inner {
+        min-height: 68px;
+        padding: 0 20px;
+        gap: 18px;
+    }
+
+    .filter-list .filter-list-label {
+        font-size: 15px;
+    }
+
+    .filter-list .filter-list-navigation {
+        justify-content: flex-start;
+        gap: 24px;
+    }
+
+    .filter-list .filter-list-filter {
+        font-size: 15px;
+    }
+
+    .filter-list .filter-list-content {
+        padding: 28px 20px 48px;
+    }
+
+    .filter-list .filter-list-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+        gap: 40px 18px;
+    }
+
+    .filter-list .filter-list-card-content {
+        padding-top: 15px;
+    }
+
+    .filter-list .filter-list-card-category {
+        margin-bottom: 9px;
+        font-size: 12px;
+    }
+
+    .filter-list .filter-list-card-title {
+        font-size: 21px;
+        line-height: 1.3;
+    }
+}
+
+/*
+ * ============================================================
+ * MOBILE
+ * ============================================================
+ */
+
+@media (width <=600px) {
+    .filter-list .filter-list-bar-inner {
+        min-height: 64px;
+        padding: 0 16px;
+        gap: 14px;
+    }
+
+    .filter-list .filter-list-label {
+        font-size: 14px;
+    }
+
+    .filter-list .filter-list-navigation {
+        gap: 20px;
+        justify-content: flex-start;
+    }
+
+    .filter-list .filter-list-filter {
+        padding: 7px 0;
+        font-size: 14px;
+    }
+
+    .filter-list .filter-list-icon {
+        flex-basis: 36px;
+        width: 36px;
+        height: 36px;
+        padding: 7px;
+    }
+
+    .filter-list .filter-list-icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .filter-list .filter-list-content {
+        padding: 20px 16px 40px;
+    }
+
+    .filter-list .filter-list-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    .filter-list .filter-list-card-image {
+        aspect-ratio: 1 / 0.78;
+    }
+
+    .filter-list .filter-list-card-content {
+        padding-top: 14px;
+    }
+
+    .filter-list .filter-list-card-category {
+        margin-bottom: 8px;
+        font-size: 11px;
+    }
+
+    .filter-list .filter-list-card-title {
+        font-size: 22px;
+        line-height: 1.28;
+    }
+}
+
+/*
+ * ============================================================
+ * SMALL MOBILE
+ * ============================================================
+ */
+
+@media (width <=380px) {
+    .filter-list .filter-list-bar-inner {
+        padding: 0 12px;
+    }
+
+    .filter-list .filter-list-content {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .filter-list .filter-list-card-title {
+        font-size: 20px;
+    }
+}
+
+/*
+ * ============================================================
+ * REDUCED MOTION
+ * ============================================================
+ */
+
+@media (prefers-reduced-motion: reduce) {
+    .filter-list .filter-list-filter,
+    .filter-list .filter-list-filter::after,
+    .filter-list .filter-list-card-image img {
+        transition: none;
+    }
+}

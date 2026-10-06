@@ -68,7 +68,8 @@
         "embed-adaptive-form",
         "Spotlight",
         "spotlight",
-        "table-list"
+        "table-list",
+        "filter-list"
       ]
     }
   ]

@@ -1,0 +1,79 @@
+{
+    "definitions": [
+        {
+            "title": "Filter List",
+            "id": "filter-list",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/franklin/components/block/v1/block",
+                        "template": {
+                            "name": "Filter List",
+                            "model": "filter-list",
+                            "filter": "filter-list"
+                        }
+                    }
+                }
+            }
+        },
+        {
+            "title": "Filter Option",
+            "id": "filter-list-option",
+            "plugins": {
+                "xwalk": {
+                    "page": {
+                        "resourceType": "core/franklin/components/block/v1/block/item",
+                        "template": {
+                            "name": "Filter Option",
+                            "model": "filter-list-option"
+                        }
+                    }
+                }
+            }
+        }
+    ],
+    "models": [
+        {
+            "id": "filter-list",
+            "fields": [
+                {
+                    "component": "text",
+                    "valueType": "string",
+                    "name": "apiUrl",
+                    "label": "JSON API URL",
+                    "description": "URL of the JSON API used to retrieve the content cards.",
+                    "value": "https://dummyjson.com/products?limit=20"
+                }
+            ]
+        },
+        {
+            "id": "filter-list-option",
+            "fields": [
+                {
+                    "component": "text",
+                    "valueType": "string",
+                    "name": "label",
+                    "label": "Filter Label",
+                    "description": "Text displayed in the filter navigation.",
+                    "value": "All"
+                },
+                {
+                    "component": "text",
+                    "valueType": "string",
+                    "name": "category",
+                    "label": "Category Key",
+                    "description": "Category value used to match the JSON API item's category. Use 'all' to show all items.",
+                    "value": "all"
+                }
+            ]
+        }
+    ],
+    "filters": [
+        {
+            "id": "filter-list",
+            "components": [
+                "filter-list-option"
+            ]
+        }
+    ]
+}

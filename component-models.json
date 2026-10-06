@@ -598,6 +598,40 @@
     ]
   },
   {
+    "id": "filter-list",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "apiUrl",
+        "label": "JSON API URL",
+        "description": "URL of the JSON API used to retrieve the content cards.",
+        "value": "https://dummyjson.com/products?limit=20"
+      }
+    ]
+  },
+  {
+    "id": "filter-list-option",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Filter Label",
+        "description": "Text displayed in the filter navigation.",
+        "value": "All"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "category",
+        "label": "Category Key",
+        "description": "Category value used to match the JSON API item's category. Use 'all' to show all items.",
+        "value": "all"
+      }
+    ]
+  },
+  {
     "id": "form",
     "fields": [
       {
