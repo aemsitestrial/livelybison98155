@@ -114,17 +114,17 @@
     ]
   },
   {
-    "id": "table-list",
-    "components": [
-      "table-list-header",
-      "table-list-card"
-    ]
-  },
-  {
     "id": "spotlight",
     "components": [
       "spotlight-header",
       "spotlight-card"
+    ]
+  },
+  {
+    "id": "table-list",
+    "components": [
+      "table-list-header",
+      "table-list-card"
     ]
   },
   {
