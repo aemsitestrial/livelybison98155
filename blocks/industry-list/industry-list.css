@@ -8,7 +8,7 @@
 }
 
 /* Bypass the site's 1200px section width and section padding. */
-main > .section > div.industry-list-wrapper {
+main>.section>div.industry-list-wrapper {
   box-sizing: border-box;
   width: 100%;
   max-width: 1440px;
@@ -152,6 +152,10 @@ main > .section > div.industry-list-wrapper {
   font-size: 30px;
 }
 
+.industry-list.no-number .industry-list-title {
+  grid-column: 1 / 3;
+}
+
 .industry-list.featured-industry .industry-list-card-featured .industry-list-title {
   font-weight: 500;
 }
@@ -254,6 +258,10 @@ main > .section > div.industry-list-wrapper {
   background-color: #1f1f1f;
 }
 
+.industry-list.no-number .industry-list-number {
+  display: none;
+}
+
 .industry-list.featured-industry .industry-list-card-featured .industry-list-number {
   color: #777;
 }
@@ -332,6 +340,10 @@ main > .section > div.industry-list-wrapper {
   .industry-list.featured-industry .industry-list-card-featured {
     padding: 24px 20px;
   }
+
+  .industry-list.no-number .industry-list-title {
+    grid-column: 1 / 3;
+  }
 }
 
 /* =========================================
@@ -392,5 +404,9 @@ main > .section > div.industry-list-wrapper {
 
   .industry-list.featured-industry .industry-list-card-featured .industry-list-link a::after {
     font-size: 28px;
+  }
+
+  .industry-list.no-number .industry-list-title {
+    grid-column: 1 / 3;
   }
 }
