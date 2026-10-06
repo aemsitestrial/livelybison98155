@@ -1,5 +1,7 @@
 /* eslint-disable linebreak-style, eol-last -- Windows editor writes CRLF. */
 
+const MAX_CARDS = 4;
+
 /**
  * Decorate a link cell.
  *
@@ -62,10 +64,13 @@ function applyFeaturedIndustry(block) {
 /**
  * Decorate Table List.
  *
+ * Maximum 4 Table List Cards are allowed.
+ *
  * @param {Element} block Table List block.
  */
 export default function decorate(block) {
   let cardIndex = 0;
+  let cardCount = 0;
 
   [...block.children].forEach((row) => {
     const cells = [...row.children];
@@ -88,6 +93,18 @@ export default function decorate(block) {
 
     /* Table List card */
     if (cells.length >= 4) {
+      cardCount += 1;
+
+      /*
+       * Maximum 4 cards are allowed.
+       * If a fifth card exists, remove it
+       * from the rendered Table List.
+       */
+      if (cardCount > MAX_CARDS) {
+        row.remove();
+        return;
+      }
+
       cardIndex += 1;
 
       row.classList.add(
