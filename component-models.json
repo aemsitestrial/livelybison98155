@@ -5497,7 +5497,7 @@
     ]
   },
   {
-    "id": "industry-list",
+    "id": "table-list",
     "fields": [
       {
         "component": "select",
@@ -5529,33 +5529,37 @@
           {
             "name": "No Number",
             "value": "no-number"
+          },
+          {
+            "name": "Description First",
+            "value": "description-first"
           }
         ]
       }
     ]
   },
   {
-    "id": "industry-list-header",
+    "id": "table-list-header",
     "fields": [
       {
         "component": "text",
         "valueType": "string",
         "name": "heading",
         "label": "Heading",
-        "value": "Deep expertise, across industries"
+        "value": "Our transformation solutions"
       },
       {
         "component": "richtext",
         "valueType": "string",
         "name": "exploreLink",
         "label": "Explore All Link",
-        "description": "Add a linked 'Explore all Industries' label. The arrow is added automatically.",
+        "description": "Add a linked 'See all Products & Platforms' label. The arrow is added automatically.",
         "value": ""
       }
     ]
   },
   {
-    "id": "industry-list-card",
+    "id": "table-list-card",
     "fields": [
       {
         "component": "text",
@@ -5570,14 +5574,14 @@
         "valueType": "string",
         "name": "title",
         "label": "Title",
-        "value": "Banking"
+        "value": "TwinX"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "description",
         "label": "Description",
-        "value": "Building the Intelligent, Trusted Bank"
+        "value": "Risk free business experimentation and decision making"
       },
       {
         "component": "richtext",

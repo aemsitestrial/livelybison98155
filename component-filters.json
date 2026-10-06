@@ -33,7 +33,7 @@
       "embed-adaptive-form",
       "Spotlight",
       "spotlight",
-      "industry-list"
+      "table-list"
     ]
   },
   {
@@ -114,10 +114,10 @@
     ]
   },
   {
-    "id": "industry-list",
+    "id": "table-list",
     "components": [
-      "industry-list-header",
-      "industry-list-card"
+      "table-list-header",
+      "table-list-card"
     ]
   },
   {

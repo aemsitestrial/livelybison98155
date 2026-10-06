@@ -20,7 +20,7 @@ function decorateLink(cell, className) {
 }
 
 /**
- * Add accessibility label to an industry link.
+ * Add accessibility label to a table-list card link.
  *
  * @param {Element} cell Link cell.
  * @param {Element} titleCell Title cell.
@@ -37,11 +37,11 @@ function enhanceCardLink(cell, titleCell) {
 }
 
 /**
- * Apply the featured industry styling.
+ * Apply the Featured Industry variation.
  *
- * The first industry card becomes the featured card.
+ * The first table-list card becomes the featured card.
  *
- * @param {Element} block Industry list block.
+ * @param {Element} block Table List block.
  */
 function applyFeaturedIndustry(block) {
   if (!block.classList.contains('featured-industry')) {
@@ -49,20 +49,20 @@ function applyFeaturedIndustry(block) {
   }
 
   const cards = block.querySelectorAll(
-    '.industry-list-card',
+    '.table-list-card',
   );
 
   if (cards.length > 0) {
     cards[0].classList.add(
-      'industry-list-card-featured',
+      'table-list-card-featured',
     );
   }
 }
 
 /**
- * Decorate Industry List.
+ * Decorate Table List.
  *
- * @param {Element} block Industry list block.
+ * @param {Element} block Table List block.
  */
 export default function decorate(block) {
   let cardIndex = 0;
@@ -70,35 +70,39 @@ export default function decorate(block) {
   [...block.children].forEach((row) => {
     const cells = [...row.children];
 
-    /* Industry list header */
+    /* Table List header */
     if (cells.length === 2) {
-      row.classList.add('industry-list-header');
+      row.classList.add('table-list-header');
 
       cells[0].classList.add(
-        'industry-list-heading',
+        'table-list-heading',
       );
 
       decorateLink(
         cells[1],
-        'industry-list-explore',
+        'table-list-explore',
       );
 
       return;
     }
 
-    /* Industry list card */
+    /* Table List card */
     if (cells.length >= 4) {
       cardIndex += 1;
 
       row.classList.add(
-        'industry-list-card',
+        'table-list-card',
       );
 
       /* Number */
       cells[0].classList.add(
-        'industry-list-number',
+        'table-list-number',
       );
 
+      /*
+       * Automatically generate 01, 02, 03...
+       * when the author leaves Number empty.
+       */
       if (!cells[0].textContent.trim()) {
         const number = document.createElement('span');
 
@@ -109,20 +113,20 @@ export default function decorate(block) {
         cells[0].append(number);
       }
 
-      /* Title */
+      /* Title / Brand */
       cells[1].classList.add(
-        'industry-list-title',
+        'table-list-title',
       );
 
       /* Description */
       cells[2].classList.add(
-        'industry-list-description',
+        'table-list-description',
       );
 
       /* Link */
       decorateLink(
         cells[3],
-        'industry-list-link',
+        'table-list-link',
       );
 
       enhanceCardLink(
