@@ -54,8 +54,8 @@
         {
           "component": "select",
           "valueType": "string",
-          "name": "classes",
-          "label": "Variation",
+          "name": "variations",
+          "label": "Variations",
           "value": "",
           "options": [
             {
@@ -87,6 +87,136 @@
               "value": "description-first"
             }
           ]
+        },
+        {
+          "component": "number",
+          "valueType": "number",
+          "name": "maxCards",
+          "label": "Maximum Cards",
+          "description": "Maximum number of cards displayed. The maximum allowed value is 4.",
+          "value": 4,
+          "validation": {
+            "numberMin": 1,
+            "numberMax": 4,
+            "customErrorMsg": "Maximum Cards must be between 1 and 4."
+          }
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "view",
+          "label": "View",
+          "value": "list",
+          "options": [
+            {
+              "name": "List",
+              "value": "list"
+            },
+            {
+              "name": "Table",
+              "value": "table"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "cardColor",
+          "label": "Default Card Color",
+          "value": "white",
+          "options": [
+            {
+              "name": "White",
+              "value": "white"
+            },
+            {
+              "name": "Blue",
+              "value": "blue"
+            },
+            {
+              "name": "Black",
+              "value": "black"
+            },
+            {
+              "name": "Grey",
+              "value": "grey"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "display",
+          "label": "Display",
+          "value": "title-description",
+          "options": [
+            {
+              "name": "Title + Description",
+              "value": "title-description"
+            },
+            {
+              "name": "Title Only",
+              "value": "title"
+            },
+            {
+              "name": "Description Only",
+              "value": "description"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "viewAllTitle",
+          "label": "View All Title",
+          "value": "View all"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "viewAllLink",
+          "label": "View All Link",
+          "description": "Add the destination link for the View All action.",
+          "value": ""
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "motionType",
+          "label": "Motion Type",
+          "value": "none",
+          "options": [
+            {
+              "name": "None",
+              "value": "none"
+            },
+            {
+              "name": "Fade",
+              "value": "fade"
+            },
+            {
+              "name": "Slide",
+              "value": "slide"
+            },
+            {
+              "name": "Reveal",
+              "value": "reveal"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "listTitle",
+          "label": "List Title",
+          "value": "Our transformation solutions"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "reportCtaTitle",
+          "label": "Report CTA Title",
+          "value": "View Report"
         }
       ]
     },
@@ -105,7 +235,7 @@
           "valueType": "string",
           "name": "exploreLink",
           "label": "Explore All Link",
-          "description": "Add a linked 'See all Products & Platforms' label. The arrow is added automatically.",
+          "description": "Legacy header field. New Table List instances should use List Title, View All Title, and View All Link on the parent component.",
           "value": ""
         }
       ]
@@ -140,7 +270,7 @@
           "valueType": "string",
           "name": "link",
           "label": "Card Link",
-          "description": "Add a link to the destination. The card uses the title as its accessible link label; the arrow is added automatically.",
+          "description": "Add a link to the destination. The card uses the title as its accessible link label.",
           "value": ""
         }
       ]
@@ -150,7 +280,6 @@
     {
       "id": "table-list",
       "components": [
-        "table-list-header",
         "table-list-card"
       ]
     }
