@@ -97,12 +97,8 @@
           "value": "list",
           "options": [
             {
-              "name": "List",
+              "name": "List Table",
               "value": "list"
-            },
-            {
-              "name": "Table",
-              "value": "table"
             }
           ]
         },
@@ -114,7 +110,7 @@
           "value": "white",
           "options": [
             {
-              "name": "White",
+              "name": "Default",
               "value": "white"
             },
             {
@@ -124,10 +120,6 @@
             {
               "name": "Black",
               "value": "black"
-            },
-            {
-              "name": "Grey",
-              "value": "grey"
             }
           ]
         },
@@ -139,16 +131,8 @@
           "value": "title-description",
           "options": [
             {
-              "name": "Title + Description",
+              "name": "Title, Description",
               "value": "title-description"
-            },
-            {
-              "name": "Title Only",
-              "value": "title"
-            },
-            {
-              "name": "Description Only",
-              "value": "description"
             }
           ]
         },
@@ -177,18 +161,6 @@
             {
               "name": "None",
               "value": "none"
-            },
-            {
-              "name": "Fade",
-              "value": "fade"
-            },
-            {
-              "name": "Slide",
-              "value": "slide"
-            },
-            {
-              "name": "Reveal",
-              "value": "reveal"
             }
           ]
         },
