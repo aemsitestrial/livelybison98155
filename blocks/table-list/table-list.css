@@ -512,11 +512,6 @@ main>.section>div.table-list-wrapper {
   grid-row: 1;
 }
 
-.table-list.title-right .table-list-link a::after {
-  content: '\2192';
-  font-size: 32px;
-}
-
 /* Compact + Title Right */
 
 .table-list.compact.title-right .table-list-card {
@@ -1080,10 +1075,6 @@ main>.section>div.table-list-wrapper {
   .table-list.title-right .table-list-link {
     grid-column: 2;
     grid-row: 2;
-  }
-
-  .table-list.title-right .table-list-link a::after {
-    font-size: 25px;
   }
 
   .table-list.view-table {

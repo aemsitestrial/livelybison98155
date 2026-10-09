@@ -117,6 +117,7 @@ function readBlockConfig(block) {
       reportCtaTitle: value(10) || DEFAULTS.reportCtaTitle,
     },
     contentRows,
+    hasVariationConfig: Boolean(configRows[0]),
   };
 }
 
@@ -309,14 +310,14 @@ function applyTableView(block, display) {
 }
 
 export default function decorate(block) {
-  const { properties: rawProperties, contentRows } = readBlockConfig(block);
+  const { properties: rawProperties, contentRows, hasVariationConfig } = readBlockConfig(block);
   const properties = normalizeProperties(rawProperties);
 
   const existingVariation = VALID_VARIATIONS.find(
     (variation) => variation && block.classList.contains(variation),
   ) || '';
 
-  const variation = properties.variations || existingVariation;
+  const variation = hasVariationConfig ? properties.variations : existingVariation;
 
   const headerRow = contentRows.find((row) => row.children.length === 2);
   const authoredHeader = headerRow ? readHeader(headerRow) : null;
@@ -324,6 +325,8 @@ export default function decorate(block) {
   const cardRows = contentRows.filter(
     (row) => row.children.length >= 4 && row !== headerRow,
   );
+
+  block.classList.remove(...VALID_VARIATIONS.filter(Boolean));
 
   block.classList.add('table-list');
 
