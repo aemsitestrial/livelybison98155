@@ -3,6 +3,7 @@
 const DEFAULTS = {
   variations: '',
   maxCards: 4,
+  showTags: false,
   view: 'list',
   cardColor: 'white',
   display: 'title-description',
@@ -21,11 +22,7 @@ const VALID_VARIATIONS = [
   'featured-industry',
   'no-number',
   'description-first',
-];
-
-const VALID_VIEWS = [
-  'list',
-  'table',
+  'title-right',
 ];
 
 const VALID_CARD_COLORS = [
@@ -49,26 +46,32 @@ const VALID_MOTIONS = [
 ];
 
 /**
- * Get text from a model field row.
+ * Get readable text from an element.
  *
- * @param {Element} row Field row.
- * @param {string} fallback Fallback value.
- * @returns {string} Field text.
+ * @param {Element|null} element Element.
+ * @returns {string} Text content.
  */
-function getFieldText(row, fallback = '') {
-  const text = row?.textContent?.trim();
-
-  return text || fallback;
+function getText(element) {
+  return element?.textContent?.trim() || '';
 }
 
 /**
- * Read authored Table List properties.
+ * Get the URL from a rich-text field or its text.
  *
- * Universal Editor renders block model fields
- * before child components.
+ * @param {Element|null} element Field element.
+ * @returns {string} URL.
+ */
+function getFieldLink(element) {
+  const link = element?.querySelector('a');
+
+  return link?.getAttribute('href') || getText(element);
+}
+
+/**
+ * Read parent configuration fields.
  *
  * @param {Element} block Table List block.
- * @returns {Object} Block properties and content rows.
+ * @returns {Object} Configuration and child rows.
  */
 function readBlockConfig(block) {
   const configRows = [];
@@ -77,10 +80,6 @@ function readBlockConfig(block) {
   [...block.children].forEach((row) => {
     const cells = [...row.children];
 
-    /*
-     * Parent model fields are single-cell rows.
-     * Header/card child components have multiple cells.
-     */
     if (cells.length === 1) {
       configRows.push(row);
     } else {
@@ -88,125 +87,76 @@ function readBlockConfig(block) {
     }
   });
 
-  const getConfigValue = (index, fallback) => getFieldText(
-    configRows[index],
-    fallback,
+  const value = (index) => getText(
+    configRows[index]?.children[0],
+  );
+
+  const booleanValue = (rawValue, fallback) => {
+    if (rawValue === '') return fallback;
+
+    return ['true', 'yes', '1'].includes(
+      rawValue.toLowerCase(),
+    );
+  };
+
+  const rawMaxCards = Number.parseInt(
+    value(1),
+    10,
   );
 
   return {
     properties: {
-      variations: getConfigValue(
-        0,
-        DEFAULTS.variations,
+      variations: value(0) || DEFAULTS.variations,
+      maxCards: Number.isNaN(rawMaxCards)
+        ? DEFAULTS.maxCards
+        : Math.min(Math.max(rawMaxCards, 1), 4),
+      showTags: booleanValue(
+        value(2),
+        DEFAULTS.showTags,
       ),
-
-      maxCards: Number.parseInt(
-        getConfigValue(
-          1,
-          String(DEFAULTS.maxCards),
-        ),
-        10,
+      view: value(3) || DEFAULTS.view,
+      cardColor: value(4) || DEFAULTS.cardColor,
+      display: value(5) || DEFAULTS.display,
+      viewAllTitle: value(6) || DEFAULTS.viewAllTitle,
+      viewAllLink: getFieldLink(
+        configRows[7]?.children[0],
       ),
-
-      view: getConfigValue(
-        2,
-        DEFAULTS.view,
-      ),
-
-      cardColor: getConfigValue(
-        3,
-        DEFAULTS.cardColor,
-      ),
-
-      display: getConfigValue(
-        4,
-        DEFAULTS.display,
-      ),
-
-      viewAllTitle: getConfigValue(
-        5,
-        DEFAULTS.viewAllTitle,
-      ),
-
-      viewAllLink:
-        configRows[6]?.querySelector('a')?.href
-        || getConfigValue(
-          6,
-          DEFAULTS.viewAllLink,
-        ),
-
-      motionType: getConfigValue(
-        7,
-        DEFAULTS.motionType,
-      ),
-
-      listTitle: getConfigValue(
-        8,
-        DEFAULTS.listTitle,
-      ),
-
-      reportCtaTitle: getConfigValue(
-        9,
-        DEFAULTS.reportCtaTitle,
-      ),
+      motionType: value(8) || DEFAULTS.motionType,
+      listTitle: value(9) || DEFAULTS.listTitle,
+      reportCtaTitle: value(10) || DEFAULTS.reportCtaTitle,
     },
-
     contentRows,
   };
 }
 
 /**
- * Normalize Table List properties.
+ * Validate parent configuration.
  *
- * @param {Object} properties Raw properties.
- * @returns {Object} Normalized properties.
+ * @param {Object} properties Parent properties.
+ * @returns {Object} Validated properties.
  */
 function normalizeProperties(properties) {
-  const variation = VALID_VARIATIONS.includes(
-    properties.variations,
-  )
-    ? properties.variations
-    : DEFAULTS.variations;
-
-  const maxCards = Number.isNaN(
-    properties.maxCards,
-  )
-    ? DEFAULTS.maxCards
-    : Math.min(
-      Math.max(properties.maxCards, 1),
-      4,
-    );
-
-  const view = VALID_VIEWS.includes(properties.view)
-    ? properties.view
-    : DEFAULTS.view;
-
-  const cardColor = VALID_CARD_COLORS.includes(
-    properties.cardColor,
-  )
-    ? properties.cardColor
-    : DEFAULTS.cardColor;
-
-  const display = VALID_DISPLAYS.includes(
-    properties.display,
-  )
-    ? properties.display
-    : DEFAULTS.display;
-
-  const motionType = VALID_MOTIONS.includes(
-    properties.motionType,
-  )
-    ? properties.motionType
-    : DEFAULTS.motionType;
-
   return {
     ...properties,
-    variations: variation,
-    maxCards,
-    view,
-    cardColor,
-    display,
-    motionType,
+    variations: VALID_VARIATIONS.includes(properties.variations)
+      ? properties.variations
+      : DEFAULTS.variations,
+    maxCards: Math.min(
+      Math.max(Number(properties.maxCards) || DEFAULTS.maxCards, 1),
+      4,
+    ),
+    view: ['list', 'table'].includes(properties.view)
+      ? properties.view
+      : DEFAULTS.view,
+    cardColor: VALID_CARD_COLORS.includes(properties.cardColor)
+      ? properties.cardColor
+      : DEFAULTS.cardColor,
+    display: VALID_DISPLAYS.includes(properties.display)
+      ? properties.display
+      : DEFAULTS.display,
+    motionType: VALID_MOTIONS.includes(properties.motionType)
+      ? properties.motionType
+      : DEFAULTS.motionType,
   };
 }
 
@@ -215,7 +165,7 @@ function normalizeProperties(properties) {
  *
  * @param {Element} cell Link cell.
  * @param {string} className CSS class.
- * @returns {HTMLAnchorElement|null} Link element.
+ * @returns {HTMLAnchorElement|null} Link.
  */
 function decorateLink(cell, className) {
   cell.classList.add(className);
@@ -223,259 +173,144 @@ function decorateLink(cell, className) {
   const link = cell.querySelector('a');
 
   if (link) {
-    link.classList.remove(
-      'button',
-      'secondary',
-    );
+    link.classList.remove('button', 'secondary');
   }
 
   return link;
 }
 
 /**
- * Add accessibility label to a card link.
- *
- * @param {Element} cell Link cell.
- * @param {Element} titleCell Title cell.
- */
-function enhanceCardLink(
-  cell,
-  titleCell,
-) {
-  const link = cell.querySelector('a');
-
-  if (
-    link
-    && titleCell.textContent.trim()
-  ) {
-    link.setAttribute(
-      'aria-label',
-      titleCell.textContent.trim(),
-    );
-  }
-}
-
-/**
- * Read legacy header content.
+ * Read the authorable header child.
  *
  * @param {Element} row Header row.
  * @returns {Object} Header data.
  */
-function readLegacyHeader(row) {
+function readHeader(row) {
   const cells = [...row.children];
 
   return {
-    heading:
-      cells[0]?.textContent?.trim()
-      || '',
-
-    linkCell:
-      cells[1]
-      || null,
+    row,
+    heading: getText(cells[0]),
+    linkCell: cells[1] || null,
   };
 }
 
 /**
- * Apply Featured Industry variation.
+ * Create the rendered header from parent settings and header child.
  *
- * @param {Element} block Table List block.
+ * @param {Object} properties Parent configuration.
+ * @param {Object|null} authoredHeader Header child data.
+ * @returns {HTMLElement} Header.
  */
-function applyFeaturedIndustry(block) {
-  if (
-    !block.classList.contains(
-      'featured-industry',
-    )
-  ) {
-    return;
-  }
-
-  const cards = block.querySelectorAll(
-    '.table-list-card',
-  );
-
-  if (cards.length > 0) {
-    cards[0].classList.add(
-      'table-list-card-featured',
-    );
-  }
-}
-
-/**
- * Create Table List header.
- *
- * @param {Object} properties Table List properties.
- * @param {Object|null} legacyHeader Legacy header.
- * @returns {HTMLElement} Header element.
- */
-function createHeader(
-  properties,
-  legacyHeader,
-) {
+function createHeader(properties, authoredHeader) {
   const header = document.createElement('div');
-
   header.className = 'table-list-header';
 
   const heading = document.createElement('h2');
-
   heading.className = 'table-list-heading';
-
   heading.textContent = properties.listTitle
-    || legacyHeader?.heading
+    || authoredHeader?.heading
     || DEFAULTS.listTitle;
 
   header.append(heading);
 
-  const legacyLink = legacyHeader?.linkCell?.querySelector('a');
+  const authoredLink = authoredHeader?.linkCell?.querySelector('a');
+  const href = properties.viewAllLink
+    || authoredLink?.getAttribute('href')
+    || '';
 
-  if (
-    properties.viewAllLink
-    || legacyLink
-  ) {
+  if (href) {
     const explore = document.createElement('div');
-
     explore.className = 'table-list-explore';
 
-    const exploreLink = document.createElement('a');
-
-    exploreLink.href = properties.viewAllLink
-      || legacyLink?.href
-      || '#';
-
-    exploreLink.textContent = properties.viewAllTitle
-      || legacyLink?.textContent?.trim()
+    const link = document.createElement('a');
+    link.href = href;
+    link.textContent = properties.viewAllTitle
+      || getText(authoredLink)
       || DEFAULTS.viewAllTitle;
 
-    explore.append(exploreLink);
-
+    explore.append(link);
     header.append(explore);
   }
 
   return header;
 }
 
-// /**
-//  * Create report CTA.
-//  *
-//  * @param {Element} card Card element.
-//  * @param {string} title CTA title.
-//  */
-// function createReportCta(
-//   card,
-//   title,
-// ) {
-//   const link = card.querySelector(
-//     '.table-list-link a',
-//   );
+/**
+ * Create the tag list for a card.
+ *
+ * @param {Element} cell1 First tag field.
+ * @param {Element} cell2 Second tag field.
+ * @returns {HTMLElement} Tag container.
+ */
+function createTags(cell1, cell2) {
+  const tags = document.createElement('div');
+  tags.className = 'table-list-tags';
 
-//   if (!link || !title) {
-//     return;
-//   }
+  [getText(cell1), getText(cell2)]
+    .filter(Boolean)
+    .forEach((text) => {
+      const tag = document.createElement('span');
+      tag.className = 'table-list-tag';
+      tag.textContent = text;
+      tags.append(tag);
+    });
 
-//   const cta = document.createElement('span');
-
-//   cta.className = 'table-list-report-cta';
-
-//   cta.textContent = title;
-
-//   link.append(cta);
-// }
+  return tags;
+}
 
 /**
- * Apply display mode.
+ * Apply the Featured Industry variation.
+ *
+ * @param {Element} block Table List block.
+ */
+function applyFeaturedIndustry(block) {
+  if (!block.classList.contains('featured-industry')) return;
+
+  const firstCard = block.querySelector('.table-list-card');
+
+  firstCard?.classList.add('table-list-card-featured');
+}
+
+/**
+ * Apply the display mode.
  *
  * @param {Element} block Table List block.
  * @param {string} display Display mode.
  */
-function applyDisplayMode(
-  block,
-  display,
-) {
-  block.classList.add(
-    `display-${display}`,
-  );
+function applyDisplayMode(block, display) {
+  block.classList.add(`display-${display}`);
 }
 
 /**
- * Apply card color.
- *
- * @param {Element} block Table List block.
- * @param {string} cardColor Card color.
- */
-function applyCardColor(
-  block,
-  cardColor,
-) {
-  block.classList.add(
-    `card-${cardColor}`,
-  );
-}
-
-/**
- * Apply motion.
- *
- * @param {Element} block Table List block.
- * @param {string} motionType Motion type.
- */
-function applyMotion(
-  block,
-  motionType,
-) {
-  block.classList.add(
-    `motion-${motionType}`,
-  );
-}
-
-/**
- * Convert the cards to a table view.
+ * Convert cards to a table.
  *
  * @param {Element} block Table List block.
  * @param {string} display Display mode.
  */
-function applyTableView(
-  block,
-  display,
-) {
+function applyTableView(block, display) {
   block.classList.add('view-table');
 
-  const cards = [
-    ...block.querySelectorAll(
-      '.table-list-card',
-    ),
-  ];
+  const cards = [...block.querySelectorAll('.table-list-card')];
 
-  if (cards.length === 0) {
-    return;
-  }
+  if (!cards.length) return;
 
   const table = document.createElement('table');
-
   table.className = 'table-list-table';
 
-  const thead = document.createElement('thead');
-
-  const headerRow = document.createElement('tr');
-
   const showTitle = display !== 'description';
-
   const showDescription = display !== 'title';
 
+  const thead = document.createElement('thead');
+  const headerRow = document.createElement('tr');
+
   ['Number']
-    .concat(
-      showTitle
-        ? ['Title']
-        : [],
-    )
-    .concat(
-      showDescription
-        ? ['Description']
-        : [],
-    )
+    .concat(showTitle ? ['Title'] : [])
+    .concat(showDescription ? ['Description'] : [])
     .concat([''])
     .forEach((label) => {
       const th = document.createElement('th');
-
       th.textContent = label;
-
       headerRow.append(th);
     });
 
@@ -486,74 +321,36 @@ function applyTableView(
   cards.forEach((card) => {
     const row = document.createElement('tr');
 
-    const number = card.querySelector(
-      '.table-list-number',
-    );
+    const number = card.querySelector('.table-list-number');
+    const title = card.querySelector('.table-list-title');
+    const description = card.querySelector('.table-list-description');
+    const link = card.querySelector('.table-list-link a');
 
-    const title = card.querySelector(
-      '.table-list-title',
-    );
-
-    const description = card.querySelector(
-      '.table-list-description',
-    );
-
-    const link = card.querySelector(
-      '.table-list-link a',
-    );
-
-    const sources = [number];
-
-    if (showTitle) {
-      sources.push(title);
-    }
-
-    if (showDescription) {
-      sources.push(description);
-    }
-
-    sources.forEach((source) => {
-      const cell = document.createElement('td');
-
-      cell.innerHTML = source?.innerHTML || '';
-
-      row.append(cell);
-    });
+    [number, ...(showTitle ? [title] : []), ...(showDescription ? [description] : [])]
+      .forEach((source) => {
+        const cell = document.createElement('td');
+        cell.textContent = getText(source);
+        row.append(cell);
+      });
 
     const actionCell = document.createElement('td');
 
     if (link) {
       const actionLink = link.cloneNode(true);
-
       actionLink.className = 'table-list-table-link';
-
-      actionLink.removeAttribute(
-        'aria-label',
-      );
-
+      actionLink.removeAttribute('aria-label');
+      row.append(actionCell);
       actionCell.append(actionLink);
+    } else {
+      row.append(actionCell);
     }
 
-    row.append(actionCell);
     tbody.append(row);
-
-    card.remove();
   });
 
-  table.append(
-    thead,
-    tbody,
-  );
+  table.append(thead, tbody);
 
-  const cardsContainer = block.querySelector(
-    '.table-list-cards',
-  );
-
-  if (cardsContainer) {
-    cardsContainer.replaceWith(table);
-  } else {
-    block.append(table);
-  }
+  block.querySelector('.table-list-cards')?.replaceWith(table);
 }
 
 /**
@@ -562,201 +359,108 @@ function applyTableView(
  * @param {Element} block Table List block.
  */
 export default function decorate(block) {
-  const {
-    properties: rawProperties,
-    contentRows,
-  } = readBlockConfig(block);
+  const { properties: rawProperties, contentRows } = readBlockConfig(block);
+  const properties = normalizeProperties(rawProperties);
 
-  const properties = normalizeProperties(
-    rawProperties,
-  );
-
-  /*
-   * Preserve old variation classes if
-   * existing content already contains one.
-   */
-  const legacyVariation = VALID_VARIATIONS.find(
-    (variation) => variation
-        && block.classList.contains(
-          variation,
-        ),
+  const existingVariation = VALID_VARIATIONS.find(
+    (variation) => variation && block.classList.contains(variation),
   ) || '';
 
-  const selectedVariation = properties.variations
-    || legacyVariation
-    || '';
+  const variation = properties.variations || existingVariation;
 
-  block.classList.add(
-    'table-list',
+  const headerRow = contentRows.find(
+    (row) => row.children.length === 2,
   );
 
-  if (selectedVariation) {
-    block.classList.add(
-      selectedVariation,
-    );
+  const authoredHeader = headerRow ? readHeader(headerRow) : null;
+
+  const cardRows = contentRows.filter(
+    (row) => row.children.length >= 4 && row !== headerRow,
+  );
+
+  block.classList.add('table-list');
+
+  if (variation) block.classList.add(variation);
+
+  block.classList.add(`card-${properties.cardColor}`);
+  block.classList.add(`motion-${properties.motionType}`);
+  applyDisplayMode(block, properties.display);
+
+  if (properties.showTags) {
+    block.classList.add('show-tags');
   }
 
-  applyDisplayMode(
-    block,
-    properties.display,
-  );
-
-  applyCardColor(
-    block,
-    properties.cardColor,
-  );
-
-  applyMotion(
-    block,
-    properties.motionType,
-  );
-
   /*
-   * Detect legacy header.
-   */
-  let legacyHeader = null;
-
-  const cardRows = [];
-
-  contentRows.forEach((row) => {
-    const cells = [...row.children];
-
-    if (
-      cells.length === 2
-      && !legacyHeader
-    ) {
-      row.classList.add(
-        'table-list-header',
-      );
-
-      cells[0].classList.add(
-        'table-list-heading',
-      );
-
-      decorateLink(
-        cells[1],
-        'table-list-explore',
-      );
-
-      legacyHeader = readLegacyHeader(row);
-
-      return;
-    }
-
-    if (cells.length >= 4) {
-      cardRows.push(row);
-    }
-  });
-
-  /*
-   * Clear authored source rows.
+   * Rebuild the rendered block while retaining the authored child data.
    */
   block.replaceChildren();
 
-  /*
-   * Render parent-level header.
-   */
-  block.append(
-    createHeader(
-      properties,
-      legacyHeader,
-    ),
-  );
+  block.append(createHeader(properties, authoredHeader));
 
-  /*
-   * Card container.
-   */
   const cardsContainer = document.createElement('div');
-
   cardsContainer.className = 'table-list-cards';
 
-  /*
-   * Respect Maximum Cards.
-   */
-  const rowsToRender = cardRows.slice(
-    0,
-    properties.maxCards,
-  );
+  cardRows.slice(0, properties.maxCards).forEach((row, index) => {
+    const cells = [...row.children];
 
-  rowsToRender.forEach(
-    (row, index) => {
-      const cells = [...row.children];
+    row.className = 'table-list-card';
 
-      const cardIndex = index + 1;
+    const numberCell = cells[0];
+    const titleCell = cells[1];
+    const descriptionCell = cells[2];
+    const linkCell = cells[3];
 
-      row.className = 'table-list-card';
+    numberCell.className = 'table-list-number';
 
-      /*
-       * Number.
-       */
-      cells[0].className = 'table-list-number';
+    if (!getText(numberCell)) {
+      numberCell.textContent = String(index + 1).padStart(2, '0');
+    }
 
-      if (
-        !cells[0].textContent.trim()
-      ) {
-        const number = document.createElement(
-          'span',
-        );
+    titleCell.className = 'table-list-title';
 
-        number.textContent = String(cardIndex).padStart(
-          2,
-          '0',
-        );
+    /*
+     * Tags and description share a wrapper so tags always sit directly
+     * above the description in the Title Right variation.
+     */
+    const descriptionGroup = document.createElement('div');
+    descriptionGroup.className = 'table-list-description-group';
 
-        cells[0].append(number);
-      }
+    const tags = createTags(cells[4], cells[5]);
 
-      /*
-       * Title.
-       */
-      cells[1].className = 'table-list-title';
+    if (properties.showTags && variation === 'title-right') {
+      descriptionGroup.append(tags);
+    }
 
-      /*
-       * Description.
-       */
-      cells[2].className = 'table-list-description';
+    descriptionCell.className = 'table-list-description';
+    descriptionGroup.append(descriptionCell);
 
-      /*
-       * Link.
-       */
-      decorateLink(
-        cells[3],
-        'table-list-link',
-      );
+    const titleGroup = document.createElement('div');
+    titleGroup.className = 'table-list-title-group';
+    titleGroup.append(titleCell);
 
-      enhanceCardLink(
-        cells[3],
-        cells[1],
-      );
+    decorateLink(linkCell, 'table-list-link');
 
-      /*
-       * Report CTA.
-       */
-      // createReportCta(
-      //   row,
-      //   properties.reportCtaTitle,
-      // );
+    const cardLink = linkCell.querySelector('a');
 
-      cardsContainer.append(row);
-    },
-  );
+    if (cardLink && getText(titleCell)) {
+      cardLink.setAttribute('aria-label', getText(titleCell));
+    }
+
+    row.replaceChildren(
+      numberCell,
+      titleGroup,
+      descriptionGroup,
+      linkCell,
+    );
+
+    cardsContainer.append(row);
+  });
 
   block.append(cardsContainer);
 
-  /*
-   * Featured Industry.
-   */
   applyFeaturedIndustry(block);
 
-  /*
-   * Table view.
-   */
-  if (
-    properties.view === 'table'
-  ) {
-    applyTableView(
-      block,
-      properties.display,
-    );
+  if (properties.view === 'table') {
+    applyTableView(block, properties.display);
   }
 }

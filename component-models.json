@@ -6036,8 +6036,20 @@
             "value": ""
           },
           {
+            "name": "Compact",
+            "value": "compact"
+          },
+          {
+            "name": "No Description",
+            "value": "no-description"
+          },
+          {
             "name": "Black Theme",
             "value": "dark"
+          },
+          {
+            "name": "Featured Industry",
+            "value": "featured-industry"
           },
           {
             "name": "No Number",
@@ -6058,7 +6070,7 @@
         "valueType": "number",
         "name": "maxCards",
         "label": "Maximum Cards",
-        "description": "Maximum number of cards displayed. The maximum allowed value is 4.",
+        "description": "Display between 1 and 4 cards.",
         "value": 4,
         "validation": {
           "numberMin": 1,
@@ -6070,8 +6082,8 @@
         "component": "boolean",
         "valueType": "boolean",
         "name": "showTags",
-        "label": "Tags",
-        "description": "Enable to display the tags authored on each card. This setting applies to the Title Right variation.",
+        "label": "Show Tags",
+        "description": "Display each card's tags above its description in the Title Right variation.",
         "value": false
       },
       {
@@ -6082,8 +6094,12 @@
         "value": "list",
         "options": [
           {
-            "name": "List Table",
+            "name": "List",
             "value": "list"
+          },
+          {
+            "name": "Table",
+            "value": "table"
           }
         ]
       },
@@ -6095,12 +6111,20 @@
         "value": "white",
         "options": [
           {
-            "name": "Default",
+            "name": "White",
             "value": "white"
+          },
+          {
+            "name": "Blue",
+            "value": "blue"
           },
           {
             "name": "Black",
             "value": "black"
+          },
+          {
+            "name": "Grey",
+            "value": "grey"
           }
         ]
       },
@@ -6112,8 +6136,16 @@
         "value": "title-description",
         "options": [
           {
-            "name": "Title, Description",
+            "name": "Title and Description",
             "value": "title-description"
+          },
+          {
+            "name": "Title Only",
+            "value": "title"
+          },
+          {
+            "name": "Description Only",
+            "value": "description"
           }
         ]
       },
@@ -6129,7 +6161,7 @@
         "valueType": "string",
         "name": "viewAllLink",
         "label": "View All Link",
-        "description": "Add the destination link for the View All action.",
+        "description": "Destination URL for the header CTA.",
         "value": ""
       },
       {
@@ -6142,6 +6174,18 @@
           {
             "name": "None",
             "value": "none"
+          },
+          {
+            "name": "Fade",
+            "value": "fade"
+          },
+          {
+            "name": "Slide",
+            "value": "slide"
+          },
+          {
+            "name": "Reveal",
+            "value": "reveal"
           }
         ]
       },
@@ -6151,6 +6195,13 @@
         "name": "listTitle",
         "label": "List Title",
         "value": "Our transformation solutions"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "reportCtaTitle",
+        "label": "Report CTA Title",
+        "value": "View Report"
       }
     ]
   },
@@ -6169,7 +6220,7 @@
         "valueType": "string",
         "name": "exploreLink",
         "label": "Explore All Link",
-        "description": "Legacy header field.",
+        "description": "Legacy header link. The parent View All settings take precedence when configured.",
         "value": ""
       }
     ]
@@ -6204,7 +6255,7 @@
         "valueType": "string",
         "name": "link",
         "label": "Card Link",
-        "description": "Add a link to the destination.",
+        "description": "Destination URL for the card.",
         "value": ""
       },
       {
@@ -6212,7 +6263,7 @@
         "valueType": "string",
         "name": "tag1",
         "label": "Tag 1",
-        "description": "Optional tag displayed above the title when Tags is enabled.",
+        "description": "Optional. Displayed above the description when Show Tags is enabled.",
         "value": ""
       },
       {
@@ -6220,7 +6271,7 @@
         "valueType": "string",
         "name": "tag2",
         "label": "Tag 2",
-        "description": "Optional second tag displayed above the title when Tags is enabled.",
+        "description": "Optional second tag displayed above the description.",
         "value": ""
       }
     ]

@@ -130,6 +130,7 @@
   {
     "id": "table-list",
     "components": [
+      "table-list-header",
       "table-list-card"
     ]
   },
