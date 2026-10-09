@@ -108,9 +108,7 @@
           "value": "white",
           "options": [
             { "name": "White", "value": "white" },
-            { "name": "Blue", "value": "blue" },
-            { "name": "Black", "value": "black" },
-            { "name": "Grey", "value": "grey" }
+            { "name": "Black", "value": "black" }
           ]
         },
         {
@@ -120,9 +118,7 @@
           "label": "Display",
           "value": "title-description",
           "options": [
-            { "name": "Title and Description", "value": "title-description" },
-            { "name": "Title Only", "value": "title" },
-            { "name": "Description Only", "value": "description" }
+            { "name": "Title and Description", "value": "title-description" }
           ]
         },
         {
@@ -147,10 +143,6 @@
           "label": "Motion Type",
           "value": "none",
           "options": [
-            { "name": "None", "value": "none" },
-            { "name": "Fade", "value": "fade" },
-            { "name": "Slide", "value": "slide" },
-            { "name": "Reveal", "value": "reveal" }
           ]
         },
         {
@@ -159,13 +151,6 @@
           "name": "listTitle",
           "label": "List Title",
           "value": "Our transformation solutions"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "reportCtaTitle",
-          "label": "Report CTA Title",
-          "value": "View Report"
         }
       ]
     },

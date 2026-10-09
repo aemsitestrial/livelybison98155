@@ -6036,20 +6036,8 @@
             "value": ""
           },
           {
-            "name": "Compact",
-            "value": "compact"
-          },
-          {
-            "name": "No Description",
-            "value": "no-description"
-          },
-          {
             "name": "Black Theme",
             "value": "dark"
-          },
-          {
-            "name": "Featured Industry",
-            "value": "featured-industry"
           },
           {
             "name": "No Number",
@@ -6115,16 +6103,8 @@
             "value": "white"
           },
           {
-            "name": "Blue",
-            "value": "blue"
-          },
-          {
             "name": "Black",
             "value": "black"
-          },
-          {
-            "name": "Grey",
-            "value": "grey"
           }
         ]
       },
@@ -6138,14 +6118,6 @@
           {
             "name": "Title and Description",
             "value": "title-description"
-          },
-          {
-            "name": "Title Only",
-            "value": "title"
-          },
-          {
-            "name": "Description Only",
-            "value": "description"
           }
         ]
       },
@@ -6170,24 +6142,7 @@
         "name": "motionType",
         "label": "Motion Type",
         "value": "none",
-        "options": [
-          {
-            "name": "None",
-            "value": "none"
-          },
-          {
-            "name": "Fade",
-            "value": "fade"
-          },
-          {
-            "name": "Slide",
-            "value": "slide"
-          },
-          {
-            "name": "Reveal",
-            "value": "reveal"
-          }
-        ]
+        "options": []
       },
       {
         "component": "text",
@@ -6195,13 +6150,6 @@
         "name": "listTitle",
         "label": "List Title",
         "value": "Our transformation solutions"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "reportCtaTitle",
-        "label": "Report CTA Title",
-        "value": "View Report"
       }
     ]
   },
