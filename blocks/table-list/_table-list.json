@@ -197,7 +197,7 @@
           "value": "Risk free business experimentation and decision making"
         },
         {
-          "component": "text",
+          "component": "aem-content",
           "valueType": "string",
           "name": "link",
           "label": "Page Reference",
