@@ -216,7 +216,6 @@ function createCardAction(cell, title) {
 
   const destination = getPageReference(cell);
   const hasDestination = isValidDestination(destination);
-  cell?.replaceChild();
 
   const action = document.createElement(hasDestination ? 'a' : 'span');
   action.className = 'table-list-arrow';
