@@ -6067,6 +6067,14 @@
         }
       },
       {
+        "component": "boolean",
+        "valueType": "boolean",
+        "name": "showTags",
+        "label": "Tags",
+        "description": "Enable to display the tags authored on each card. This setting applies to the Title Right variation.",
+        "value": false
+      },
+      {
         "component": "select",
         "valueType": "string",
         "name": "view",
@@ -6161,7 +6169,7 @@
         "valueType": "string",
         "name": "exploreLink",
         "label": "Explore All Link",
-        "description": "Legacy header field. New Table List instances should use List Title, View All Title, and View All Link on the parent component.",
+        "description": "Legacy header field.",
         "value": ""
       }
     ]
@@ -6174,7 +6182,7 @@
         "valueType": "string",
         "name": "number",
         "label": "Number",
-        "description": "Optional. Leave blank to number cards automatically as 01, 02, 03, etc.",
+        "description": "Optional. Leave blank to number cards automatically.",
         "value": ""
       },
       {
@@ -6196,7 +6204,23 @@
         "valueType": "string",
         "name": "link",
         "label": "Card Link",
-        "description": "Add a link to the destination. The card uses the title as its accessible link label.",
+        "description": "Add a link to the destination.",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "tag1",
+        "label": "Tag 1",
+        "description": "Optional tag displayed above the title when Tags is enabled.",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "tag2",
+        "label": "Tag 2",
+        "description": "Optional second tag displayed above the title when Tags is enabled.",
         "value": ""
       }
     ]
