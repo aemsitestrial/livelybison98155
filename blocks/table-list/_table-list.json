@@ -73,6 +73,10 @@
             {
               "name": "Description First",
               "value": "description-first"
+            },
+            {
+              "name": "Title Right",
+              "value": "title-right"
             }
           ]
         },
