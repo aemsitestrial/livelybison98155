@@ -1,5 +1,9 @@
 /* stylelint-disable no-descending-specificity */
 
+/* =========================================
+   CONTAINER AND BASE
+   ========================================= */
+
 .table-list-container {
   background-color: #fff;
 }
@@ -27,7 +31,13 @@ main>.section>div.table-list-wrapper {
   margin: 0;
 }
 
-/* HEADER */
+.table-list .table-list-cards {
+  width: 100%;
+}
+
+/* =========================================
+   HEADER
+   ========================================= */
 
 .table-list .table-list-header {
   box-sizing: border-box;
@@ -80,13 +90,9 @@ main>.section>div.table-list-wrapper {
   text-decoration: underline;
 }
 
-/* CARD CONTAINER */
-
-.table-list .table-list-cards {
-  width: 100%;
-}
-
-/* DEFAULT CARD */
+/* =========================================
+   DEFAULT CARD
+   ========================================= */
 
 .table-list .table-list-card {
   position: relative;
@@ -126,7 +132,14 @@ main>.section>div.table-list-wrapper {
   line-height: 1.35;
 }
 
-/* CARD LINK */
+/* =========================================
+   CARD LINK
+   ========================================= */
+
+.table-list .table-list-link {
+  grid-column: 4;
+  grid-row: 1;
+}
 
 .table-list .table-list-link a:any-link {
   position: relative;
@@ -155,11 +168,6 @@ main>.section>div.table-list-wrapper {
   line-height: 1;
 }
 
-.table-list .table-list-link {
-  grid-column: 4;
-  grid-row: 1;
-}
-
 .table-list .table-list-link a:hover,
 .table-list .table-list-link a:focus-visible {
   text-decoration: underline;
@@ -175,7 +183,9 @@ main>.section>div.table-list-wrapper {
   text-decoration: underline;
 }
 
-/* COMPACT */
+/* =========================================
+   COMPACT
+   ========================================= */
 
 .table-list.compact {
   padding-top: 56px;
@@ -200,7 +210,9 @@ main>.section>div.table-list-wrapper {
   font-size: 18px;
 }
 
-/* NO DESCRIPTION */
+/* =========================================
+   NO DESCRIPTION AND DISPLAY
+   ========================================= */
 
 .table-list.no-description .table-list-description,
 .table-list.display-title .table-list-description {
@@ -212,7 +224,17 @@ main>.section>div.table-list-wrapper {
   grid-column: 2 / 4;
 }
 
-/* DARK THEME */
+.table-list.display-description .table-list-title-group {
+  display: none;
+}
+
+.table-list.display-description .table-list-description {
+  grid-column: 2 / 4;
+}
+
+/* =========================================
+   DARK THEME
+   ========================================= */
 
 .table-list-container:has(.table-list.dark),
 .table-list.dark {
@@ -240,7 +262,9 @@ main>.section>div.table-list-wrapper {
   outline-color: #fff;
 }
 
-/* FEATURED INDUSTRY */
+/* =========================================
+   FEATURED INDUSTRY
+   ========================================= */
 
 .table-list.featured-industry .table-list-card-featured {
   position: relative;
@@ -285,7 +309,9 @@ main>.section>div.table-list-wrapper {
   color: #aab8cc;
 }
 
-/* NO NUMBER */
+/* =========================================
+   NO NUMBER
+   ========================================= */
 
 .table-list.no-number .table-list-number {
   display: none;
@@ -295,7 +321,9 @@ main>.section>div.table-list-wrapper {
   grid-column: 1 / 3;
 }
 
-/* DESCRIPTION FIRST */
+/* =========================================
+   DESCRIPTION FIRST
+   ========================================= */
 
 .table-list.description-first .table-list-card {
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -381,15 +409,18 @@ main>.section>div.table-list-wrapper {
   grid-column: 4;
 }
 
-.table-list.display-description .table-list-title-group {
+.table-list.description-first.display-title .table-list-description,
+.table-list.description-first.display-description .table-list-title-group {
   display: none;
 }
 
-.table-list.display-description .table-list-description {
-  grid-column: 2 / 4;
+.table-list.description-first.display-description .table-list-description {
+  grid-column: 1 / 4;
 }
 
-/* CARD COLORS */
+/* =========================================
+   CARD COLORS
+   ========================================= */
 
 .table-list.card-white .table-list-card {
   background-color: #fff;
@@ -414,7 +445,9 @@ main>.section>div.table-list-wrapper {
   outline-color: #fff;
 }
 
-/* MOTION */
+/* =========================================
+   MOTION
+   ========================================= */
 
 .table-list.motion-fade .table-list-card {
   animation: table-list-fade-in 500ms ease both;
@@ -462,7 +495,9 @@ main>.section>div.table-list-wrapper {
   }
 }
 
-/* TABLE VIEW */
+/* =========================================
+   TABLE VIEW
+   ========================================= */
 
 .table-list.view-table .table-list-cards {
   display: none;
@@ -519,6 +554,20 @@ main>.section>div.table-list-wrapper {
   font-size: 22px;
 }
 
+.table-list.dark.view-table .table-list-table th,
+.table-list.dark.view-table .table-list-table td {
+  border-bottom-color: #677182;
+}
+
+.table-list.card-black.view-table .table-list-table th,
+.table-list.card-black.view-table .table-list-table td {
+  border-bottom-color: #555;
+}
+
+.table-list.card-black.view-table .table-list-table {
+  color: #fff;
+}
+
 /* =========================================
    TITLE RIGHT VARIATION
    ========================================= */
@@ -537,6 +586,7 @@ main>.section>div.table-list-wrapper {
 .table-list.title-right .table-list-description {
   grid-column: 1;
   grid-row: 1;
+  align-self: center;
   padding: 0 30px 0 0;
   font-size: 18px;
   line-height: 1.4;
@@ -566,13 +616,15 @@ main>.section>div.table-list-wrapper {
   font-size: 32px;
 }
 
-/* TAGS — hidden unless parent toggle is enabled */
+/* Tags are hidden unless the parent toggle enables them.
+   JS must render tags in the left description column. */
 
 .table-list.title-right .table-list-tags {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
   gap: 12px;
-  margin-bottom: 20px;
+  margin: 0 0 12px;
   text-align: left;
 }
 
@@ -589,7 +641,7 @@ main>.section>div.table-list-wrapper {
   display: none;
 }
 
-/* BLACK PILL CTA — TITLE RIGHT ONLY */
+/* Short black View All pill — title-right only */
 
 .table-list.title-right .table-list-header {
   margin-bottom: 64px;
@@ -597,13 +649,13 @@ main>.section>div.table-list-wrapper {
 
 .table-list.title-right .table-list-explore a:any-link {
   display: inline-flex;
-  min-height: 48px;
+  min-height: 0;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   border: 0;
   border-radius: 999px;
-  padding: 12px 22px;
+  padding: 9px 20px;
   background-color: #111820;
   color: #fff;
   font-size: 14px;
@@ -615,7 +667,7 @@ main>.section>div.table-list-wrapper {
 .table-list.title-right .table-list-explore a::after {
   position: static;
   content: '\2192';
-  font-size: 20px;
+  font-size: 19px;
   line-height: 1;
   transform: none;
 }
@@ -627,7 +679,9 @@ main>.section>div.table-list-wrapper {
   text-decoration: none;
 }
 
-/* TABLET */
+/* =========================================
+   TABLET
+   ========================================= */
 
 @media (width < 900px) {
   .table-list {
@@ -719,15 +773,11 @@ main>.section>div.table-list-wrapper {
   }
 
   .table-list.title-right .table-list-description {
-    grid-column: 1;
-    grid-row: 1;
     padding-right: 16px;
     font-size: 16px;
   }
 
   .table-list.title-right .table-list-title-group {
-    grid-column: 2;
-    grid-row: 1;
     padding: 0 12px;
   }
 
@@ -744,11 +794,6 @@ main>.section>div.table-list-wrapper {
     font-size: 11px;
   }
 
-  .table-list.title-right .table-list-link {
-    grid-column: 3;
-    grid-row: 1;
-  }
-
   .table-list.view-table .table-list-table th,
   .table-list.view-table .table-list-table td {
     padding: 14px 10px;
@@ -759,7 +804,9 @@ main>.section>div.table-list-wrapper {
   }
 }
 
-/* MOBILE */
+/* =========================================
+   MOBILE
+   ========================================= */
 
 @media (width < 600px) {
   .table-list {
@@ -881,8 +928,7 @@ main>.section>div.table-list-wrapper {
   }
 
   .table-list.title-right .table-list-explore a:any-link {
-    min-height: 42px;
-    padding: 10px 16px;
+    padding: 8px 15px;
     font-size: 13px;
   }
 
@@ -934,85 +980,14 @@ main>.section>div.table-list-wrapper {
   }
 }
 
-/* REDUCED MOTION */
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   .table-list.motion-fade .table-list-card,
   .table-list.motion-slide .table-list-card,
   .table-list.motion-reveal .table-list-card {
     animation: none;
-  }
-}
-
-/* =========================================
-   TITLE RIGHT — VIEW ALL CTA HEIGHT
-   ========================================= */
-
-.table-list.title-right .table-list-explore a:any-link {
-  min-height: 0;
-  padding: 9px 20px;
-  line-height: 1.2;
-  gap: 10px;
-}
-
-.table-list.title-right .table-list-explore a::after {
-  font-size: 19px;
-}
-
-/* =========================================
-   TITLE RIGHT — TAGS ABOVE DESCRIPTION
-   ========================================= */
-
-/* Use a single column for tags and description */
-.table-list.title-right .table-list-card {
-  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.8fr) 36px;
-}
-
-/* Keep tags at the top of the description column */
-.table-list.title-right .table-list-description {
-  grid-column: 1;
-  grid-row: 1;
-  align-self: center;
-}
-
-/* Position the tags above the description */
-.table-list.title-right .table-list-tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 12px;
-  margin: 0 0 12px;
-  text-align: left;
-}
-
-/* Stack tags and description together */
-.table-list.title-right .table-list-description {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-/* Preserve the existing right-side title */
-.table-list.title-right .table-list-title-group {
-  grid-column: 2;
-  grid-row: 1;
-  text-align: right;
-}
-
-.table-list.title-right .table-list-link {
-  grid-column: 3;
-  grid-row: 1;
-}
-
-/* Mobile adjustment */
-@media (width < 600px) {
-  .table-list.title-right .table-list-explore a:any-link {
-    padding: 8px 15px;
-  }
-
-  .table-list.title-right .table-list-tags {
-    gap: 8px;
-    margin-bottom: 8px;
   }
 }
