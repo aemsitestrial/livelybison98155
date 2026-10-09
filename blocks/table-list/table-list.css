@@ -1,9 +1,4 @@
-
 /* stylelint-disable no-descending-specificity */
-
-/* =========================================
-   CONTAINER AND BASE
-   ========================================= */
 
 .table-list-container {
   background-color: #fff;
@@ -14,7 +9,7 @@
   margin: 0 auto;
 }
 
-main > .section > div.table-list-wrapper {
+main>.section>div.table-list-wrapper {
   box-sizing: border-box;
   width: 100%;
   max-width: 1440px;
@@ -30,10 +25,6 @@ main > .section > div.table-list-wrapper {
 
 .table-list p {
   margin: 0;
-}
-
-.table-list .table-list-cards {
-  width: 100%;
 }
 
 /* =========================================
@@ -92,6 +83,14 @@ main > .section > div.table-list-wrapper {
 }
 
 /* =========================================
+   CARD CONTAINER
+   ========================================= */
+
+.table-list .table-list-cards {
+  width: 100%;
+}
+
+/* =========================================
    DEFAULT CARD
    ========================================= */
 
@@ -99,7 +98,8 @@ main > .section > div.table-list-wrapper {
   position: relative;
   box-sizing: border-box;
   display: grid;
-  grid-template-columns: 56px minmax(0, 0.9fr) minmax(0, 1.8fr) 150px;
+  grid-template-columns:
+    56px minmax(0, 0.9fr) minmax(0, 1.8fr) 150px;
   min-height: 108px;
   align-items: center;
   border-bottom: 1px solid #777;
@@ -113,12 +113,6 @@ main > .section > div.table-list-wrapper {
   line-height: 1.2;
 }
 
-.table-list .table-list-title-group {
-  min-width: 0;
-  grid-column: 2;
-  grid-row: 1;
-}
-
 .table-list .table-list-title {
   font-size: 38px;
   font-weight: 400;
@@ -126,21 +120,14 @@ main > .section > div.table-list-wrapper {
 }
 
 .table-list .table-list-description {
-  grid-column: 3;
-  grid-row: 1;
   padding: 0 20px;
   font-size: 22px;
   line-height: 1.35;
 }
 
 /* =========================================
-   CARD LINK
+   CARD LINK / REPORT CTA
    ========================================= */
-
-.table-list .table-list-link {
-  grid-column: 4;
-  grid-row: 1;
-}
 
 .table-list .table-list-link a:any-link {
   position: relative;
@@ -169,6 +156,13 @@ main > .section > div.table-list-wrapper {
   line-height: 1;
 }
 
+.table-list .table-list-report-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
 .table-list .table-list-link a:hover,
 .table-list .table-list-link a:focus-visible {
   text-decoration: underline;
@@ -178,6 +172,10 @@ main > .section > div.table-list-wrapper {
   outline: 2px solid #1f1f1f;
   outline-offset: 4px;
 }
+
+/* =========================================
+   HOVER
+   ========================================= */
 
 .table-list .table-list-card:has(a:hover) .table-list-title,
 .table-list .table-list-card:has(a:focus-visible) .table-list-title {
@@ -212,24 +210,14 @@ main > .section > div.table-list-wrapper {
 }
 
 /* =========================================
-   NO DESCRIPTION AND DISPLAY
+   NO DESCRIPTION
    ========================================= */
 
-.table-list.no-description .table-list-description,
-.table-list.display-title .table-list-description {
+.table-list.no-description .table-list-description {
   display: none;
 }
 
-.table-list.no-description .table-list-title-group,
-.table-list.display-title .table-list-title-group {
-  grid-column: 2 / 4;
-}
-
-.table-list.display-description .table-list-title-group {
-  display: none;
-}
-
-.table-list.display-description .table-list-description {
+.table-list.no-description .table-list-title {
   grid-column: 2 / 4;
 }
 
@@ -298,6 +286,8 @@ main > .section > div.table-list-wrapper {
   font-size: 23px;
 }
 
+/* Featured + Dark */
+
 .table-list.dark.featured-industry .table-list-card-featured {
   background-color: #252d3a;
 }
@@ -318,7 +308,7 @@ main > .section > div.table-list-wrapper {
   display: none;
 }
 
-.table-list.no-number .table-list-title-group {
+.table-list.no-number .table-list-title {
   grid-column: 1 / 3;
 }
 
@@ -327,8 +317,10 @@ main > .section > div.table-list-wrapper {
    ========================================= */
 
 .table-list.description-first .table-list-card {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
   min-height: 170px;
+  align-items: center;
   padding: 28px 0;
 }
 
@@ -347,20 +339,20 @@ main > .section > div.table-list-wrapper {
   align-self: center;
   margin: 0;
   padding-left: 20px;
+  color: #c7c7c7;
   font-size: 30px;
+  line-height: 1.2;
 }
 
-.table-list.description-first .table-list-title-group {
+.table-list.description-first .table-list-title {
   grid-column: 3;
   grid-row: 1;
   align-self: center;
   padding-right: 20px;
-  text-align: right;
-}
-
-.table-list.description-first .table-list-title {
   font-size: clamp(48px, 5vw, 82px);
+  font-weight: 400;
   line-height: 1;
+  text-align: right;
 }
 
 .table-list.description-first .table-list-link {
@@ -372,6 +364,10 @@ main > .section > div.table-list-wrapper {
   justify-content: center;
   padding-left: 0;
 }
+
+/* =========================================
+   DESCRIPTION FIRST + COMPACT
+   ========================================= */
 
 .table-list.compact.description-first .table-list-card {
   min-height: 130px;
@@ -390,9 +386,17 @@ main > .section > div.table-list-wrapper {
   font-size: 26px;
 }
 
+/* =========================================
+   DESCRIPTION FIRST + DARK
+   ========================================= */
+
 .table-list.dark.description-first .table-list-number {
   color: #aab8cc;
 }
+
+/* =========================================
+   DESCRIPTION FIRST + NO NUMBER
+   ========================================= */
 
 .table-list.no-number.description-first .table-list-number {
   display: none;
@@ -402,7 +406,7 @@ main > .section > div.table-list-wrapper {
   grid-column: 1;
 }
 
-.table-list.no-number.description-first .table-list-title-group {
+.table-list.no-number.description-first .table-list-title {
   grid-column: 2 / 4;
 }
 
@@ -410,8 +414,37 @@ main > .section > div.table-list-wrapper {
   grid-column: 4;
 }
 
-.table-list.description-first.display-title .table-list-description,
-.table-list.description-first.display-description .table-list-title-group {
+/* =========================================
+   DISPLAY
+   ========================================= */
+
+.table-list.display-title .table-list-description {
+  display: none;
+}
+
+.table-list.display-title .table-list-title {
+  grid-column: 2 / 4;
+}
+
+.table-list.display-title.display-no-number .table-list-title {
+  grid-column: 1 / 3;
+}
+
+.table-list.display-description .table-list-title {
+  display: none;
+}
+
+.table-list.display-description .table-list-description {
+  grid-column: 2 / 4;
+}
+
+/* Description First + Display */
+
+.table-list.description-first.display-title .table-list-description {
+  display: none;
+}
+
+.table-list.description-first.display-description .table-list-title {
   display: none;
 }
 
@@ -427,10 +460,20 @@ main > .section > div.table-list-wrapper {
   background-color: #fff;
 }
 
+.table-list.card-blue .table-list-card {
+  border-bottom-color: #2b78a5;
+  background-color: #eaf5fb;
+}
+
 .table-list.card-black .table-list-card {
   border-bottom-color: #555;
   background-color: #111;
   color: #fff;
+}
+
+.table-list.card-grey .table-list-card {
+  border-bottom-color: #c4c4c4;
+  background-color: #f2f2f2;
 }
 
 .table-list.card-black .table-list-number {
@@ -444,6 +487,14 @@ main > .section > div.table-list-wrapper {
 
 .table-list.card-black .table-list-link a:focus-visible {
   outline-color: #fff;
+}
+
+.table-list.card-blue.featured-industry .table-list-card-featured {
+  background-color: #dff1fa;
+}
+
+.table-list.card-black.featured-industry .table-list-card-featured {
+  background-color: #171717;
 }
 
 /* =========================================
@@ -463,8 +514,13 @@ main > .section > div.table-list-wrapper {
 }
 
 @keyframes table-list-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes table-list-slide-in {
@@ -565,117 +621,6 @@ main > .section > div.table-list-wrapper {
 }
 
 /* =========================================
-   TITLE RIGHT VARIATION
-   ========================================= */
-
-.table-list.title-right .table-list-card {
-  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.8fr) 36px;
-  min-height: 108px;
-  align-items: center;
-  padding: 16px 0;
-}
-
-.table-list.title-right .table-list-number {
-  display: none;
-}
-
-.table-list.title-right .table-list-description {
-  grid-column: 1;
-  grid-row: 1;
-  align-self: center;
-  padding: 0 30px 0 0;
-  font-size: 18px;
-  line-height: 1.4;
-}
-
-.table-list.title-right .table-list-title-group {
-  grid-column: 2;
-  grid-row: 1;
-  align-self: center;
-  padding: 0 20px;
-  text-align: right;
-}
-
-.table-list.title-right .table-list-title {
-  font-size: 32px;
-  line-height: 1.2;
-  text-align: right;
-}
-
-.table-list.title-right .table-list-link {
-  grid-column: 3;
-  grid-row: 1;
-}
-
-.table-list.title-right .table-list-link a::after {
-  content: '\2192';
-  font-size: 32px;
-}
-
-/* Tags are hidden unless the parent toggle enables them.
-   JS must render tags in the left description column. */
-
-.table-list.title-right .table-list-tags {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 12px;
-  margin: 0 0 12px;
-  text-align: left;
-}
-
-.table-list.title-right .table-list-tag {
-  color: #929292;
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1.3;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.table-list.title-right .table-list-tags:empty {
-  display: none;
-}
-
-/* Short black View All pill — title-right only */
-
-.table-list.title-right .table-list-header {
-  margin-bottom: 64px;
-}
-
-.table-list.title-right .table-list-explore a:any-link {
-  display: inline-flex;
-  min-height: 0;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  border: 0;
-  border-radius: 999px;
-  padding: 9px 20px;
-  background-color: #111820;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.2;
-  text-decoration: none;
-}
-
-.table-list.title-right .table-list-explore a::after {
-  position: static;
-  content: '\2192';
-  font-size: 19px;
-  line-height: 1;
-  transform: none;
-}
-
-.table-list.title-right .table-list-explore a:hover,
-.table-list.title-right .table-list-explore a:focus-visible {
-  background-color: #303942;
-  color: #fff;
-  text-decoration: none;
-}
-
-/* =========================================
    TABLET
    ========================================= */
 
@@ -690,7 +635,8 @@ main > .section > div.table-list-wrapper {
   }
 
   .table-list .table-list-card {
-    grid-template-columns: 48px minmax(0, 1fr) 110px;
+    grid-template-columns:
+      48px minmax(0, 1fr) 110px;
     gap: 4px 8px;
   }
 
@@ -703,6 +649,8 @@ main > .section > div.table-list-wrapper {
   }
 
   .table-list .table-list-description {
+    grid-column: 2;
+    grid-row: 2;
     padding: 0;
     font-size: 18px;
   }
@@ -715,7 +663,7 @@ main > .section > div.table-list-wrapper {
     min-height: 76px;
   }
 
-  .table-list.no-description .table-list-title-group {
+  .table-list.no-description .table-list-title {
     grid-column: 2;
   }
 
@@ -723,8 +671,11 @@ main > .section > div.table-list-wrapper {
     padding: 24px 20px;
   }
 
+  /* Description First */
+
   .table-list.description-first .table-list-card {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
     min-height: 150px;
     gap: 8px;
     padding: 24px 0;
@@ -733,6 +684,7 @@ main > .section > div.table-list-wrapper {
   .table-list.description-first .table-list-description {
     grid-column: 1;
     grid-row: 1;
+    align-self: center;
     padding-right: 12px;
     font-size: 18px;
   }
@@ -740,18 +692,18 @@ main > .section > div.table-list-wrapper {
   .table-list.description-first .table-list-number {
     grid-column: 2;
     grid-row: 1;
+    align-self: center;
     padding-left: 8px;
     font-size: 26px;
   }
 
-  .table-list.description-first .table-list-title-group {
+  .table-list.description-first .table-list-title {
     grid-column: 3;
     grid-row: 1;
+    align-self: center;
     padding-right: 8px;
-  }
-
-  .table-list.description-first .table-list-title {
     font-size: clamp(36px, 4vw, 56px);
+    text-align: right;
   }
 
   .table-list.description-first .table-list-link {
@@ -759,36 +711,37 @@ main > .section > div.table-list-wrapper {
     grid-row: 1;
   }
 
-  .table-list.no-number.description-first .table-list-title-group {
+  .table-list.no-number.description-first .table-list-description {
+    grid-column: 1;
+  }
+
+  .table-list.no-number.description-first .table-list-title {
     grid-column: 2 / 4;
   }
 
-  .table-list.title-right .table-list-card {
-    grid-template-columns: minmax(0, 1fr) minmax(150px, 0.8fr) 32px;
-    gap: 8px;
+  .table-list.no-number.description-first .table-list-link {
+    grid-column: 4;
   }
 
-  .table-list.title-right .table-list-description {
-    padding-right: 16px;
-    font-size: 16px;
+  /* Display */
+
+  .table-list.display-title .table-list-title {
+    grid-column: 2 / 3;
   }
 
-  .table-list.title-right .table-list-title-group {
-    padding: 0 12px;
+  .table-list.display-title .table-list-link {
+    grid-column: 3;
   }
 
-  .table-list.title-right .table-list-title {
-    font-size: 26px;
+  .table-list.display-description .table-list-description {
+    grid-column: 2 / 3;
   }
 
-  .table-list.title-right .table-list-tags {
-    gap: 8px;
-    margin-bottom: 12px;
+  .table-list.display-description .table-list-link {
+    grid-column: 3;
   }
 
-  .table-list.title-right .table-list-tag {
-    font-size: 11px;
-  }
+  /* Table */
 
   .table-list.view-table .table-list-table th,
   .table-list.view-table .table-list-table td {
@@ -823,7 +776,8 @@ main > .section > div.table-list-wrapper {
   }
 
   .table-list .table-list-card {
-    grid-template-columns: 40px minmax(0, 1fr) 95px;
+    grid-template-columns:
+      40px minmax(0, 1fr) 95px;
     min-height: 108px;
   }
 
@@ -857,8 +811,11 @@ main > .section > div.table-list-wrapper {
     font-size: 16px;
   }
 
+  /* Description First */
+
   .table-list.description-first .table-list-card {
-    grid-template-columns: minmax(0, 1fr) 28px;
+    grid-template-columns:
+      minmax(0, 1fr) 28px;
     min-height: 180px;
     gap: 8px 12px;
     padding: 24px 0;
@@ -867,26 +824,28 @@ main > .section > div.table-list-wrapper {
   .table-list.description-first .table-list-description {
     grid-column: 1;
     grid-row: 1;
+    align-self: start;
+    padding: 0;
     font-size: 17px;
   }
 
   .table-list.description-first .table-list-number {
     grid-column: 2;
     grid-row: 1;
+    align-self: start;
+    margin: 0;
     padding: 0;
     font-size: 24px;
   }
 
-  .table-list.description-first .table-list-title-group {
+  .table-list.description-first .table-list-title {
     grid-column: 1;
     grid-row: 2;
+    align-self: start;
     padding: 0;
-    text-align: left;
-  }
-
-  .table-list.description-first .table-list-title {
     font-size: clamp(34px, 10vw, 48px);
     line-height: 1.05;
+    text-align: left;
   }
 
   .table-list.description-first .table-list-link {
@@ -899,7 +858,15 @@ main > .section > div.table-list-wrapper {
     padding: 0;
   }
 
-  .table-list.no-number.description-first .table-list-title-group {
+  .table-list.description-first .table-list-link a::after {
+    font-size: 25px;
+  }
+
+  .table-list.no-number.description-first .table-list-description {
+    grid-column: 1;
+  }
+
+  .table-list.no-number.description-first .table-list-title {
     grid-column: 1;
     grid-row: 2;
   }
@@ -909,6 +876,8 @@ main > .section > div.table-list-wrapper {
     grid-row: 2;
   }
 
+  /* Featured */
+
   .table-list.featured-industry .table-list-card-featured {
     padding: 20px 16px;
   }
@@ -917,55 +886,7 @@ main > .section > div.table-list-wrapper {
     font-size: 18px;
   }
 
-  .table-list.title-right .table-list-header {
-    align-items: flex-start;
-    gap: 20px;
-    margin-bottom: 32px;
-  }
-
-  .table-list.title-right .table-list-explore a:any-link {
-    padding: 8px 15px;
-    font-size: 13px;
-  }
-
-  .table-list.title-right .table-list-card {
-    grid-template-columns: minmax(0, 1fr) 28px;
-    min-height: 120px;
-    gap: 8px 12px;
-    padding: 20px 0;
-  }
-
-  .table-list.title-right .table-list-description {
-    grid-column: 1;
-    grid-row: 1;
-    padding: 0;
-    font-size: 16px;
-  }
-
-  .table-list.title-right .table-list-title-group {
-    grid-column: 1;
-    grid-row: 2;
-    padding: 0;
-    text-align: left;
-  }
-
-  .table-list.title-right .table-list-title {
-    font-size: 24px;
-    text-align: left;
-  }
-
-  .table-list.title-right .table-list-tags {
-    margin-bottom: 8px;
-  }
-
-  .table-list.title-right .table-list-link {
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  .table-list.title-right .table-list-link a::after {
-    font-size: 25px;
-  }
+  /* Table */
 
   .table-list.view-table {
     overflow-x: auto;
