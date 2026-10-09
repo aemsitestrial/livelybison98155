@@ -229,7 +229,7 @@ function createCardAction(cell, title) {
   }
 
   wrapper.append(action);
-
+  action.textContent = '→';
   return wrapper;
 }
 
