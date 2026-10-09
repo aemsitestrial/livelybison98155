@@ -227,7 +227,6 @@ function createCardAction(cell, title) {
     action.setAttribute('aria-hidden', 'true');
   }
 
-  action.textContent = '→';
   wrapper.append(action);
 
   return wrapper;
