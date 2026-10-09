@@ -1093,3 +1093,22 @@ main>.section>div.table-list-wrapper {
     animation: none;
   }
 }
+
+.table-list-link{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  min-width: 32px;
+  color: inherit;
+}
+
+.table-list-arrow{
+  display: inline-block;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.table-list-link:not([href]){
+  cursor: default;
+}

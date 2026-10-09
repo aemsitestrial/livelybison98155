@@ -197,11 +197,11 @@
           "value": "Risk free business experimentation and decision making"
         },
         {
-          "component": "richtext",
+          "component": "text",
           "valueType": "string",
           "name": "link",
-          "label": "Card Link",
-          "description": "Destination URL for the card.",
+          "label": "Page Reference",
+          "description": "Destination page path for the card.",
           "value": ""
         },
         {
