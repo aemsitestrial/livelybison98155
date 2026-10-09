@@ -1094,7 +1094,7 @@ main>.section>div.table-list-wrapper {
   }
 }
 
-.table-list-link{
+/* .table-list-link{
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1111,4 +1111,4 @@ main>.section>div.table-list-wrapper {
 
 .table-list-link:not([href]){
   cursor: default;
-}
+} */
