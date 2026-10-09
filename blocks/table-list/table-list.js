@@ -353,32 +353,32 @@ function createHeader(
   return header;
 }
 
-/**
- * Create report CTA.
- *
- * @param {Element} card Card element.
- * @param {string} title CTA title.
- */
-function createReportCta(
-  card,
-  title,
-) {
-  const link = card.querySelector(
-    '.table-list-link a',
-  );
+// /**
+//  * Create report CTA.
+//  *
+//  * @param {Element} card Card element.
+//  * @param {string} title CTA title.
+//  */
+// function createReportCta(
+//   card,
+//   title,
+// ) {
+//   const link = card.querySelector(
+//     '.table-list-link a',
+//   );
 
-  if (!link || !title) {
-    return;
-  }
+//   if (!link || !title) {
+//     return;
+//   }
 
-  const cta = document.createElement('span');
+//   const cta = document.createElement('span');
 
-  cta.className = 'table-list-report-cta';
+//   cta.className = 'table-list-report-cta';
 
-  cta.textContent = title;
+//   cta.textContent = title;
 
-  link.append(cta);
-}
+//   link.append(cta);
+// }
 
 /**
  * Apply display mode.
@@ -732,10 +732,10 @@ export default function decorate(block) {
       /*
        * Report CTA.
        */
-      createReportCta(
-        row,
-        properties.reportCtaTitle,
-      );
+      // createReportCta(
+      //   row,
+      //   properties.reportCtaTitle,
+      // );
 
       cardsContainer.append(row);
     },

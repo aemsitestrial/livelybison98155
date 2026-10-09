@@ -106,7 +106,7 @@
           "component": "select",
           "valueType": "string",
           "name": "cardColor",
-          "label": "Default Card Color",
+          "label": "Card Color",
           "value": "white",
           "options": [
             {
@@ -170,13 +170,6 @@
           "name": "listTitle",
           "label": "List Title",
           "value": "Our transformation solutions"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "reportCtaTitle",
-          "label": "Report CTA Title",
-          "value": "View Report"
         }
       ]
     },
