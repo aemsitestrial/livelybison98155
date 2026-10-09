@@ -937,9 +937,82 @@ main>.section>div.table-list-wrapper {
 /* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
+
   .table-list.motion-fade .table-list-card,
   .table-list.motion-slide .table-list-card,
   .table-list.motion-reveal .table-list-card {
     animation: none;
+  }
+}
+
+/* =========================================
+   TITLE RIGHT — VIEW ALL CTA HEIGHT
+   ========================================= */
+
+.table-list.title-right .table-list-explore a:any-link {
+  min-height: 0;
+  padding: 9px 20px;
+  line-height: 1.2;
+  gap: 10px;
+}
+
+.table-list.title-right .table-list-explore a::after {
+  font-size: 19px;
+}
+
+/* =========================================
+   TITLE RIGHT — TAGS ABOVE DESCRIPTION
+   ========================================= */
+
+/* Use a single column for tags and description */
+.table-list.title-right .table-list-card {
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.8fr) 36px;
+}
+
+/* Keep tags at the top of the description column */
+.table-list.title-right .table-list-description {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+}
+
+/* Position the tags above the description */
+.table-list.title-right .table-list-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 12px;
+  margin: 0 0 12px;
+  text-align: left;
+}
+
+/* Stack tags and description together */
+.table-list.title-right .table-list-description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Preserve the existing right-side title */
+.table-list.title-right .table-list-title-group {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: right;
+}
+
+.table-list.title-right .table-list-link {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+/* Mobile adjustment */
+@media (width < 600px) {
+  .table-list.title-right .table-list-explore a:any-link {
+    padding: 8px 15px;
+  }
+
+  .table-list.title-right .table-list-tags {
+    gap: 8px;
+    margin-bottom: 8px;
   }
 }
