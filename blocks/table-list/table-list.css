@@ -227,7 +227,7 @@ main>.section>div.table-list-wrapper {
 
 .table-list-container:has(.table-list.dark),
 .table-list.dark {
-  background-color: #171d27;
+  background-color: #111;
 }
 
 .table-list.dark {

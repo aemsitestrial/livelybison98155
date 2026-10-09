@@ -63,7 +63,7 @@
               "value": ""
             },
             {
-              "name": "Dark Theme",
+              "name": "Black Theme",
               "value": "dark"
             },
             {
@@ -112,10 +112,6 @@
             {
               "name": "Default",
               "value": "white"
-            },
-            {
-              "name": "Blue",
-              "value": "blue"
             },
             {
               "name": "Black",
