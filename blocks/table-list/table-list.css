@@ -379,17 +379,16 @@
    ========================================= */
 
 .table-list.description-first .table-list-card {
-  grid-template-columns:
-    minmax(0, 1fr) minmax(60px, 0.8fr) minmax(0, 1fr) 40px;
-  min-height: 180px;
-  padding: 32px 0;
+  grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr) 40px;
+  align-items: center;
+  column-gap: 24px;
 }
 
 .table-list.description-first .table-list-description-group {
   grid-column: 1;
   grid-row: 1;
-  min-width: 0;
-  padding: 0 24px 0 0;
+  align-self: center;
+  padding: 0;
 }
 
 .table-list.description-first .table-list-description {
@@ -400,15 +399,16 @@
 .table-list.description-first .table-list-number {
   grid-column: 2;
   grid-row: 1;
-  padding-left: 16px;
-  font-size: 32px;
+  align-self: start;
+  padding: 0;
+  text-align: left;
 }
 
 .table-list.description-first .table-list-title-group {
   grid-column: 3;
   grid-row: 1;
-  min-width: 0;
-  padding: 0 20px;
+  align-self: center;
+  padding: 0;
   text-align: right;
 }
 
@@ -1000,4 +1000,51 @@
   .table-list.motion-reveal .table-list-card {
     animation: none;
   }
+}
+
+
+/* Fix Description First alignment */
+
+
+
+@media (width < 900px) {
+  .table-list.description-first .table-list-card {
+    grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr) 32px;
+    column-gap: 8px;
+  }
+}
+
+@media (width < 600px) {
+  .table-list.description-first .table-list-card {
+    grid-template-columns: minmax(0, 1fr) 28px;
+    row-gap: 12px;
+  }
+
+  .table-list.description-first .table-list-description-group {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .table-list.description-first .table-list-number {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .table-list.description-first .table-list-title-group {
+    grid-column: 1;
+    grid-row: 2;
+    text-align: left;
+  }
+
+  .table-list.description-first .table-list-link {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+/* Fix vertical alignment of Default layout numbers */
+
+.table-list:not(.description-first, .title-right) .table-list-number {
+  align-self: center;
+  grid-row: 1;
 }
