@@ -214,21 +214,40 @@
           ]
         },
         {
-          "component": "text",
+          "component": "select",
           "valueType": "string",
           "name": "ctaBackgroundColor",
           "label": "Background Color",
           "description": "Use a CSS color, such as #111820.",
           "value": "#111820",
-          "condition": "ctaView == 'primary'"
+          "condition": "ctaView == 'primary'",
+          "options": [
+            {
+              "name": "Black",
+              "value": "#000000"
+            },
+            {
+              "name": "White",
+              "value": "#ffffff"
+            }
+          ]
         },
         {
-          "component": "text",
+          "component": "select",
           "valueType": "string",
           "name": "ctaTextColor",
           "label": "Text Color",
-          "description": "Use a CSS color, such as #ffffff.",
-          "value": "#ffffff"
+          "value": "#ffffff",
+          "options": [
+            {
+              "name": "Black",
+              "value": "#000000"
+            },
+            {
+              "name": "White",
+              "value": "#ffffff"
+            }
+          ]
         },
         {
           "component": "text",
@@ -238,27 +257,6 @@
           "description": "Use a CSS color, such as #111820.",
           "value": "#111820",
           "condition": "ctaView == 'primary' || ctaView == 'secondary'"
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "ctaArrowDirection",
-          "label": "Arrow Direction",
-          "value": "right",
-          "options": [
-            {
-              "name": "None",
-              "value": "none"
-            },
-            {
-              "name": "Left",
-              "value": "left"
-            },
-            {
-              "name": "Right",
-              "value": "right"
-            }
-          ]
         }
       ]
     },

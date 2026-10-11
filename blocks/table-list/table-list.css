@@ -73,7 +73,6 @@ main>.section>div.table-list-wrapper {
   position: absolute;
   top: 50%;
   right: 0;
-  content: '\2192';
   font-size: 25px;
   line-height: 1;
   transform: translateY(-50%);
