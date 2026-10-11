@@ -167,7 +167,7 @@
 
 .table-list .table-list-cta:focus-visible,
 .table-list .table-list-explore a:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid currentcolor;
   outline-offset: 4px;
 }
 
@@ -259,7 +259,7 @@
 }
 
 .table-list .table-list-link a:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid currentcolor;
   outline-offset: 4px;
 }
 
@@ -1084,7 +1084,6 @@
    ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   .table-list.motion-fade .table-list-card,
   .table-list.motion-slide .table-list-card,
   .table-list.motion-reveal .table-list-card {
