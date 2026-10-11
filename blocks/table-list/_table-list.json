@@ -89,17 +89,6 @@
         {
           "component": "select",
           "valueType": "string",
-          "name": "view",
-          "label": "View",
-          "value": "list",
-          "options": [
-            { "name": "List", "value": "list" },
-            { "name": "Table", "value": "table" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
           "name": "cardColor",
           "label": "Card Color",
           "value": "white",
@@ -109,27 +98,17 @@
           ]
         },
         {
-          "component": "select",
-          "valueType": "string",
-          "name": "display",
-          "label": "Display",
-          "value": "title-description",
-          "options": [
-            { "name": "Title and Description", "value": "title-description" }
-          ]
-        },
-        {
           "component": "text",
           "valueType": "string",
           "name": "viewAllTitle",
-          "label": "View All Title",
+          "label": "CTA Title",
           "value": "View all"
         },
         {
           "component": "richtext",
           "valueType": "string",
           "name": "viewAllLink",
-          "label": "View All Link",
+          "label": "CTA Link",
           "description": "Destination URL for the header CTA.",
           "value": ""
         },
