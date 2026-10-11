@@ -58,11 +58,26 @@
           "label": "Variations",
           "value": "",
           "options": [
-            { "name": "Default", "value": "" },
-            { "name": "Black Theme", "value": "dark" },
-            { "name": "No Number", "value": "no-number" },
-            { "name": "Description First", "value": "description-first" },
-            { "name": "Title Right", "value": "title-right" }
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Black Theme",
+              "value": "dark"
+            },
+            {
+              "name": "No Number",
+              "value": "no-number"
+            },
+            {
+              "name": "Description First",
+              "value": "description-first"
+            },
+            {
+              "name": "Title Right",
+              "value": "title-right"
+            }
           ]
         },
         {
@@ -93,8 +108,14 @@
           "label": "Card Color",
           "value": "white",
           "options": [
-            { "name": "White", "value": "white" },
-            { "name": "Black", "value": "black" }
+            {
+              "name": "White",
+              "value": "white"
+            },
+            {
+              "name": "Black",
+              "value": "black"
+            }
           ]
         },
         {
@@ -119,6 +140,22 @@
           "label": "Motion Type",
           "value": "none",
           "options": [
+            {
+              "name": "None",
+              "value": "none"
+            },
+            {
+              "name": "Fade",
+              "value": "fade"
+            },
+            {
+              "name": "Slide",
+              "value": "slide"
+            },
+            {
+              "name": "Reveal",
+              "value": "reveal"
+            }
           ]
         },
         {
@@ -127,6 +164,101 @@
           "name": "listTitle",
           "label": "List Title",
           "value": "Our transformation solutions"
+        },
+        {
+          "component": "separator",
+          "name": "ctaPreferencesSeparator",
+          "label": "CTA Preferences"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "ctaView",
+          "label": "CTA View",
+          "value": "primary",
+          "options": [
+            {
+              "name": "Primary",
+              "value": "primary"
+            },
+            {
+              "name": "Secondary",
+              "value": "secondary"
+            },
+            {
+              "name": "Text Only",
+              "value": "text"
+            }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "ctaShape",
+          "label": "Shape",
+          "value": "pill",
+          "condition": "ctaView == 'primary' || ctaView == 'secondary'",
+          "options": [
+            {
+              "name": "Rectangle",
+              "value": "rectangle"
+            },
+            {
+              "name": "Rounded",
+              "value": "rounded"
+            },
+            {
+              "name": "Pill",
+              "value": "pill"
+            }
+          ]
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "ctaBackgroundColor",
+          "label": "Background Color",
+          "description": "Use a CSS color, such as #111820.",
+          "value": "#111820",
+          "condition": "ctaView == 'primary'"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "ctaTextColor",
+          "label": "Text Color",
+          "description": "Use a CSS color, such as #ffffff.",
+          "value": "#ffffff"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "ctaBorderColor",
+          "label": "Border Color",
+          "description": "Use a CSS color, such as #111820.",
+          "value": "#111820",
+          "condition": "ctaView == 'primary' || ctaView == 'secondary'"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "ctaArrowDirection",
+          "label": "Arrow Direction",
+          "value": "right",
+          "options": [
+            {
+              "name": "None",
+              "value": "none"
+            },
+            {
+              "name": "Left",
+              "value": "left"
+            },
+            {
+              "name": "Right",
+              "value": "right"
+            }
+          ]
         }
       ]
     },

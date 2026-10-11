@@ -541,40 +541,106 @@ main>.section>div.table-list-wrapper {
 
 /* Black View All CTA — Title Right only */
 
-.table-list.title-right .table-list-header {
-  margin-bottom: 64px;
-}
+/* =========================================
+   VIEW ALL CTA — ALL TABLE LIST VARIATIONS
+   ========================================= */
 
-.table-list.title-right .table-list-explore a:any-link {
+.table-list .table-list-cta:any-link {
   display: inline-flex;
-  min-height: 0;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 0;
+  min-height: 42px;
+  padding: 10px 20px;
+  border: 1px solid var(--cta-border-color, #111820);
   border-radius: 999px;
-  padding: 9px 20px;
-  background-color: #111820;
-  color: #fff;
+  background-color: var(--cta-background-color, #111820);
+  color: var(--cta-text-color, #fff);
   font-size: 14px;
   font-weight: 500;
   line-height: 1.2;
   text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
-.table-list.title-right .table-list-explore a::after {
-  position: static;
-  content: '\2192';
+/* CTA shapes */
+
+.table-list .table-list-cta.cta-shape-rectangle {
+  border-radius: 0;
+}
+
+.table-list .table-list-cta.cta-shape-rounded {
+  border-radius: 8px;
+}
+
+.table-list .table-list-cta.cta-shape-pill {
+  border-radius: 999px;
+}
+
+/* Primary CTA */
+
+.table-list .table-list-cta.cta-primary:any-link {
+  border-color: var(--cta-border-color, #111820);
+  background-color: var(--cta-background-color, #111820);
+  color: var(--cta-text-color, #fff);
+}
+
+/* Secondary CTA */
+
+.table-list .table-list-cta.cta-secondary:any-link {
+  border-color: var(--cta-border-color, #111820);
+  background-color: transparent;
+  color: var(--cta-text-color, #111820);
+}
+
+/* Text-only CTA */
+
+.table-list .table-list-cta.cta-text:any-link {
+  min-height: auto;
+  padding: 4px 0;
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--cta-text-color, inherit);
+}
+
+/* Arrow */
+
+.table-list .table-list-cta-arrow {
+  display: inline-block;
+  flex: 0 0 auto;
   font-size: 19px;
   line-height: 1;
-  transform: none;
 }
 
-.table-list.title-right .table-list-explore a:hover,
-.table-list.title-right .table-list-explore a:focus-visible {
-  background-color: #303942;
-  color: #fff;
+/* Hover and keyboard focus */
+
+.table-list .table-list-cta:hover,
+.table-list .table-list-cta:focus-visible {
   text-decoration: none;
+}
+
+.table-list .table-list-cta.cta-primary:hover,
+.table-list .table-list-cta.cta-primary:focus-visible {
+  filter: brightness(0.88);
+}
+
+.table-list .table-list-cta.cta-secondary:hover,
+.table-list .table-list-cta.cta-secondary:focus-visible {
+  background-color: rgb(127 127 127 / 10%);
+}
+
+.table-list .table-list-cta.cta-text:hover,
+.table-list .table-list-cta.cta-text:focus-visible {
+  text-decoration: underline;
+}
+
+/* Preserve the Title Right header spacing */
+
+.table-list.title-right .table-list-header {
+  margin-bottom: 64px;
 }
 
 /* =========================================
@@ -926,11 +992,16 @@ main>.section>div.table-list-wrapper {
 
   .table-list .table-list-heading {
     font-size: 30px;
-  }
-
-  .table-list .table-list-explore a:any-link {
-    font-size: 16px;
-  }
+    }
+    
+    .table-list .table-list-cta:any-link {
+      font-size: 16px;
+    }
+    
+    .table-list.title-right .table-list-cta:any-link {
+      padding: 8px 15px;
+      font-size: 13px;
+    }
 
   .table-list .table-list-card {
     grid-template-columns: 40px minmax(0, 1fr) 95px;

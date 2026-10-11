@@ -4,30 +4,32 @@ const DEFAULTS = {
   variations: '',
   maxCards: 4,
   showTags: false,
-  view: 'list',
   cardColor: 'white',
-  display: 'title-description',
   viewAllTitle: 'View all',
   viewAllLink: '',
   motionType: 'none',
   listTitle: 'Our transformation solutions',
-  reportCtaTitle: 'View Report',
+  ctaView: 'primary',
+  ctaShape: 'pill',
+  ctaBackgroundColor: '#111820',
+  ctaTextColor: '#ffffff',
+  ctaBorderColor: '#111820',
+  ctaArrowDirection: 'right',
 };
 
 const VALID_VARIATIONS = [
   '',
-  'compact',
-  'no-description',
   'dark',
-  'featured-industry',
   'no-number',
   'description-first',
   'title-right',
 ];
 
-const VALID_CARD_COLORS = ['white', 'blue', 'black', 'grey'];
-const VALID_DISPLAYS = ['title-description', 'title', 'description'];
+const VALID_CARD_COLORS = ['white', 'black'];
 const VALID_MOTIONS = ['none', 'fade', 'slide', 'reveal'];
+const VALID_CTA_VIEWS = ['primary', 'secondary', 'text'];
+const VALID_CTA_SHAPES = ['rectangle', 'rounded', 'pill'];
+const VALID_ARROW_DIRECTIONS = ['none', 'left', 'right'];
 
 function getText(element) {
   return element?.textContent?.trim() || '';
@@ -107,14 +109,17 @@ function readBlockConfig(block) {
         ? DEFAULTS.maxCards
         : Math.min(Math.max(rawMaxCards, 1), 4),
       showTags: booleanValue(value(2), DEFAULTS.showTags),
-      view: value(3) || DEFAULTS.view,
-      cardColor: value(4) || DEFAULTS.cardColor,
-      display: value(5) || DEFAULTS.display,
-      viewAllTitle: value(6) || DEFAULTS.viewAllTitle,
-      viewAllLink: getFieldLink(configRows[7]?.children[0]),
-      motionType: value(8) || DEFAULTS.motionType,
-      listTitle: value(9) || DEFAULTS.listTitle,
-      reportCtaTitle: value(10) || DEFAULTS.reportCtaTitle,
+      cardColor: value(3) || DEFAULTS.cardColor,
+      viewAllTitle: value(4) || DEFAULTS.viewAllTitle,
+      viewAllLink: getFieldLink(configRows[5]?.children[0]),
+      motionType: value(6) || DEFAULTS.motionType,
+      listTitle: value(7) || DEFAULTS.listTitle,
+      ctaView: value(9) || DEFAULTS.ctaView,
+      ctaShape: value(10) || DEFAULTS.ctaShape,
+      ctaBackgroundColor: value(11) || DEFAULTS.ctaBackgroundColor,
+      ctaTextColor: value(12) || DEFAULTS.ctaTextColor,
+      ctaBorderColor: value(13) || DEFAULTS.ctaBorderColor,
+      ctaArrowDirection: value(14) || DEFAULTS.ctaArrowDirection,
     },
     contentRows,
     hasVariationConfig: Boolean(configRows[0]),
@@ -131,18 +136,23 @@ function normalizeProperties(properties) {
       Math.max(Number(properties.maxCards) || DEFAULTS.maxCards, 1),
       4,
     ),
-    view: ['list', 'table'].includes(properties.view)
-      ? properties.view
-      : DEFAULTS.view,
     cardColor: VALID_CARD_COLORS.includes(properties.cardColor)
       ? properties.cardColor
       : DEFAULTS.cardColor,
-    display: VALID_DISPLAYS.includes(properties.display)
-      ? properties.display
-      : DEFAULTS.display,
     motionType: VALID_MOTIONS.includes(properties.motionType)
       ? properties.motionType
       : DEFAULTS.motionType,
+    ctaView: VALID_CTA_VIEWS.includes(properties.ctaView)
+      ? properties.ctaView
+      : DEFAULTS.ctaView,
+    ctaShape: VALID_CTA_SHAPES.includes(properties.ctaShape)
+      ? properties.ctaShape
+      : DEFAULTS.ctaShape,
+    ctaArrowDirection: VALID_ARROW_DIRECTIONS.includes(
+      properties.ctaArrowDirection,
+    )
+      ? properties.ctaArrowDirection
+      : DEFAULTS.ctaArrowDirection,
   };
 }
 
@@ -179,9 +189,39 @@ function createHeader(properties, authoredHeader) {
 
     const link = document.createElement('a');
     link.href = href;
+    link.className = [
+      'table-list-cta',
+      `cta-${properties.ctaView}`,
+      `cta-shape-${properties.ctaShape}`,
+      `cta-arrow-${properties.ctaArrowDirection}`,
+    ].join(' ');
+
     link.textContent = properties.viewAllTitle
       || getText(authoredLink)
       || DEFAULTS.viewAllTitle;
+
+    link.style.setProperty('--cta-text-color', properties.ctaTextColor);
+    link.style.setProperty('--cta-border-color', properties.ctaBorderColor);
+
+    if (properties.ctaView === 'primary') {
+      link.style.setProperty(
+        '--cta-background-color',
+        properties.ctaBackgroundColor,
+      );
+    }
+
+    if (properties.ctaArrowDirection !== 'none') {
+      const arrow = document.createElement('span');
+      arrow.className = 'table-list-cta-arrow';
+      arrow.setAttribute('aria-hidden', 'true');
+      arrow.textContent = properties.ctaArrowDirection === 'left' ? '←' : '→';
+
+      if (properties.ctaArrowDirection === 'left') {
+        link.prepend(arrow);
+      } else {
+        link.append(arrow);
+      }
+    }
 
     explore.append(link);
     header.append(explore);
@@ -241,74 +281,6 @@ function applyFeaturedIndustry(block) {
   );
 }
 
-function applyDisplayMode(block, display) {
-  block.classList.add(`display-${display}`);
-}
-
-function applyTableView(block, display) {
-  block.classList.add('view-table');
-
-  const cards = [...block.querySelectorAll('.table-list-card')];
-  if (!cards.length) return;
-
-  const table = document.createElement('table');
-  table.className = 'table-list-table';
-
-  const showTitle = display !== 'description';
-  const showDescription = display !== 'title';
-
-  const thead = document.createElement('thead');
-  const headerRow = document.createElement('tr');
-
-  ['Number']
-    .concat(showTitle ? ['Title'] : [])
-    .concat(showDescription ? ['Description'] : [])
-    .concat([''])
-    .forEach((label) => {
-      const th = document.createElement('th');
-      th.textContent = label;
-      headerRow.append(th);
-    });
-
-  thead.append(headerRow);
-
-  const tbody = document.createElement('tbody');
-
-  cards.forEach((card) => {
-    const row = document.createElement('tr');
-
-    const number = card.querySelector('.table-list-number');
-    const title = card.querySelector('.table-list-title');
-    const description = card.querySelector('.table-list-description');
-    const link = card.querySelector('.table-list-link a');
-
-    [
-      number,
-      ...(showTitle ? [title] : []),
-      ...(showDescription ? [description] : []),
-    ].forEach((source) => {
-      const cell = document.createElement('td');
-      cell.textContent = getText(source);
-      row.append(cell);
-    });
-
-    const actionCell = document.createElement('td');
-
-    if (link) {
-      const actionLink = link.cloneNode(true);
-      actionLink.className = 'table-list-table-link';
-      actionLink.removeAttribute('aria-label');
-      actionCell.append(actionLink);
-    }
-
-    row.append(actionCell);
-    tbody.append(row);
-  });
-
-  table.append(thead, tbody);
-  block.querySelector('.table-list-cards')?.replaceWith(table);
-}
-
 export default function decorate(block) {
   const { properties: rawProperties, contentRows, hasVariationConfig } = readBlockConfig(block);
   const properties = normalizeProperties(rawProperties);
@@ -334,7 +306,6 @@ export default function decorate(block) {
 
   block.classList.add(`card-${properties.cardColor}`);
   block.classList.add(`motion-${properties.motionType}`);
-  applyDisplayMode(block, properties.display);
 
   if (properties.showTags) block.classList.add('show-tags');
 
@@ -387,8 +358,4 @@ export default function decorate(block) {
   block.append(cardsContainer);
 
   applyFeaturedIndustry(block);
-
-  if (properties.view === 'table') {
-    applyTableView(block, properties.display);
-  }
 }
