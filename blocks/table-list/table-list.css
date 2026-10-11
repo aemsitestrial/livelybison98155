@@ -1084,9 +1084,167 @@
    ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
   .table-list.motion-fade .table-list-card,
   .table-list.motion-slide .table-list-card,
   .table-list.motion-reveal .table-list-card {
     animation: none;
+  }
+}
+
+
+/* =========================================
+   FIX: ALIGN TABLE LIST CARD CONTENT
+   ========================================= */
+
+/* Default layout: number | title | description | arrow */
+
+.table-list:not(.description-first):not(.title-right) .table-list-card {
+  display: grid;
+  grid-template-columns:
+    70px minmax(0, 0.95fr) minmax(0, 1.05fr) 40px;
+  align-items: center;
+  column-gap: 24px;
+  row-gap: 0;
+}
+
+.table-list:not(.description-first):not(.title-right) .table-list-number {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+}
+
+.table-list:not(.description-first):not(.title-right) .table-list-title-group {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.table-list:not(.description-first):not(.title-right) .table-list-description-group {
+  grid-column: 3;
+  grid-row: 1;
+  min-width: 0;
+  padding: 0;
+}
+
+.table-list:not(.description-first):not(.title-right) .table-list-link {
+  grid-column: 4;
+  grid-row: 1;
+  justify-self: end;
+}
+
+/* Description First: description | number | title | arrow */
+
+.table-list.description-first .table-list-card {
+  grid-template-columns:
+    minmax(0, 1fr) minmax(60px, 0.8fr) minmax(0, 1fr) 40px;
+}
+
+.table-list.description-first .table-list-description-group {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.table-list.description-first .table-list-number {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.table-list.description-first .table-list-title-group {
+  grid-column: 3;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.table-list.description-first .table-list-link {
+  grid-column: 4;
+  grid-row: 1;
+  justify-self: end;
+}
+
+/* Title Right: description | title | arrow */
+
+.table-list.title-right .table-list-card {
+  grid-template-columns:
+    minmax(0, 1fr) minmax(0, 0.8fr) 40px;
+}
+
+.table-list.title-right .table-list-description-group {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.table-list.title-right .table-list-title-group {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.table-list.title-right .table-list-link {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+}
+
+/* Prevent long text from forcing grid columns wider */
+
+.table-list .table-list-number,
+.table-list .table-list-title-group,
+.table-list .table-list-description-group,
+.table-list .table-list-link {
+  min-width: 0;
+}
+
+.table-list .table-list-title,
+.table-list .table-list-description {
+  overflow-wrap: break-word;
+}
+
+/* Tablet: keep every card item in a single aligned row */
+
+@media (width >=600px) and (width < 900px) {
+  .table-list:not(.description-first):not(.title-right) .table-list-card {
+    grid-template-columns:
+      48px minmax(0, 0.9fr) minmax(0, 1.1fr) 32px;
+    column-gap: 12px;
+  }
+
+  .table-list.description-first .table-list-card {
+    grid-template-columns:
+      minmax(0, 1fr) 48px minmax(0, 1fr) 32px;
+  }
+}
+
+/* Mobile: stack description and title without overlap */
+
+@media (width < 600px) {
+  .table-list:not(.description-first):not(.title-right) .table-list-card {
+    grid-template-columns: 40px minmax(0, 1fr) 32px;
+    column-gap: 12px;
+    row-gap: 8px;
+  }
+
+  .table-list:not(.description-first):not(.title-right) .table-list-number {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .table-list:not(.description-first):not(.title-right) .table-list-title-group {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .table-list:not(.description-first):not(.title-right) .table-list-description-group {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .table-list:not(.description-first):not(.title-right) .table-list-link {
+    grid-column: 3;
+    grid-row: 1 / 3;
   }
 }
