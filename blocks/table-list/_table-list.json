@@ -210,7 +210,6 @@
           "valueType": "string",
           "name": "ctaBackgroundColor",
           "label": "CTA Background Color",
-          "description": "Use a CSS color, such as #111820.",
           "value": "#111820",
           "condition": "ctaView == 'primary'",
           "options": [
@@ -246,7 +245,6 @@
           "valueType": "string",
           "name": "ctaBorderColor",
           "label": "CTA Border Color",
-          "description": "Use a CSS color, such as #111820.",
           "value": "#111820",
           "condition": "ctaView == 'primary' || ctaView == 'secondary'",
           "options": [
