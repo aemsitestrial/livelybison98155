@@ -366,7 +366,7 @@
 }
 
 .table-list.description-first .table-list-title {
-  font-size: clamp(48px, 5vw, 82px);
+  font-size: clamp(48px, 2.5vw, 82px);
   line-height: 1;
 }
 
