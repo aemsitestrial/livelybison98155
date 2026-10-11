@@ -1,5 +1,6 @@
 /* stylelint-disable no-descending-specificity */
 
+
 /* =========================================
    TABLE LIST — BASE
    ========================================= */
@@ -47,7 +48,7 @@
 }
 
 /* =========================================
-   VIEW ALL CTA — BASE
+   HEADER CTA
    ========================================= */
 
 .table-list .table-list-cta:any-link,
@@ -78,9 +79,6 @@
     filter 180ms ease;
 }
 
-/* Keep exactly one right arrow using CSS.
-   Do not add an arrow element in JavaScript. */
-
 .table-list .table-list-cta::after,
 .table-list .table-list-explore a::after {
   position: static;
@@ -90,10 +88,6 @@
   line-height: 1;
   transform: none;
 }
-
-/* =========================================
-   CTA SHAPES
-   ========================================= */
 
 .table-list .table-list-cta.cta-shape-rectangle,
 .table-list .table-list-explore a.cta-shape-rectangle {
@@ -110,12 +104,6 @@
   border-radius: 999px;
 }
 
-/* =========================================
-   CTA VIEWS
-   ========================================= */
-
-/* Primary */
-
 .table-list .table-list-cta.cta-primary:any-link,
 .table-list .table-list-explore a.cta-primary:any-link {
   border-color: var(--cta-border-color, #000);
@@ -123,16 +111,12 @@
   color: var(--cta-text-color, #fff);
 }
 
-/* Secondary */
-
 .table-list .table-list-cta.cta-secondary:any-link,
 .table-list .table-list-explore a.cta-secondary:any-link {
   border-color: var(--cta-border-color, #000);
   background-color: transparent;
   color: var(--cta-text-color, #000);
 }
-
-/* Text Only */
 
 .table-list .table-list-cta.cta-text:any-link,
 .table-list .table-list-explore a.cta-text:any-link {
@@ -142,8 +126,6 @@
   background-color: transparent;
   color: var(--cta-text-color, inherit);
 }
-
-/* CTA hover */
 
 .table-list .table-list-cta:hover,
 .table-list .table-list-explore a:hover {
@@ -183,13 +165,15 @@
 
 /* =========================================
    CARD BASE
+   Default: number | title | description | arrow
    ========================================= */
 
 .table-list .table-list-card {
   display: grid;
-  grid-template-columns: 70px minmax(0, 1fr) minmax(0, 1fr) 40px;
+  grid-template-columns:
+    70px minmax(0, 0.95fr) minmax(0, 1.05fr) 40px;
   align-items: center;
-  gap: 24px;
+  gap: 0 24px;
   width: 100%;
   min-height: 140px;
   padding: 28px 0;
@@ -203,6 +187,7 @@
   grid-column: 1;
   grid-row: 1;
   align-self: start;
+  min-width: 0;
   color: #66717e;
   font-size: 36px;
   font-weight: 400;
@@ -213,6 +198,7 @@
   grid-column: 2;
   grid-row: 1;
   min-width: 0;
+  padding: 0;
 }
 
 .table-list .table-list-title {
@@ -221,13 +207,14 @@
   font-size: clamp(28px, 3vw, 42px);
   font-weight: 400;
   line-height: 1.15;
+  overflow-wrap: break-word;
 }
 
 .table-list .table-list-description-group {
   grid-column: 3;
   grid-row: 1;
   min-width: 0;
-  padding: 0 12px;
+  padding: 0;
 }
 
 .table-list .table-list-description {
@@ -236,6 +223,7 @@
   font-size: 18px;
   font-weight: 400;
   line-height: 1.5;
+  overflow-wrap: break-word;
 }
 
 .table-list .table-list-link {
@@ -244,6 +232,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  min-width: 0;
 }
 
 .table-list .table-list-arrow {
@@ -315,18 +304,6 @@
 }
 
 /* =========================================
-   DISPLAY MODES
-   ========================================= */
-
-.table-list.display-title .table-list-description-group {
-  display: none;
-}
-
-.table-list.display-description .table-list-title-group {
-  display: none;
-}
-
-/* =========================================
    DARK VARIATION
    ========================================= */
 
@@ -357,18 +334,6 @@
 
 .table-list.dark .table-list-link a:focus-visible {
   outline-color: #fff;
-}
-
-/* =========================================
-   NO DESCRIPTION
-   ========================================= */
-
-.table-list.no-description .table-list-description-group {
-  display: none;
-}
-
-.table-list.no-description .table-list-title-group {
-  grid-column: 2 / 4;
 }
 
 /* =========================================
@@ -410,10 +375,12 @@
 
 /* =========================================
    DESCRIPTION FIRST
+   Description | number | title | arrow
    ========================================= */
 
 .table-list.description-first .table-list-card {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr) minmax(0, 1fr) 40px;
+  grid-template-columns:
+    minmax(0, 1fr) minmax(60px, 0.8fr) minmax(0, 1fr) 40px;
   min-height: 180px;
   padding: 32px 0;
 }
@@ -421,6 +388,7 @@
 .table-list.description-first .table-list-description-group {
   grid-column: 1;
   grid-row: 1;
+  min-width: 0;
   padding: 0 24px 0 0;
 }
 
@@ -439,6 +407,7 @@
 .table-list.description-first .table-list-title-group {
   grid-column: 3;
   grid-row: 1;
+  min-width: 0;
   padding: 0 20px;
   text-align: right;
 }
@@ -451,11 +420,7 @@
 .table-list.description-first .table-list-link {
   grid-column: 4;
   grid-row: 1;
-}
-
-.table-list.description-first .table-list-link a:any-link {
-  justify-content: center;
-  padding-left: 0;
+  justify-self: end;
 }
 
 .table-list.compact.description-first .table-list-card {
@@ -495,21 +460,14 @@
   grid-column: 4;
 }
 
-.table-list.description-first.display-title .table-list-description-group,
-.table-list.description-first.display-description .table-list-title-group {
-  display: none;
-}
-
-.table-list.description-first.display-description .table-list-description-group {
-  grid-column: 1 / 4;
-}
-
 /* =========================================
    TITLE RIGHT
+   Description | title | arrow
    ========================================= */
 
 .table-list.title-right .table-list-card {
-  grid-template-columns: minmax(0, 1fr) minmax(180px, 0.8fr) 36px;
+  grid-template-columns:
+    minmax(0, 1fr) minmax(0, 0.8fr) 40px;
   min-height: 108px;
   padding: 20px 0;
 }
@@ -522,6 +480,7 @@
   grid-column: 1;
   grid-row: 1;
   align-self: center;
+  min-width: 0;
   padding: 0 30px 0 0;
 }
 
@@ -534,6 +493,7 @@
   grid-column: 2;
   grid-row: 1;
   align-self: center;
+  min-width: 0;
   padding: 0 20px;
   text-align: right;
 }
@@ -549,8 +509,6 @@
   grid-row: 1;
 }
 
-/* Compact + Title Right */
-
 .table-list.compact.title-right .table-list-card {
   min-height: 84px;
   padding: 14px 0;
@@ -564,22 +522,17 @@
   font-size: 16px;
 }
 
-/* Title Right + No Description */
-
-.table-list.title-right.no-description .table-list-title-group {
-  grid-column: 1 / 3;
-}
-
-/* Title Right + No Number */
-
-.table-list.title-right.no-number .table-list-title-group {
-  grid-column: 2;
-}
-
-/* Title Right header spacing */
-
 .table-list.title-right .table-list-header {
   margin-bottom: 64px;
+}
+
+.table-list.title-right .table-list-tags {
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.table-list.title-right .table-list-tag {
+  font-size: 11px;
 }
 
 /* =========================================
@@ -755,22 +708,15 @@
   }
 
   .table-list .table-list-card {
-    grid-template-columns: 48px minmax(0, 1fr) 110px;
-    gap: 4px 8px;
-  }
-
-  .table-list .table-list-title {
-    font-size: 30px;
+    column-gap: 12px;
   }
 
   .table-list .table-list-number {
     font-size: 30px;
   }
 
-  .table-list .table-list-description-group {
-    grid-column: 2;
-    grid-row: 2;
-    padding: 0;
+  .table-list .table-list-title {
+    font-size: 30px;
   }
 
   .table-list .table-list-description {
@@ -785,24 +731,19 @@
     min-height: 76px;
   }
 
-  .table-list.no-description .table-list-title-group {
-    grid-column: 2;
-  }
-
   .table-list.featured-industry .table-list-card-featured {
     padding: 24px 20px;
   }
 
   .table-list.description-first .table-list-card {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns:
+      minmax(0, 1fr) 48px minmax(0, 1fr) 32px;
     min-height: 150px;
     gap: 8px;
     padding: 24px 0;
   }
 
   .table-list.description-first .table-list-description-group {
-    grid-column: 1;
-    grid-row: 1;
     padding-right: 12px;
   }
 
@@ -811,15 +752,11 @@
   }
 
   .table-list.description-first .table-list-number {
-    grid-column: 2;
-    grid-row: 1;
     padding-left: 8px;
     font-size: 26px;
   }
 
   .table-list.description-first .table-list-title-group {
-    grid-column: 3;
-    grid-row: 1;
     padding-right: 8px;
   }
 
@@ -827,39 +764,13 @@
     font-size: clamp(36px, 4vw, 56px);
   }
 
-  .table-list.description-first .table-list-link {
-    grid-column: 4;
-    grid-row: 1;
-  }
-
-  .table-list.no-number.description-first .table-list-title-group {
-    grid-column: 2 / 4;
-  }
-
-  .table-list.display-title .table-list-title-group {
-    grid-column: 2;
-  }
-
-  .table-list.display-title .table-list-link {
-    grid-column: 3;
-  }
-
-  .table-list.display-description .table-list-description-group {
-    grid-column: 2;
-  }
-
-  .table-list.display-description .table-list-link {
-    grid-column: 3;
-  }
-
   .table-list.title-right .table-list-card {
-    grid-template-columns: minmax(0, 1fr) minmax(150px, 0.8fr) 32px;
+    grid-template-columns:
+      minmax(0, 1fr) minmax(0, 0.8fr) 32px;
     gap: 8px;
   }
 
   .table-list.title-right .table-list-description-group {
-    grid-column: 1;
-    grid-row: 1;
     padding-right: 16px;
   }
 
@@ -868,27 +779,11 @@
   }
 
   .table-list.title-right .table-list-title-group {
-    grid-column: 2;
-    grid-row: 1;
     padding: 0 12px;
   }
 
   .table-list.title-right .table-list-title {
     font-size: 26px;
-  }
-
-  .table-list.title-right .table-list-tags {
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-
-  .table-list.title-right .table-list-tag {
-    font-size: 11px;
-  }
-
-  .table-list.title-right .table-list-link {
-    grid-column: 3;
-    grid-row: 1;
   }
 
   .table-list.view-table .table-list-table th,
@@ -925,24 +820,44 @@
   }
 
   .table-list .table-list-card {
-    grid-template-columns: 40px minmax(0, 1fr) 95px;
+    grid-template-columns: 40px minmax(0, 1fr) 32px;
+    gap: 8px 12px;
     min-height: 108px;
+    padding: 20px 0;
   }
 
-  .table-list .table-list-title,
   .table-list .table-list-number {
+    grid-column: 1;
+    grid-row: 1;
     font-size: 24px;
+  }
+
+  .table-list .table-list-title-group {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .table-list .table-list-title {
+    font-size: 24px;
+  }
+
+  .table-list .table-list-description-group {
+    grid-column: 2;
+    grid-row: 2;
   }
 
   .table-list .table-list-description {
     font-size: 16px;
   }
 
-  .table-list .table-list-link a:any-link {
-    font-size: 14px;
+  .table-list .table-list-link {
+    grid-column: 3;
+    grid-row: 1 / 3;
   }
 
-  .table-list .table-list-link a::after {
+  .table-list .table-list-arrow {
+    width: 28px;
+    height: 28px;
     font-size: 21px;
   }
 
@@ -1045,10 +960,6 @@
     padding: 0;
   }
 
-  .table-list.title-right .table-list-description {
-    font-size: 16px;
-  }
-
   .table-list.title-right .table-list-title-group {
     grid-column: 1;
     grid-row: 2;
@@ -1084,167 +995,9 @@
    ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   .table-list.motion-fade .table-list-card,
   .table-list.motion-slide .table-list-card,
   .table-list.motion-reveal .table-list-card {
     animation: none;
-  }
-}
-
-
-/* =========================================
-   FIX: ALIGN TABLE LIST CARD CONTENT
-   ========================================= */
-
-/* Default layout: number | title | description | arrow */
-
-.table-list:not(.description-first):not(.title-right) .table-list-card {
-  display: grid;
-  grid-template-columns:
-    70px minmax(0, 0.95fr) minmax(0, 1.05fr) 40px;
-  align-items: center;
-  column-gap: 24px;
-  row-gap: 0;
-}
-
-.table-list:not(.description-first):not(.title-right) .table-list-number {
-  grid-column: 1;
-  grid-row: 1;
-  align-self: start;
-}
-
-.table-list:not(.description-first):not(.title-right) .table-list-title-group {
-  grid-column: 2;
-  grid-row: 1;
-  min-width: 0;
-  padding: 0;
-  text-align: left;
-}
-
-.table-list:not(.description-first):not(.title-right) .table-list-description-group {
-  grid-column: 3;
-  grid-row: 1;
-  min-width: 0;
-  padding: 0;
-}
-
-.table-list:not(.description-first):not(.title-right) .table-list-link {
-  grid-column: 4;
-  grid-row: 1;
-  justify-self: end;
-}
-
-/* Description First: description | number | title | arrow */
-
-.table-list.description-first .table-list-card {
-  grid-template-columns:
-    minmax(0, 1fr) minmax(60px, 0.8fr) minmax(0, 1fr) 40px;
-}
-
-.table-list.description-first .table-list-description-group {
-  grid-column: 1;
-  grid-row: 1;
-  min-width: 0;
-}
-
-.table-list.description-first .table-list-number {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.table-list.description-first .table-list-title-group {
-  grid-column: 3;
-  grid-row: 1;
-  min-width: 0;
-}
-
-.table-list.description-first .table-list-link {
-  grid-column: 4;
-  grid-row: 1;
-  justify-self: end;
-}
-
-/* Title Right: description | title | arrow */
-
-.table-list.title-right .table-list-card {
-  grid-template-columns:
-    minmax(0, 1fr) minmax(0, 0.8fr) 40px;
-}
-
-.table-list.title-right .table-list-description-group {
-  grid-column: 1;
-  grid-row: 1;
-  min-width: 0;
-}
-
-.table-list.title-right .table-list-title-group {
-  grid-column: 2;
-  grid-row: 1;
-  min-width: 0;
-}
-
-.table-list.title-right .table-list-link {
-  grid-column: 3;
-  grid-row: 1;
-  justify-self: end;
-}
-
-/* Prevent long text from forcing grid columns wider */
-
-.table-list .table-list-number,
-.table-list .table-list-title-group,
-.table-list .table-list-description-group,
-.table-list .table-list-link {
-  min-width: 0;
-}
-
-.table-list .table-list-title,
-.table-list .table-list-description {
-  overflow-wrap: break-word;
-}
-
-/* Tablet: keep every card item in a single aligned row */
-
-@media (width >=600px) and (width < 900px) {
-  .table-list:not(.description-first):not(.title-right) .table-list-card {
-    grid-template-columns:
-      48px minmax(0, 0.9fr) minmax(0, 1.1fr) 32px;
-    column-gap: 12px;
-  }
-
-  .table-list.description-first .table-list-card {
-    grid-template-columns:
-      minmax(0, 1fr) 48px minmax(0, 1fr) 32px;
-  }
-}
-
-/* Mobile: stack description and title without overlap */
-
-@media (width < 600px) {
-  .table-list:not(.description-first):not(.title-right) .table-list-card {
-    grid-template-columns: 40px minmax(0, 1fr) 32px;
-    column-gap: 12px;
-    row-gap: 8px;
-  }
-
-  .table-list:not(.description-first):not(.title-right) .table-list-number {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  .table-list:not(.description-first):not(.title-right) .table-list-title-group {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  .table-list:not(.description-first):not(.title-right) .table-list-description-group {
-    grid-column: 2;
-    grid-row: 2;
-  }
-
-  .table-list:not(.description-first):not(.title-right) .table-list-link {
-    grid-column: 3;
-    grid-row: 1 / 3;
   }
 }
