@@ -180,14 +180,6 @@
             {
               "name": "Primary",
               "value": "primary"
-            },
-            {
-              "name": "Secondary",
-              "value": "secondary"
-            },
-            {
-              "name": "Text Only",
-              "value": "text"
             }
           ]
         },
@@ -195,7 +187,7 @@
           "component": "select",
           "valueType": "string",
           "name": "ctaShape",
-          "label": "Shape",
+          "label": " CTA Shape",
           "value": "pill",
           "condition": "ctaView == 'primary' || ctaView == 'secondary'",
           "options": [
@@ -217,7 +209,7 @@
           "component": "select",
           "valueType": "string",
           "name": "ctaBackgroundColor",
-          "label": "Background Color",
+          "label": "CTA Background Color",
           "description": "Use a CSS color, such as #111820.",
           "value": "#111820",
           "condition": "ctaView == 'primary'",
@@ -236,7 +228,7 @@
           "component": "select",
           "valueType": "string",
           "name": "ctaTextColor",
-          "label": "Text Color",
+          "label": "CTA Text Color",
           "value": "#ffffff",
           "options": [
             {
@@ -250,13 +242,23 @@
           ]
         },
         {
-          "component": "text",
+          "component": "select",
           "valueType": "string",
           "name": "ctaBorderColor",
-          "label": "Border Color",
+          "label": "CTA Border Color",
           "description": "Use a CSS color, such as #111820.",
           "value": "#111820",
-          "condition": "ctaView == 'primary' || ctaView == 'secondary'"
+          "condition": "ctaView == 'primary' || ctaView == 'secondary'",
+          "options": [
+            {
+              "name": "Border",
+              "value": "#000000"
+            },
+            {
+              "name": "No Border",
+              "value": "#ffffff"
+            }
+          ]
         }
       ]
     },
@@ -314,20 +316,12 @@
           "value": ""
         },
         {
-          "component": "text",
-          "valueType": "string",
-          "name": "tag1",
-          "label": "Tag 1",
+          "component": "aem-tag",
+          "valueType": "string[]",
+          "name": "tags",
+          "label": "Tags",
           "description": "Optional. Displayed above the description when Show Tags is enabled.",
-          "value": ""
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "tag2",
-          "label": "Tag 2",
-          "description": "Optional second tag displayed above the description.",
-          "value": ""
+          "value": []
         }
       ]
     }

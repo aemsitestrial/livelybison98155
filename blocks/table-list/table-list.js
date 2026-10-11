@@ -216,14 +216,21 @@ function createHeader(properties, authoredHeader) {
   return header;
 }
 
-function createTags(cell1, cell2) {
+function createTags(tagCell) {
   const tags = document.createElement('div');
   tags.className = 'table-list-tags';
 
-  [getText(cell1), getText(cell2)].filter(Boolean).forEach((text) => {
+  const rawTags = getText(tagCell);
+
+  const tagValues = rawTags
+    .split(/[,\n]+/)
+    .map((tag) => tag.trim())
+    .filter(Boolean);
+
+  tagValues.forEach((tagText) => {
     const tag = document.createElement('span');
     tag.className = 'table-list-tag';
-    tag.textContent = text;
+    tag.textContent = tagText;
     tags.append(tag);
   });
 
@@ -327,7 +334,7 @@ export default function decorate(block) {
     descriptionGroup.className = 'table-list-description-group';
 
     if (properties.showTags && variation === 'title-right') {
-      descriptionGroup.append(createTags(cells[4], cells[5]));
+      descriptionGroup.append(createTags(cells[4]));
     }
 
     descriptionCell.className = 'table-list-description';
