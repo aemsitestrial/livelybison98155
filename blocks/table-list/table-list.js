@@ -193,7 +193,6 @@ function createHeader(properties, authoredHeader) {
       'table-list-cta',
       `cta-${properties.ctaView}`,
       `cta-shape-${properties.ctaShape}`,
-      `cta-arrow-${properties.ctaArrowDirection}`,
     ].join(' ');
 
     link.textContent = properties.viewAllTitle
@@ -208,19 +207,6 @@ function createHeader(properties, authoredHeader) {
         '--cta-background-color',
         properties.ctaBackgroundColor,
       );
-    }
-
-    if (properties.ctaArrowDirection !== 'none') {
-      const arrow = document.createElement('span');
-      arrow.className = 'table-list-cta-arrow';
-      arrow.setAttribute('aria-hidden', 'true');
-      arrow.textContent = properties.ctaArrowDirection === 'left' ? '←' : '→';
-
-      if (properties.ctaArrowDirection === 'left') {
-        link.prepend(arrow);
-      } else {
-        link.append(arrow);
-      }
     }
 
     explore.append(link);
