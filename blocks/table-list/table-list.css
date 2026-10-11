@@ -274,36 +274,6 @@
 }
 
 /* =========================================
-   COMPACT
-   ========================================= */
-
-.table-list.compact {
-  padding-top: 56px;
-  padding-bottom: 56px;
-}
-
-.table-list.compact .table-list-header {
-  margin-bottom: 32px;
-}
-
-.table-list.compact .table-list-card {
-  min-height: 100px;
-  padding: 18px 0;
-}
-
-.table-list.compact .table-list-number {
-  font-size: 28px;
-}
-
-.table-list.compact .table-list-title {
-  font-size: clamp(24px, 2.5vw, 34px);
-}
-
-.table-list.compact .table-list-description {
-  font-size: 16px;
-}
-
-/* =========================================
    DARK VARIATION
    ========================================= */
 
@@ -357,58 +327,41 @@
 }
 
 /* =========================================
-   FEATURED INDUSTRY
-   ========================================= */
-
-.table-list.featured-industry .table-list-card-featured {
-  padding: 32px;
-  background-color: #f1f5f8;
-}
-
-.table-list.featured-industry .table-list-card-featured .table-list-title {
-  font-size: clamp(32px, 3.4vw, 48px);
-}
-
-.table-list.featured-industry .table-list-card-featured .table-list-description {
-  font-size: 20px;
-}
-
-/* =========================================
    DESCRIPTION FIRST
    Description | number | title | arrow
    ========================================= */
 
 .table-list.description-first .table-list-card {
-  grid-template-columns: minmax(0, 1fr) 70px minmax(0, 1fr) 40px;
-  align-items: center;
-  column-gap: 24px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  min-height: 170px;
+  padding: 28px 0;
 }
 
 .table-list.description-first .table-list-description-group {
   grid-column: 1;
   grid-row: 1;
   align-self: center;
-  padding: 0;
+  padding: 0 30px 0 0;
 }
 
 .table-list.description-first .table-list-description {
-  font-size: 20px;
-  line-height: 1.45;
+  font-size: 22px;
+  line-height: 1.35;
 }
 
 .table-list.description-first .table-list-number {
   grid-column: 2;
   grid-row: 1;
-  align-self: start;
-  padding: 0;
-  text-align: left;
+  align-self: center;
+  padding-left: 20px;
+  font-size: 30px;
 }
 
 .table-list.description-first .table-list-title-group {
   grid-column: 3;
   grid-row: 1;
   align-self: center;
-  padding: 0;
+  padding-right: 20px;
   text-align: right;
 }
 
@@ -420,7 +373,11 @@
 .table-list.description-first .table-list-link {
   grid-column: 4;
   grid-row: 1;
-  justify-self: end;
+}
+
+.table-list.description-first .table-list-link a:any-link {
+  justify-content: center;
+  padding-left: 0;
 }
 
 .table-list.compact.description-first .table-list-card {
@@ -458,6 +415,15 @@
 
 .table-list.no-number.description-first .table-list-link {
   grid-column: 4;
+}
+
+.table-list.description-first.display-title .table-list-description-group,
+.table-list.description-first.display-description .table-list-title-group {
+  display: none;
+}
+
+.table-list.description-first.display-description .table-list-description-group {
+  grid-column: 1 / 4;
 }
 
 /* =========================================
