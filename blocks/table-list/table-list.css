@@ -1047,15 +1047,15 @@
 }
 
 .table-list .table-list-card-cta.cta-shape-rectangle {
-  border-radius: 0;
+  border-radius: 0 !important;
 }
 
 .table-list .table-list-card-cta.cta-shape-rounded {
-  border-radius: 8px;
+  border-radius: 8px !important;
 }
 
 .table-list .table-list-card-cta.cta-shape-pill {
-  border-radius: 999px;
+  border-radius: 999px !important;
 }
 
 .table-list .table-list-card-cta.cta-primary:any-link {
