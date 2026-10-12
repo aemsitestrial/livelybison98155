@@ -961,6 +961,7 @@
    ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
   .table-list.motion-fade .table-list-card,
   .table-list.motion-slide .table-list-card,
   .table-list.motion-reveal .table-list-card {
@@ -1020,108 +1021,81 @@
    CHILD CARD CTA
    ========================================= */
 
-.table-list .table-list-card-cta:any-link,
-.table-list .table-list-card-cta {
-  display: inline-flex;
+
+/* Fix: wrap the complete child CTA, including text and arrow */
+
+.table-list .table-list-link .table-list-card-cta {
+  display: inline-flex !important;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 10px;
   width: auto;
   min-width: 36px;
-  min-height: 36px;
-  padding: 8px 12px;
+  height: auto;
+  min-height: 42px;
+  padding: 10px 16px;
   border: 1px solid var(--cta-border-color, #111820);
   border-radius: 999px;
-  background-color: var(--cta-background-color, #111820);
+  background: var(--cta-background-color, #111820);
   color: var(--cta-text-color, #fff);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
   line-height: 1.2;
   text-decoration: none;
   white-space: nowrap;
-  transition:
-    background-color 180ms ease,
-    color 180ms ease,
-    border-color 180ms ease,
-    filter 180ms ease;
 }
 
-.table-list .table-list-card-cta.cta-shape-rectangle {
+/* Shapes apply to the whole button */
+.table-list .table-list-link .table-list-card-cta.cta-shape-rectangle {
   border-radius: 0 !important;
 }
 
-.table-list .table-list-card-cta.cta-shape-rounded {
+.table-list .table-list-link .table-list-card-cta.cta-shape-rounded {
   border-radius: 8px !important;
 }
 
-.table-list .table-list-card-cta.cta-shape-pill {
+.table-list .table-list-link .table-list-card-cta.cta-shape-pill {
   border-radius: 999px !important;
 }
 
-.table-list .table-list-card-cta.cta-primary:any-link {
-  background-color: var(--cta-background-color, #111820);
-  color: var(--cta-text-color, #fff);
-}
-
-.table-list .table-list-card-cta.cta-secondary:any-link {
-  background-color: transparent;
-  color: var(--cta-text-color, #111820);
-}
-
-.table-list .table-list-card-cta.cta-text:any-link {
-  min-height: auto;
-  padding: 4px 0;
-  border-color: transparent;
-  background-color: transparent;
-  color: var(--cta-text-color, inherit);
-}
-
-.table-list .table-list-card-cta.cta-border-borderless {
-  border-color: transparent;
-}
-
-.table-list .table-list-card-cta.cta-border-borderless.cta-primary {
-  border-color: transparent;
-}
-
-.table-list .table-list-card-cta:hover {
-  text-decoration: none;
-}
-
-.table-list .table-list-card-cta.cta-primary:hover {
-  filter: brightness(0.88);
-}
-
-.table-list .table-list-card-cta.cta-secondary:hover {
-  background-color: rgb(127 127 127 / 10%);
-}
-
-.table-list .table-list-card-cta.cta-text:hover {
-  text-decoration: underline;
-}
-
-.table-list .table-list-card-cta:focus-visible {
-  outline: 2px solid currentcolor;
-  outline-offset: 4px;
-}
-
-.table-list .table-list-cta-title {
+/* Keep the title and arrow inside the same border */
+.table-list .table-list-link .table-list-cta-title,
+.table-list .table-list-link .table-list-cta-icon {
+  position: static;
   display: inline-block;
-}
-
-.table-list .table-list-cta-icon {
-  display: inline-block;
-  flex: 0 0 auto;
-  font-size: 19px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
   line-height: 1;
 }
 
-/* Arrow-only CTA */
+/* Prevent a second CSS-generated arrow */
+.table-list .table-list-link .table-list-card-cta::after {
+  content: none !important;
+  display: none !important;
+}
 
-.table-list .table-list-card-cta:not(:has(.table-list-cta-title)) {
-  width: 36px;
-  min-width: 36px;
+/* Arrow-only button */
+.table-list .table-list-link .table-list-card-cta:not(:has(.table-list-cta-title)) {
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
   padding: 0;
+}
+
+/* Secondary and text variants */
+.table-list .table-list-link .table-list-card-cta.cta-secondary {
+  background: transparent;
+  color: var(--cta-text-color, #111820);
+}
+
+.table-list .table-list-link .table-list-card-cta.cta-text {
+  min-height: auto;
+  padding: 4px 0;
+  border-color: transparent;
+  background: transparent;
 }
 
 /* Dark variation */
@@ -1133,6 +1107,7 @@
 /* Mobile */
 
 @media (width < 600px) {
+
   .table-list .table-list-card-cta:any-link,
   .table-list .table-list-card-cta {
     gap: 8px;
