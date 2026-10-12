@@ -961,7 +961,6 @@
    ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
-
   .table-list.motion-fade .table-list-card,
   .table-list.motion-slide .table-list-card,
   .table-list.motion-reveal .table-list-card {
@@ -1107,7 +1106,6 @@
 /* Mobile */
 
 @media (width < 600px) {
-
   .table-list .table-list-card-cta:any-link,
   .table-list .table-list-card-cta {
     gap: 8px;
