@@ -170,7 +170,7 @@
 .table-list .table-list-card {
   display: grid;
   grid-template-columns:
-    70px minmax(0, 0.95fr) minmax(0, 1.05fr) 40px;
+    70px minmax(0, 0.95fr) minmax(0, 1.05fr) minmax(42px, auto);
   align-items: center;
   gap: 0 24px;
   width: 100%;
@@ -232,6 +232,8 @@
   align-items: center;
   justify-content: flex-end;
   min-width: 0;
+  max-width: 100%;
+  overflow: visible;
 }
 
 .table-list .table-list-arrow {
@@ -331,7 +333,7 @@
    ========================================= */
 
 .table-list.description-first .table-list-card {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(42px, auto);
   min-height: 170px;
   padding: 28px 0;
 }
@@ -432,7 +434,7 @@
 
 .table-list.title-right .table-list-card {
   grid-template-columns:
-    minmax(0, 1fr) minmax(0, 0.8fr) 40px;
+    minmax(0, 1fr) minmax(0, 0.8fr) minmax(42px, auto);
   min-height: 108px;
   padding: 20px 0;
 }
@@ -1133,7 +1135,9 @@
 /* Text label */
 
 .table-list .table-list-link .table-list-card-cta .table-list-cta-title {
-  white-space: nowrap;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 /* Arrow icon */
@@ -1183,6 +1187,7 @@
 
   .table-list .table-list-link .table-list-card-cta .table-list-cta-icon {
     font-size: 18px;
+    flex-shrink: 0;
   }
 
   .table-list .table-list-link .table-list-arrow.table-list-card-cta:not(:has(.table-list-cta-title)) {
@@ -1191,4 +1196,24 @@
     height: 28px !important;
     padding: 0;
   }
+}
+
+/* FINAL FIX: keep child CTA inside its own grid column */
+.table-list .table-list-link .table-list-card-cta {
+  box-sizing: border-box;
+  width: auto !important;
+  max-width: 100%;
+  min-width: 42px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  gap: 6px;
+  padding: 8px;
+}
+
+/* Keep arrow-only CTA compact */
+.table-list .table-list-link .table-list-card-cta:not(:has(.table-list-cta-title)) {
+  width: 42px !important;
+  min-width: 42px;
+  height: 42px !important;
+  padding: 0;
 }
