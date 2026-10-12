@@ -311,20 +311,35 @@
    NO NUMBER
    ========================================= */
 
+.table-list.no-number .table-list-card {
+  grid-template-columns:
+    minmax(0, 1fr) minmax(0, 1.05fr) auto;
+}
+
 .table-list.no-number .table-list-number {
   display: none;
 }
 
 .table-list.no-number .table-list-title-group {
   grid-column: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+.table-list.no-number .table-list-title {
+  width: 100%;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .table-list.no-number .table-list-description-group {
   grid-column: 2;
+  min-width: 0;
 }
 
 .table-list.no-number .table-list-link {
   grid-column: 3;
+  justify-content: flex-end;
 }
 
 /* =========================================
@@ -411,11 +426,11 @@
 }
 
 .table-list.no-number.description-first .table-list-title-group {
-  grid-column: 2 / 4;
+  grid-column: 2;
 }
 
 .table-list.no-number.description-first .table-list-link {
-  grid-column: 4;
+  grid-column: 3;
 }
 
 .table-list.description-first.display-title .table-list-description-group,
@@ -1216,4 +1231,60 @@
   min-width: 42px;
   height: 42px !important;
   padding: 0;
+}
+
+/* No Number + Description First */
+
+.table-list.no-number.description-first .table-list-card {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+}
+
+/* No Number + Title Right */
+
+.table-list.no-number.title-right .table-list-card {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr) auto;
+}
+
+.table-list.no-number.title-right .table-list-description-group {
+  grid-column: 1;
+}
+
+.table-list.no-number.title-right .table-list-title-group {
+  grid-column: 2;
+}
+
+.table-list.no-number.title-right .table-list-link {
+  grid-column: 3;
+}
+
+/* Tablet */
+
+@media (width < 900px) {
+  .table-list.no-number .table-list-card {
+    grid-template-columns:
+      minmax(0, 1fr) minmax(0, 1fr) auto;
+  }
+}
+
+/* Mobile */
+
+@media (width < 600px) {
+  .table-list.no-number .table-list-card {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .table-list.no-number .table-list-title-group {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .table-list.no-number .table-list-description-group {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .table-list.no-number .table-list-link {
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
 }
