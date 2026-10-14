@@ -14,7 +14,7 @@ const DEFAULTS = {
 const VALID_VARIATIONS = ['', 'dark', 'no-number', 'description-first', 'title-right'];
 const VALID_CARD_COLORS = ['white', 'black'];
 const VALID_MOTIONS = ['none', 'fade', 'slide', 'reveal'];
-const CTA_SELECTOR = '.cta, .cta-header, .cta-card, [data-aue-model="cta"]';
+const CTA_SELECTOR = '.cta, .cta-header, .cta-card, .table-list-cta-header, .table-list-cta-card, [data-aue-model="cta"]';
 
 function findAuthoredCTA(root) {
   if (!root) return null;
@@ -26,7 +26,11 @@ function getText(element) {
 }
 
 function isCardCTA(cta) {
-  return cta?.classList.contains('cta-card');
+  return Boolean(cta && (
+    cta.matches('.cta-card, .table-list-cta-card, .cta.card')
+    || ['cta-card', 'table-list-cta-card'].includes(cta.dataset.blockName)
+    || cta.dataset.aueLabel?.toLowerCase() === 'cta card'
+  ));
 }
 
 /** Read both the new fields and the old, pre-standalone-CTA field order. */
@@ -112,9 +116,15 @@ function createTags(tagCell) {
 
 /** Load the standalone implementation without replacing the authored block node. */
 async function loadAuthoredCTA(cta) {
-  if (cta.dataset.blockStatus === 'loaded') return;
+  if (cta.dataset.blockStatus === 'loaded' && cta.dataset.blockName === 'cta') return;
   const classes = [...cta.classList].filter((name) => name !== 'cta');
   cta.className = ['cta', ...classes].join(' ');
+  // Live authoring can initialize the alias before the parent is decorated.
+  // Always load the standalone module, never a nonexistent cta-card module.
+  if (cta.dataset.blockName !== 'cta') {
+    delete cta.dataset.blockStatus;
+    delete cta.dataset.blockName;
+  }
   decorateBlock(cta);
   await loadBlock(cta);
 }
@@ -135,8 +145,9 @@ export default async function decorate(block) {
   });
   const rows = contentRows.filter((row) => !looseCTAs.includes(row));
   const headerRow = rows.find((row) => row.dataset.aueModel === 'table-list-header'
-    || row.children.length < 4);
-  const cardRows = rows.filter((row) => row !== headerRow && row.children.length >= 4);
+    || (row.dataset.aueModel !== 'table-list-card' && row.children.length < 3));
+  // Tags are optional: cards with only number, title and description are still cards.
+  const cardRows = rows.filter((row) => row !== headerRow && row.children.length >= 3);
   const headerCTA = findAuthoredCTA(headerRow)
     || looseCTAs.map(findAuthoredCTA).find((cta) => !isCardCTA(cta));
   const cardCTAs = new Map(cardRows.map((row) => [row, findAuthoredCTA(row)]));
@@ -164,7 +175,9 @@ export default async function decorate(block) {
   cardsContainer.className = 'table-list-cards';
 
   cardRows.slice(0, properties.maxCards).forEach((row, index) => {
-    const cells = [...row.children];
+    // Some authoring responses append the nested CTA as a direct child of the item.
+    const cells = [...row.children].filter((cell) => !cell.matches(CTA_SELECTOR));
+    if (cells.length < 3) return;
     const [numberCell, titleCell, descriptionCell] = cells;
     const authoredCTA = cardCTAs.get(row);
     numberCell.className = 'table-list-number';

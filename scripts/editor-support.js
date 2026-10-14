@@ -46,7 +46,10 @@ async function applyChanges(event) {
       return true;
     }
 
-    const block = element.parentElement?.closest('.block[data-aue-resource]') || element?.closest('.block[data-aue-resource]');
+    // Rebuild the owning table-list for nested CTA updates so aliases are routed
+    // and loaded by its decorator, rather than loaded as standalone alias modules.
+    const tableList = element.closest('.table-list.block[data-aue-resource]');
+    const block = tableList || element.parentElement?.closest('.block[data-aue-resource]') || element?.closest('.block[data-aue-resource]');
     if (block) {
       const blockResource = block.getAttribute('data-aue-resource');
       const newBlock = parsedUpdate.querySelector(`[data-aue-resource="${blockResource}"]`);
