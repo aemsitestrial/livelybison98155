@@ -7,8 +7,10 @@
 .table-list {
   box-sizing: border-box;
   width: 100%;
+  max-width: 1440px;
   min-height: 711px;
-  padding: 80px;
+  margin-inline: auto;
+  padding: 80px 100px;
   background-color: #fff;
   color: #111820;
 }
