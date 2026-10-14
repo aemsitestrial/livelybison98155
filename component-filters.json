@@ -132,19 +132,20 @@
     "components": [
       "table-list-header",
       "table-list-card",
-      "cta"
+      "table-list-cta-header",
+      "table-list-cta-card"
     ]
   },
   {
     "id": "table-list-header",
     "components": [
-      "cta"
+      "table-list-cta-header"
     ]
   },
   {
     "id": "table-list-card",
     "components": [
-      "cta"
+      "table-list-cta-card"
     ]
   },
   {

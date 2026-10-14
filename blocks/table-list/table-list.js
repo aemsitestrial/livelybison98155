@@ -1,151 +1,65 @@
 /* eslint-disable linebreak-style, eol-last -- Windows editor writes CRLF. */
 
+import { decorateBlock, loadBlock } from '../../scripts/aem.js';
+
 const DEFAULTS = {
   variations: '',
   maxCards: 4,
   showTags: false,
   cardColor: 'white',
-  viewAllTitle: 'View all',
-  viewAllLink: '',
   motionType: 'none',
   listTitle: 'Our transformation solutions',
-  ctaView: 'primary',
-  ctaShape: 'pill',
-  ctaBackgroundColor: '#111820',
-  ctaTextColor: '#ffffff',
-  ctaBorderColor: '#111820',
-  ctaArrowDirection: 'right',
 };
 
-const VALID_VARIATIONS = [
-  '',
-  'dark',
-  'no-number',
-  'description-first',
-  'title-right',
-];
-
+const VALID_VARIATIONS = ['', 'dark', 'no-number', 'description-first', 'title-right'];
 const VALID_CARD_COLORS = ['white', 'black'];
 const VALID_MOTIONS = ['none', 'fade', 'slide', 'reveal'];
-const VALID_CTA_VIEWS = ['primary', 'secondary', 'text'];
-const VALID_CTA_SHAPES = ['rectangle', 'rounded', 'pill'];
-const VALID_ARROW_DIRECTIONS = ['none', 'left', 'right'];
+const CTA_SELECTOR = '.cta, .cta-header, .cta-card, [data-aue-model="cta"]';
 
-/**
- * Identify an authored CTA block without constructing a replacement.
- * The first selector is the normal EDS block class; the data attributes
- * support Universal Editor markup when the block class is not yet present.
- */
 function findAuthoredCTA(root) {
   if (!root) return null;
-
-  if (
-    root.matches?.(
-      '.cta, [data-aue-model="cta"], [data-aue-type="block"][data-aue-model="cta"]',
-    )
-  ) {
-    return root;
-  }
-
-  return root.querySelector?.(
-    '.cta, [data-aue-model="cta"], [data-aue-type="block"][data-aue-model="cta"]',
-  ) || null;
+  return root.matches(CTA_SELECTOR) ? root : root.querySelector(CTA_SELECTOR);
 }
 
 function getText(element) {
   return element?.textContent?.trim() || '';
 }
 
-function getFieldLink(element) {
-  const link = element?.querySelector('a[href]');
-  return link?.getAttribute('href') || getText(element);
+function isCardCTA(cta) {
+  return cta?.classList.contains('cta-card');
 }
 
-/**
- * Extract a page path from an authored page-reference cell.
- *
- * @param {Element|null} cell Authored reference cell.
- * @returns {string} Page path or an empty string.
- */
-function getPageReference(cell) {
-  if (!cell) return '';
-
-  const anchor = cell.querySelector('a[href]');
-  const candidates = [
-    anchor?.getAttribute('href'),
-    cell.getAttribute('href'),
-    getText(cell),
-  ].filter(Boolean);
-
-  const path = candidates.find((candidate) => {
-    const value = candidate.trim();
-
-    return value.startsWith('/content/')
-      || value.startsWith('https://')
-      || value.startsWith('http://');
-  });
-
-  return path?.trim() || '';
-}
-
-function isValidDestination(destination) {
-  if (!destination) return false;
-
-  if (destination.startsWith('/content/')) return true;
-
-  try {
-    const url = new URL(destination, window.location.origin);
-    return ['http:', 'https:'].includes(url.protocol);
-  } catch {
-    return false;
-  }
-}
-
-/**
- * Preserve the original CTA nodes before the parent block is rebuilt.
- * Rows containing CTAs must not be mistaken for one-cell configuration rows.
- */
+/** Read both the new fields and the old, pre-standalone-CTA field order. */
 function readBlockConfig(block) {
   const configRows = [];
   const contentRows = [];
 
   [...block.children].forEach((row) => {
-    const cta = findAuthoredCTA(row);
-
-    if (row.children.length === 1 && !cta) {
+    const model = row.dataset.aueModel;
+    if (row.children.length === 1 && !findAuthoredCTA(row)
+      && model !== 'table-list-header' && model !== 'table-list-card') {
       configRows.push(row);
     } else {
       contentRows.push(row);
     }
   });
 
+  // Published markup has no editor attributes: a one-cell header follows the config.
+  const legacyConfig = configRows.length >= 8;
+  const configLength = legacyConfig ? 14 : 6;
+  contentRows.unshift(...configRows.splice(configLength));
   const value = (index) => getText(configRows[index]?.children[0]);
-
-  const booleanValue = (rawValue, fallback) => {
-    if (rawValue === '') return fallback;
-    return ['true', 'yes', '1'].includes(rawValue.toLowerCase());
-  };
-
   const rawMaxCards = Number.parseInt(value(1), 10);
 
   return {
     properties: {
       variations: value(0) || DEFAULTS.variations,
       maxCards: Number.isNaN(rawMaxCards)
-        ? DEFAULTS.maxCards
-        : Math.min(Math.max(rawMaxCards, 1), 4),
-      showTags: booleanValue(value(2), DEFAULTS.showTags),
+        ? DEFAULTS.maxCards : Math.min(Math.max(rawMaxCards, 1), 4),
+      showTags: ['true', 'yes', '1'].includes(value(2).toLowerCase()),
       cardColor: value(3) || DEFAULTS.cardColor,
-      viewAllTitle: value(4) || DEFAULTS.viewAllTitle,
-      viewAllLink: getFieldLink(configRows[5]?.children[0]),
-      motionType: value(6) || DEFAULTS.motionType,
-      listTitle: value(7) || DEFAULTS.listTitle,
-      ctaView: value(9) || DEFAULTS.ctaView,
-      ctaShape: value(10) || DEFAULTS.ctaShape,
-      ctaBackgroundColor: value(11) || DEFAULTS.ctaBackgroundColor,
-      ctaTextColor: value(12) || DEFAULTS.ctaTextColor,
-      ctaBorderColor: value(13) || DEFAULTS.ctaBorderColor,
-      ctaArrowDirection: value(14) || DEFAULTS.ctaArrowDirection,
+      motionType: value(legacyConfig ? 6 : 4) || DEFAULTS.motionType,
+      listTitle: value(legacyConfig ? 7 : 5) || DEFAULTS.listTitle,
     },
     contentRows,
     hasVariationConfig: Boolean(configRows[0]),
@@ -156,99 +70,27 @@ function normalizeProperties(properties) {
   return {
     ...properties,
     variations: VALID_VARIATIONS.includes(properties.variations)
-      ? properties.variations
-      : DEFAULTS.variations,
-    maxCards: Math.min(
-      Math.max(Number(properties.maxCards) || DEFAULTS.maxCards, 1),
-      4,
-    ),
+      ? properties.variations : DEFAULTS.variations,
     cardColor: VALID_CARD_COLORS.includes(properties.cardColor)
-      ? properties.cardColor
-      : DEFAULTS.cardColor,
+      ? properties.cardColor : DEFAULTS.cardColor,
     motionType: VALID_MOTIONS.includes(properties.motionType)
-      ? properties.motionType
-      : DEFAULTS.motionType,
-    ctaView: VALID_CTA_VIEWS.includes(properties.ctaView)
-      ? properties.ctaView
-      : DEFAULTS.ctaView,
-    ctaShape: VALID_CTA_SHAPES.includes(properties.ctaShape)
-      ? properties.ctaShape
-      : DEFAULTS.ctaShape,
-    ctaArrowDirection: VALID_ARROW_DIRECTIONS.includes(
-      properties.ctaArrowDirection,
-    )
-      ? properties.ctaArrowDirection
-      : DEFAULTS.ctaArrowDirection,
+      ? properties.motionType : DEFAULTS.motionType,
   };
 }
 
-function readHeader(row) {
-  const cells = [...row.children];
-
-  return {
-    row,
-    heading: getText(cells[0]),
-    linkCell: cells[1] || null,
-    cta: findAuthoredCTA(row),
-  };
-}
-
-function createHeader(properties, authoredHeader, looseHeaderCTA = null) {
-  const header = document.createElement('div');
+function createHeader(properties, headerRow, authoredCTA) {
+  const header = headerRow || document.createElement('div');
   header.className = 'table-list-header';
-
   const heading = document.createElement('h2');
   heading.className = 'table-list-heading';
   heading.textContent = properties.listTitle
-    || authoredHeader?.heading
-    || DEFAULTS.listTitle;
-
-  header.append(heading);
-
-  // Prefer the real CTA block authored through Universal Editor.
-  const authoredCTA = authoredHeader?.cta || looseHeaderCTA;
+    || getText(headerRow?.children[0]) || DEFAULTS.listTitle;
+  header.replaceChildren(heading);
 
   if (authoredCTA) {
     const explore = document.createElement('div');
     explore.className = 'table-list-explore';
     explore.append(authoredCTA);
-    header.append(explore);
-    return header;
-  }
-
-  // Backward-compatible fallback for existing pages using legacy fields.
-  const authoredLink = authoredHeader?.linkCell?.querySelector('a[href]');
-  const href = properties.viewAllLink
-    || authoredLink?.getAttribute('href')
-    || '';
-
-  if (isValidDestination(href)) {
-    const explore = document.createElement('div');
-    explore.className = 'table-list-explore';
-
-    const link = document.createElement('a');
-    link.href = href;
-    link.className = [
-      'table-list-cta',
-      `cta-${properties.ctaView}`,
-      `cta-shape-${properties.ctaShape}`,
-    ].join(' ');
-
-    link.textContent = properties.viewAllTitle
-      || getText(authoredLink)
-      || DEFAULTS.viewAllTitle;
-
-    link.style.setProperty('--cta-text-color', properties.ctaTextColor);
-    link.style.setProperty('--cta-border-color', properties.ctaBorderColor);
-
-    if (properties.ctaView === 'primary') {
-      link.style.setProperty(
-        '--cta-background-color',
-        properties.ctaBackgroundColor,
-      );
-    }
-
-    explore.append(link);
     header.append(explore);
   }
 
@@ -258,251 +100,100 @@ function createHeader(properties, authoredHeader, looseHeaderCTA = null) {
 function createTags(tagCell) {
   const tags = document.createElement('div');
   tags.className = 'table-list-tags';
-
-  const rawTags = getText(tagCell);
-
-  const tagValues = rawTags
-    .split(/[,\n]+/)
-    .map((tag) => tag.trim())
-    .filter(Boolean);
-
-  tagValues.forEach((tagText) => {
-    const tag = document.createElement('span');
-    tag.className = 'table-list-tag';
-    tag.textContent = tagText;
-    tags.append(tag);
-  });
-
+  getText(tagCell).split(/[,\n]+/).map((tag) => tag.trim()).filter(Boolean)
+    .forEach((tagText) => {
+      const tag = document.createElement('span');
+      tag.className = 'table-list-tag';
+      tag.textContent = tagText;
+      tags.append(tag);
+    });
   return tags;
 }
 
-function normalizeCtaColor(value, fallback) {
-  const colors = {
-    black: '#000000',
-    white: '#ffffff',
-  };
-
-  return colors[(value || '').trim().toLowerCase()] || fallback;
+/** Load the standalone implementation without replacing the authored block node. */
+async function loadAuthoredCTA(cta) {
+  if (cta.dataset.blockStatus === 'loaded') return;
+  const classes = [...cta.classList].filter((name) => name !== 'cta');
+  cta.className = ['cta', ...classes].join(' ');
+  decorateBlock(cta);
+  await loadBlock(cta);
 }
 
-/**
- * Keep the original custom card CTA as a fallback for legacy cards.
- * If a real CTA block exists in the card, it is used instead.
- *
- * @param {Element} cell Authored page-reference cell.
- * @param {string} title Card title for accessibility.
- * @param {Object} cta Card-specific CTA properties.
- * @param {Element|null} authoredCTA Existing CTA block, if present.
- * @returns {HTMLElement} Card action wrapper.
- */
-function createCardAction(cell, title, cta = {}, authoredCTA = null) {
-  const wrapper = document.createElement('div');
-  wrapper.className = 'table-list-link';
-
-  if (authoredCTA) {
-    wrapper.append(authoredCTA);
-    return wrapper;
-  }
-
-  const destination = getPageReference(cell);
-  const hasDestination = isValidDestination(destination);
-
-  const action = document.createElement(hasDestination ? 'a' : 'span');
-
-  const ctaView = VALID_CTA_VIEWS.includes(cta.view)
-    ? cta.view
-    : DEFAULTS.ctaView;
-
-  const ctaShape = VALID_CTA_SHAPES.includes(cta.shape)
-    ? cta.shape
-    : DEFAULTS.ctaShape;
-
-  const ctaTitle = (cta.title || '').trim();
-
-  action.className = [
-    'table-list-arrow',
-    'table-list-card-cta',
-    'table-list-cta',
-    `cta-${ctaView}`,
-    `cta-shape-${ctaShape}`,
-    `cta-background-${cta.backgroundColor || 'black'}`,
-    `cta-text-${cta.textColor || 'white'}`,
-    `cta-border-${cta.borderStyle || 'border'}`,
-  ].join(' ');
-
-  action.style.setProperty(
-    '--cta-background-color',
-    normalizeCtaColor(cta.backgroundColor, '#111820'),
-  );
-
-  action.style.setProperty(
-    '--cta-text-color',
-    normalizeCtaColor(cta.textColor, '#ffffff'),
-  );
-
-  action.style.setProperty(
-    '--cta-border-color',
-    cta.borderStyle === 'borderless'
-      ? 'transparent'
-      : normalizeCtaColor(cta.backgroundColor, '#111820'),
-  );
-
-  if (hasDestination) {
-    action.href = destination;
-    action.setAttribute(
-      'aria-label',
-      ctaTitle
-        ? `${ctaTitle}: ${title || 'card'}`
-        : `Explore ${title || 'card'}`,
-    );
-  } else {
-    action.setAttribute('aria-hidden', 'true');
-  }
-
-  if (ctaTitle) {
-    const text = document.createElement('span');
-    text.className = 'table-list-cta-title';
-    text.textContent = ctaTitle;
-    action.append(text);
-  }
-
-  const arrow = document.createElement('span');
-  arrow.className = 'table-list-cta-icon';
-  arrow.setAttribute('aria-hidden', 'true');
-  arrow.textContent = '→';
-  action.append(arrow);
-
-  wrapper.append(action);
-  return wrapper;
-}
-
-function applyFeaturedIndustry(block) {
-  if (!block.classList.contains('featured-industry')) return;
-
-  block.querySelector('.table-list-card')?.classList.add(
-    'table-list-card-featured',
-  );
-}
-
-export default function decorate(block) {
-  const {
-    properties: rawProperties,
-    contentRows,
-    hasVariationConfig,
-  } = readBlockConfig(block);
-
+export default async function decorate(block) {
+  const { properties: rawProperties, contentRows, hasVariationConfig } = readBlockConfig(block);
   const properties = normalizeProperties(rawProperties);
-
-  // Capture CTA blocks before rebuilding anything.
-  const looseHeaderCTA = [...block.children]
-    .map((row) => findAuthoredCTA(row))
-    .find((cta) => cta && !contentRows.some((row) => row.contains(cta)))
-    || null;
-
   const existingVariation = VALID_VARIATIONS.find(
     (variation) => variation && block.classList.contains(variation),
   ) || '';
+  const variation = hasVariationConfig ? properties.variations : existingVariation;
 
-  const variation = hasVariationConfig
-    ? properties.variations
-    : existingVariation;
+  // A direct CTA row must never be mistaken for card or header fields.
+  const looseCTAs = contentRows.filter((row) => {
+    if (['table-list-header', 'table-list-card'].includes(row.dataset.aueModel)) return false;
+    const cta = findAuthoredCTA(row);
+    return cta && (cta === row || (row.children.length === 1 && row.contains(cta)));
+  });
+  const rows = contentRows.filter((row) => !looseCTAs.includes(row));
+  const headerRow = rows.find((row) => row.dataset.aueModel === 'table-list-header'
+    || row.children.length < 4);
+  const cardRows = rows.filter((row) => row !== headerRow && row.children.length >= 4);
+  const headerCTA = findAuthoredCTA(headerRow)
+    || looseCTAs.map(findAuthoredCTA).find((cta) => !isCardCTA(cta));
+  const cardCTAs = new Map(cardRows.map((row) => [row, findAuthoredCTA(row)]));
 
-  const headerRow = contentRows.find((row) => (
-    row.children.length >= 2
-    && row.children.length < 4
-  ));
-
-  const authoredHeader = headerRow ? readHeader(headerRow) : null;
-
-  const cardRows = contentRows.filter(
-    (row) => row.children.length >= 4 && row !== headerRow,
-  );
+  // List-level card CTAs follow their card; nesting inside the card is also supported.
+  looseCTAs.forEach((row) => {
+    const cta = findAuthoredCTA(row);
+    if (!isCardCTA(cta)) return;
+    const precedingCards = cardRows.filter(
+      (card) => contentRows.indexOf(card) < contentRows.indexOf(row),
+    );
+    const target = precedingCards.reverse().find((card) => !cardCTAs.get(card))
+      || cardRows.find((card) => !cardCTAs.get(card));
+    if (target) cardCTAs.set(target, cta);
+  });
 
   block.classList.remove(...VALID_VARIATIONS.filter(Boolean));
   block.classList.add('table-list');
-
   if (variation) block.classList.add(variation);
-
-  block.classList.add(`card-${properties.cardColor}`);
-  block.classList.add(`motion-${properties.motionType}`);
-
+  block.classList.add(`card-${properties.cardColor}`, `motion-${properties.motionType}`);
   if (properties.showTags) block.classList.add('show-tags');
 
-  const header = createHeader(
-    properties,
-    authoredHeader,
-    looseHeaderCTA,
-  );
-
+  const header = createHeader(properties, headerRow, headerCTA);
   const cardsContainer = document.createElement('div');
   cardsContainer.className = 'table-list-cards';
 
   cardRows.slice(0, properties.maxCards).forEach((row, index) => {
     const cells = [...row.children];
-
-    // Find the existing CTA while its original card row still exists.
-    const authoredCTA = findAuthoredCTA(row);
-
-    const numberCell = cells[0];
-    const titleCell = cells[1];
-    const descriptionCell = cells[2];
-    const pageReferenceCell = cells[3];
-
-    if (!numberCell || !titleCell || !descriptionCell || !pageReferenceCell) {
-      return;
-    }
-
+    const [numberCell, titleCell, descriptionCell] = cells;
+    const authoredCTA = cardCTAs.get(row);
     numberCell.className = 'table-list-number';
-
     if (!getText(numberCell)) {
       numberCell.textContent = String(index + 1).padStart(2, '0');
     }
-
     titleCell.className = 'table-list-title';
-
-    const titleText = getText(titleCell);
-
     const titleGroup = document.createElement('div');
     titleGroup.className = 'table-list-title-group';
     titleGroup.append(titleCell);
-
     const descriptionGroup = document.createElement('div');
     descriptionGroup.className = 'table-list-description-group';
-
     if (properties.showTags && variation === 'title-right') {
-      descriptionGroup.append(createTags(cells[4]));
+      // Legacy cards had a page-reference cell before tags and six CTA preference cells.
+      descriptionGroup.append(createTags(cells[cells.length >= 11 ? 4 : 3]));
     }
-
     descriptionCell.className = 'table-list-description';
     descriptionGroup.append(descriptionCell);
-
-    const action = createCardAction(
-      pageReferenceCell,
-      titleText,
-      {
-        title: getText(cells[5]),
-        view: getText(cells[6]),
-        shape: getText(cells[7]),
-        backgroundColor: getText(cells[8]),
-        textColor: getText(cells[9]),
-        borderStyle: getText(cells[10]),
-      },
-      authoredCTA,
-    );
-
+    const action = document.createElement('div');
+    action.className = 'table-list-link';
+    if (authoredCTA) action.append(authoredCTA);
     row.className = 'table-list-card';
-    row.replaceChildren(
-      numberCell,
-      titleGroup,
-      descriptionGroup,
-      action,
-    );
-
+    row.replaceChildren(numberCell, titleGroup, descriptionGroup, action);
     cardsContainer.append(row);
   });
 
-  // Moving existing nodes preserves their CTA content and editor metadata.
   block.replaceChildren(header, cardsContainer);
-
-  applyFeaturedIndustry(block);
+  if (block.classList.contains('featured-industry')) {
+    block.querySelector('.table-list-card')?.classList.add('table-list-card-featured');
+  }
+  await Promise.all([...block.querySelectorAll(CTA_SELECTOR)].map(loadAuthoredCTA));
 }
