@@ -9,14 +9,6 @@
       } } }
     },
     {
-      "title": "Table List Header",
-      "id": "table-list-header",
-      "plugins": { "xwalk": { "page": {
-        "resourceType": "core/franklin/components/block/v1/block/item",
-        "template": { "name": "Table List Header", "model": "table-list-header", "filter": "table-list-header" }
-      } } }
-    },
-    {
       "title": "Table List Card",
       "id": "table-list-card",
       "plugins": { "xwalk": { "page": {
@@ -77,7 +69,7 @@
         },
         {
           "component": "text", "valueType": "string", "name": "listTitle", "label": "List Title",
-          "value": "Our transformation solutions"
+          "value": "Table-list title here..."
         }
       ]
     },
@@ -86,7 +78,7 @@
       "fields": [
         {
           "component": "text", "valueType": "string", "name": "heading", "label": "Heading",
-          "value": "Our transformation solutions"
+          "value": "Table-list title here..."
         }
       ]
     },

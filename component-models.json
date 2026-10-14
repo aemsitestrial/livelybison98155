@@ -6575,7 +6575,7 @@
         "valueType": "string",
         "name": "listTitle",
         "label": "List Title",
-        "value": "Our transformation solutions"
+        "value": "Table-list title here..."
       }
     ]
   },
@@ -6587,7 +6587,7 @@
         "valueType": "string",
         "name": "heading",
         "label": "Heading",
-        "value": "Our transformation solutions"
+        "value": "Table-list title here..."
       }
     ]
   },

@@ -8,7 +8,7 @@ const DEFAULTS = {
   showTags: false,
   cardColor: 'white',
   motionType: 'none',
-  listTitle: 'Our transformation solutions',
+  listTitle: 'Table-list title here...',
 };
 
 const VALID_VARIATIONS = ['', 'dark', 'no-number', 'description-first', 'title-right'];
